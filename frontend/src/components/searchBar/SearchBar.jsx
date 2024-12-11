@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { assets } from "../../assets/assets";
+import "./SearchBar.css";
+import { CiSearch } from "react-icons/ci";
+
+/* make search bar hidden and make icon in sidebar for toggle it from hidden and visible and make it hidden by default whenever you navigate to any diffrent */
 
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -20,23 +23,18 @@ const SearchBar = () => {
   };
 
   return (
-    <div id="searchBar" className="m-2">
-      <form onSubmit={handleSubmit} className="flex  gap-1 ">
+    <div id="searchBar">
+      <form onSubmit={handleSubmit} className="flex gap-1 relative">
         <input
-          className="bg-gray-200 rounded-md p-1 outline-none w-full"
-          placeholder="Search here..."
+          className="w-full p-2 pr-10 rounded outline-none "
           type="search"
+          placeholder="Search here..."
           name="q"
           id="q"
           value={searchValue}
           onChange={handleChange}
         />
-        <button
-          className="bg-purple-400 p-1 rounded-md cursor-pointer text-white hover:bg-purple-500 font-bold"
-          type="submit"
-        >
-          <img src={assets.searchIcon} alt="searchIcon" width={25} />
-        </button>
+        <CiSearch className="absolute right-2 top-2" size={25} />
       </form>
     </div>
   );

@@ -1,4 +1,5 @@
 import React,{useEffect} from 'react'
+import User from "../../components/user/User"
 
 const Contact = () => {
 
@@ -7,7 +8,10 @@ const Contact = () => {
   },[])
 
   return (
+    <>
     <div>Contact</div>
+    <User/>
+    </>
   )
 }
 

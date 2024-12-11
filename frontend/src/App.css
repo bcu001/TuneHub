@@ -1,12 +1,79 @@
 @import url("https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-:root{
+/* Old money default theme */
+:root {
+  --primary-color: #b8d9a8;
+  --secondary-color: #e4d9d4;
+  --btn-bg: #b8d9a8;
+  --btn-hover: #96b588;
+  --text-color: #2f2c28;
+  --icon-color: #60534a;
+  --heading-color: #857d78;
+  --input-bg: #f4f3f1;
+  --input-border: #dcd6d2;
+  --input-hover: #b8d9a8;
+}
+
+[data-theme="dark"] {
+  --primary-color: #728c69;
+  --secondary-color: #a4978e;
+  --btn-bg: #728c69;
+  --btn-hover: #4f6548;
+  --text-color: #d4cec3;
+  --icon-color: #b7a99a;
+  --heading-color: #a4978e;
+  --input-bg: #2e2b28;
+  --input-border: #403d39;
+  --input-hover: #728c69;
+}
+
+body {
+  background-color: var(--input-bg);
+  color: var(--text-color);
   font-family: "Poppins", sans-serif;
   font-style: normal;
-  color: black;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
-.calc-h {
-  height: calc(100vh - 60px);
+input {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-color);
 }
 
+input:hover,
+input:focus {
+  border-color: var(--input-hover);
+}
+
+button {
+  background-color: var(--btn-bg);
+  color: var(--text-color);
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--btn-hover);
+  transform: translateY(-2px);
+}
+
+.heading-text {
+  color: var(--heading-color);
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+button:hover,
+input:focus,
+.icon:hover {
+  transition: all 0.3s ease;
+}

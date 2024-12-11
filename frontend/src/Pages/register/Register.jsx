@@ -26,82 +26,92 @@ const Register = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(inputs);
     if (
       inputs.email.length === 0 ||
       inputs.username.length === 0 ||
       inputs.password.length === 0
     ) {
-      const newErr = new Error("fill form properly");
+      const newErr = new Error("Please fill out the form completely.");
       setErr(newErr);
-      console.log(newErr.message);
       return;
     }
     try {
       await axios.post("http://localhost:3000/api/auth/register", inputs);
     } catch (err) {
-      console.log(err.response.data);
       setErr(err);
     }
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-evenly">
-      <div className="text-4xl text-center font-bold">
-        Discover a World of Music – Sign Up for TuneHub!
-      </div>
-      <div className="w-auto h-auto rounded-md border border-black p-4 transition-all duration-300 ease-in-out">
-        <h1 className="text-2xl text-center">Create Your Account</h1>
-        <div className="text-center mb-3">
+    <div className="w-screen h-screen flex flex-col items-center justify-center jet-black">
+      {/* Header */}
+      <h1 className="text-4xl mb-8 text-center luxury-heading">
+        Discover a World of Music
+        <span className="block luxury-text text-lg">Sign Up for TuneHub!</span>
+      </h1>
+
+      {/* Register Form Container */}
+      <div className="w-[350px] sm:w-[400px] p-6 rounded-lg shadow-lg onyx-black border">
+        <h2 className="text-2xl font-semibold mb-4 text-center luxury-text">
+          Create Your Account
+        </h2>
+        <p className="text-center mb-6">
           Already part of TuneHub?{" "}
           <Link
             to={"/login"}
-            className="underline text-blue-500 cursor-pointer"
+            className="underline luxury-icon hover:luxury-icon-hover transition-colors duration-300"
           >
             Log in
           </Link>
-        </div>
-        <form className="flex flex-col gap-3">
+        </p>
+
+        {/* Register Form */}
+        <form className="flex flex-col gap-4">
+          {/* Username */}
           <input
-            className="border-b-[3px] border-black outline-none"
+            className="w-full p-3 rounded-lg outline-none charcoal-black focus:ring-2 focus:ring-[var(--secondary-text-color)]"
             type="text"
             name="username"
-            id="username"
             placeholder="Username"
             onChange={handleChange}
             required={true}
           />
+
+          {/* Email */}
           <input
-            className="border-b-[3px] border-black outline-none"
+            className="w-full p-3 rounded-lg outline-none charcoal-black focus:ring-2 focus:ring-[var(--secondary-text-color)]"
             type="email"
             name="email"
-            id="email"
             placeholder="Email"
             onChange={handleChange}
             required={true}
           />
+
+          {/* Password */}
           <div className="relative">
             <input
-              className="border-b-[3px] border-black outline-none"
+              className="w-full p-3 rounded-lg outline-none charcoal-black focus:ring-2 focus:ring-[var(--secondary-text-color)]"
               type={showPassword ? "text" : "password"}
               name="password"
-              id="password"
               placeholder="Password"
               onChange={handleChange}
               required={true}
             />
             <div
-              className={`w-[20px] h-[20px] cursor-pointer absolute top-0 right-0 transition-all duration-300 ease-in-out ${
-                showPassword ? "bg-green-400" : "bg-red-500"
+              className={`absolute top-3 right-3 w-6 h-6 rounded-full cursor-pointer transition-all duration-300 ${
+                showPassword ? "bg-[var(--input-hover)]" : "bg-red-500"
               }`}
               onClick={handlerShowPassword}
+              title={showPassword ? "Hide Password" : "Show Password"}
             ></div>
           </div>
 
-          {/* {err && err} */}
+          {/* Error Message */}
+          {err && <p className="text-red-500 text-sm">{err.message}</p>}
+
+          {/* Register Button */}
           <button
-            className="bg-black p-1 text-white font-bold rounded-md"
+            className="w-full p-3 mt-4 rounded-lg font-bold charcoal-black hover:charcoal-black-hover transition-colors duration-300"
             type="submit"
             onClick={handleClick}
           >
