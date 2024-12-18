@@ -5,11 +5,17 @@ import jwt from "jsonwebtoken";
 
 export const register = (req, res) => {
   // Check user if exits
-  const q = "SELECT * FROM users WHERE username = ?";
+  const q = "SELECT * FROM users WHERE username = ? OR email = ?";
 
-  db.query(q, [req.body.username], (err, data) => {
+  db.query(q, [req.body.username, req.body.email], (err, data) => {
     if (err) return res.status(500).json(err);
-    if (data.length) return res.status(409).json("user already exists!");
+    if (data.length) {
+      if (data[0].username === req.body.username)
+        return res.status(409).json("Username is already taken!");
+      if (data[0].email === req.body.email)
+        return res.status(409).json("Email is already registered!");
+    }
+
     //Create a new user
     //hash the passord
     const salt = bcrypt.genSaltSync(10);

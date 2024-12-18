@@ -12,21 +12,21 @@ const AdminOption = () => {
       <div className="flex justify-center gap-5 ">
         <Link
           to={"user-management"}
-          className="rounded-lg py-1 px-3 charcoal-black text-center"
+          className="rounded-lg py-1 px-3 text-center"
         >
-          User Management
+          <button>User Management</button>
         </Link>
         <Link
           to={"content-management"}
-          className="rounded-lg py-1 px-3 charcoal-black text-center"
+          className="rounded-lg py-1 px-3 text-center"
         >
-          Content Management
+          <button>Content Management</button>
         </Link>
         <Link
           to={"report-management"}
-          className="rounded-lg py-1 px-3 charcoal-black text-center"
+          className="rounded-lg py-1 px-3 text-center"
         >
-          Report Management
+          <button>Report Management</button>
         </Link>
       </div>
       <div>

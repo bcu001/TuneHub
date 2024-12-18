@@ -1,12 +1,15 @@
 import express from "express";
 import { configDotenv } from "dotenv";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import { db } from "./connect.js";
+
+// Routes
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import songRoutes from "./routes/songs.js";
 import searchRoutes from "./routes/search.js";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import { db } from "./connect.js";
+import contactRoutes from "./routes/contact.js";
 
 configDotenv();
 
@@ -14,14 +17,23 @@ const app = express();
 const PORT = process.env.SERVER_PORT;
 
 // Middleware
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/songs", songRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/contact", contactRoutes);
 
 app.get("/", (req, res) => {
   res.send({ Message: "Welcome to backend of tunehub" });

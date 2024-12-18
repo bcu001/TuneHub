@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./App.css";
 import {
   createBrowserRouter,
@@ -25,17 +25,24 @@ import UserManagement from "./Pages/adminPanel/UserManagement/UserManagement";
 import ContentManagement from "./Pages/adminPanel/contentManagement/ContentManagement";
 import ReportManagement from "./Pages/adminPanel/reportManagement/ReportManagement";
 
+// Context Api
+import { AuthContext } from "./context/authContext";
 import { DarkModeContext } from "./context/darkModeContext";
 
 const App = () => {
-  const currentUser = true;
-  const isCurrentUserAdmin = true;
+  const { currentUser } = useContext(AuthContext);
+  const { darkMode, toggle } = useContext(DarkModeContext);
 
-  const { darkMode } = useContext(DarkModeContext);
+  useEffect(() => {
+    const theme = darkMode ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [darkMode]);
 
   const Layout = () => {
     return (
-      <div className={`theme primary-color flex w-screen h-screen transition-all duration-300 gap-3`}>
+      <div
+        className={`theme primary-color flex w-screen h-screen transition-all duration-300 gap-3`}
+      >
         <Sidebar />
 
         <main className="flex flex-col gap-3 w-full">
@@ -55,10 +62,11 @@ const App = () => {
   };
 
   const AdminRouteProtected = ({ children }) => {
-    if (!isCurrentUserAdmin) {
-      return <Navigate to="/" />;
+    if (currentUser.role === "admin") {
+      return children;
     }
-    return children;
+    console.log("user is not an admin");
+    return <Navigate to="/" />;
   };
 
   const router = createBrowserRouter([

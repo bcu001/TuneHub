@@ -1,31 +1,18 @@
-import Styles from "./Card.module.css";
-import React, { useState } from "react";
-import { useSpring, animated } from "react-spring";
+import React from "react";
+import { assets } from "../../assets/assets";
 
-function Card({ imagen }) {
-  const [show, setShown] = useState(false);
-
-  const props3 = useSpring({
-    transform: show ? "scale(1.03)" : "scale(1)",
-    boxShadow: show
-      ? "0 20px 25px rgb(0 0 0 / 25%)"
-      : "0 2px 10px rgb(0 0 0 / 8%)",
-  });
+const FeatureCard = ({ title, artist, imageUrl }) => {
   return (
-    <animated.div
-      className={`${Styles.card} onyx-black luxury-text`}
-      style={props3}
-      onMouseEnter={() => setShown(true)}
-      onMouseLeave={() => setShown(false)}
+    <div
+      className="relative w-[200px] h-[200px] bg-cover bg-center rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer flex items-end"
+      style={{ backgroundImage: `url(${imageUrl})` }}
     >
-      <img src={imagen} alt="" />
-      <h2>Brown Munde</h2>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <div className={`flex items-center justify-center`}>
-        <button className="charcoal-black w-full py-2 rounded-lg">Play</button>
+      <div className=" p-2 text-white w-[200px]">
+        <h3 className="text-lg font-bold truncate ">{title}</h3>
+        <p className="text-sm">{artist}</p>
       </div>
-    </animated.div>
+    </div>
   );
-}
+};
 
-export default Card;
+export default FeatureCard;

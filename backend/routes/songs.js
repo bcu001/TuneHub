@@ -1,8 +1,8 @@
 import express from "express";
-import {  } from "../controllers/auth.js";
+import {getFeatureSongs} from "../controllers/song.js";
 
 const router = express.Router();
 
-router.get("", );
+router.get("/featuredSongs", getFeatureSongs);
 
 export default router;

@@ -38,18 +38,22 @@ body {
   transition: all 0.3s ease;
 }
 
-input {
+input,
+textarea {
   background-color: var(--input-bg);
   border: 1px solid var(--input-border);
   color: var(--text-color);
 }
 
 input:hover,
-input:focus {
+input:focus,
+textarea:hover,
+textarea:focus {
   border-color: var(--input-hover);
 }
 
-button {
+button,
+.button {
   background-color: var(--btn-bg);
   color: var(--text-color);
   padding: 0.6rem 1.2rem;
@@ -60,7 +64,8 @@ button {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:hover {
+button:hover,
+.button:hover {
   background-color: var(--btn-hover);
   transform: translateY(-2px);
 }
@@ -73,6 +78,7 @@ button:hover {
 }
 
 button:hover,
+.button:hover,
 input:focus,
 .icon:hover {
   transition: all 0.3s ease;
