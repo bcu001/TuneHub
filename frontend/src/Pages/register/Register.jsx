@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import Notification from "../../components/notification/Notification";
+import Notification from "@/components/notification/Notification";
 
 const Register = () => {
   useEffect(() => {

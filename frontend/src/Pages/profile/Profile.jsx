@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
-import { assets } from "../../assets/assets";
+import { assets } from "@/assets/assets";
 import { Link, useNavigate } from "react-router-dom";
-import { CiLight } from "react-icons/ci";
-import { LuSunMoon } from "react-icons/lu";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { AuthContext } from "../../context/authContext";
-import axios from "axios";
+import { DarkModeContext } from "@/context/darkModeContext";
+import { AuthContext } from "@/context/authContext";
+import { Settings, LogOut } from "lucide-react";
 
 const Profile = () => {
   useEffect(() => {
@@ -16,13 +14,6 @@ const Profile = () => {
 
   const { currentUser } = useContext(AuthContext);
 
-  const { darkMode, toggle } = useContext(DarkModeContext);
-
-  useEffect(() => {
-    const theme = darkMode ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [darkMode]);
-
   const handleLogout = async () => {
     // logout
     localStorage.removeItem("user");
@@ -31,15 +22,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="border p-5 max-w-md mx-auto bg-secondary-bg-color rounded-lg shadow-lg onyx-black">
-        {/* Profile Header */}
-        <div className="text-center mb-5">
-          <h1 className="luxury-heading text-3xl">Profile</h1>
-          <p className="luxury-text mt-2">
-            Manage your account and preferences
-          </p>
-        </div>
-
+      <div className="overflow-hidden md:w-full w-95 m-auto border rounded-md p-5 h-full shadow-lg ">
         {/* Profile Details */}
         <div className="flex flex-col items-center gap-4">
           <img
@@ -51,33 +34,23 @@ const Profile = () => {
             <h2 className="text-xl font-bold luxury-heading">
               {currentUser.username}
             </h2>
-            <span className="text-black px-2 rounded-lg bg-[#daa520]">
-              {currentUser.role}
-            </span>
+            <span className="text-sm">{currentUser.email}</span>
           </div>
         </div>
 
-        {/* Actions Section */}
-        <div className="mt-6 space-y-4">
-          <div
-            onClick={toggle}
-            className="button block w-full text-center py-2 rounded-lg charcoal-black button imt"
-          >
-            <div className="flex items-center justify-center transition-all duration-300 ease-in-out">
-              {darkMode ? <LuSunMoon size={25} /> : <CiLight size={25} />}
-            </div>
-          </div>
-          <Link
-            to="/admin-panel"
-            className="button block w-full text-center py-2 rounded-lg charcoal-black button"
-          >
-            Admin Panel
-          </Link>
+        {/* Acount Setting */}
+        <div className="flex flex-col mt-5">
+          <h3 className="font-bold text-base m-2">Account Settings</h3>
+          <button className="m-2 py-2 rounded-md bg-black flex gap-2 justify-center items-center hover:opacity-80">
+            <Settings />
+            <span>Edit Profile</span>
+          </button>
           <button
+            className="m-2 py-2 rounded-md bg-red-600 flex gap-2 justify-center items-center hover:opacity-80"
             onClick={handleLogout}
-            className="block w-full text-center bg-red-600 text-white py-2 rounded-lg hover:bg-red-500"
           >
-            Log out
+            <LogOut />
+            <span>Logout</span>
           </button>
         </div>
       </div>

@@ -25,7 +25,7 @@ const Contact = () => {
   return (
     <div>
       <h1 className="heading-text text-center">Contact with Us</h1>
-      <div className="border-[1px] border-[var(--input-border)]  py-10 px-6 rounded-sm shadow-lg shadow-[var(--primary-color)] max-w-lg mx-auto text-[var(--text-color)]">
+      <div className="border p-5 max-w-md mx-auto rounded-lg shadow-lg">
         <form onSubmit={handleSubmit} className="">
           <div className="mb-4">
             <label htmlFor="email" className="font-bold ">

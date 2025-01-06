@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
-import { CiSearch } from "react-icons/ci";
+import { Search } from "lucide-react";
 
 /* make search bar hidden and make icon in sidebar for toggle it from hidden and visible and make it hidden by default whenever you navigate to any diffrent */
 
@@ -34,7 +34,7 @@ const SearchBar = () => {
           value={searchValue}
           onChange={handleChange}
         />
-        <CiSearch className="absolute right-2 top-2" size={25} />
+        <Search className="absolute right-2 top-2" size={25} />
       </form>
     </div>
   );
