@@ -1,0 +1,52 @@
+/* 
+
+import React, { useEffect, useState } from "react";
+import { Heart } from "lucide-react";
+import song from "../../../data/song.json";
+
+const Ranking = () => {
+  const [rankedSong, setRankSong] = useState([]);
+  useEffect(() => {
+    handleRanking();
+  }, []);
+
+  const handleRanking = () => {
+    const sortedSongs = song.songs.sort((a, b) => b.likes - a.likes);
+    setRankSong(sortedSongs);
+  };
+  return (
+    <div className="overflow-auto md:w-full m-auto border rounded-md p-5 h-full shadow-lg w-full ">
+      <h2 className="text-lg font-semibold mb-4 heading-text">
+        Top Ranked Songs
+      </h2>
+      <div className="grid grid-cols-5 border-b-2 p-4">
+        <div>Rank</div>
+        <div>image</div>
+        <div>Title</div>
+        <div>Artist</div>
+        <div>Likes</div>
+      </div>
+      <div className="">
+        {rankedSong.map((s, i) => (
+          <div
+            key={s.songID}
+            className="grid grid-cols-5 border-b-2 p-4 hover:bg-[#b8d9a8] hover:text-black cursor-pointer"
+          >
+            <div>{i + 1}</div>
+            <div className="border"></div>
+            <div className="truncate">{s.songName}</div>
+            <div className="truncate">{s.artist}</div>
+            <div className="flex gap-2 items-center">
+              <Heart className="text-[#f53855]" size={20} />
+              <span>{s.likes}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Ranking;
+
+*/
