@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "title": "Wolf king",
+        "artist": "Wolf gang",
+        "image": "https://images.unsplash.com/photo-1588167056547-c183313da47c"
+    },
+    {
+        "id": 2,
+        "title": "Acoustic Dreams Unplugged",
+        "artist": "Melody Maker Orchestra",
+        "image": "https://images.unsplash.com/photo-1546182990-dffeafbe841d"
+    },
+    {
+        "id": 3,
+        "title": "Electric Pulse Extended Mix",
+        "artist": "Beat Master Deluxe",
+        "image": "https://images.unsplash.com/photo-1543946207-39bd91e70ca7"
+    },
+    {
+        "id": 4,
+        "title": "Sunset Serenade",
+        "artist": "Harmonic Hues",
+        "image": "https://images.unsplash.com/photo-1611689342806-0863700ce1e4"
+    },
+    {
+        "id": 5,
+        "title": "Midnight Drive",
+        "artist": "Rhythmic Road",
+        "image": "https://images.unsplash.com/photo-1564166174574-a9666f590437"
+    },
+    {
+        "id": 6,
+        "title": "Urban Echoes",
+        "artist": "Sonic Streets",
+        "image": "https://images.unsplash.com/photo-1615824996195-f780bba7cfab"
+    },
+    {
+        "id": 7,
+        "title": "Starlight Symphony",
+        "artist": "Celestial Chorus",
+        "image": "https://images.unsplash.com/photo-1584712691451-493b8eee3a50"
+    }
+]

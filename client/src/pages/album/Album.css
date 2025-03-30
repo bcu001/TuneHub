@@ -1,0 +1,8 @@
+.album-card:hover {
+  box-shadow: 
+    rgba(46, 49, 240, 0.4) -5px 5px,
+    rgba(46, 49, 240, 0.3) -10px 10px,
+    rgba(46, 49, 240, 0.2) -15px 15px, 
+    rgba(46, 49, 240, 0.1) -20px 20px,
+    rgba(46, 49, 240, 0.05) -25px 25px;
+}

@@ -1,0 +1,20 @@
+make ablums page and add albums searching to search 
+
+database -- done
+backend -- ?
+frontend --- ?
+
+deploy --- ?
+
+Using raw binary (Buffer → Blob → URL) is more efficient.
+
+Final Layout Flow
+1️⃣ Navbar (with Search Button/Bar)
+2️⃣ Hero Section (with #1 trending song & CTA buttons, optional search bar)
+3️⃣ Top 10 Ranking Songs Section
+4️⃣ Latest 10 Featured Songs Section
+5️⃣ Other Sections (Playlists, Recommendations, etc.)
+6️⃣ Sticky Footer (Quick Links, Socials, Copyright)
+
+This layout ensures search is easy to access, and the footer provides quick navigation without cluttering the main UI. 🚀🎶
+
