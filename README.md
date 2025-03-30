@@ -1,52 +1,62 @@
 # TuneHub: Online Music Streaming and Management Platform
 
-TuneHub is a comprehensive web-based application that combines a user-centric music streaming experience with an efficient management interface for administrators. Designed with a modern technology stack, TuneHub aims to redefine how users interact with and manage digital music content.
+TuneHub is an online music streaming and management platform that allows users to search, play, and organize their favorite music. It provides features like user authentication, playlist management, an admin panel for content control, and more.
 
 ## Features
-### User Features
-* __Stream Music:__ Effortlessly browse and play songs or albums.
-* __Discover New Content:__ Access featured songs, new releases, and curated music categories.
-* __Search & Filter:__ Quickly find music by genre, artist, or release date.
-* __Interactive Playback:__ Use play, pause, and skip controls for seamless music playback.
 
-### Admin Features
-* __Content Management:__ Add, update, and remove albums, songs, and categories.
+- **User Authentication**: Secure login and signup system.
+- **Music Search & Playback**: Search music by genre, artist, or song name and play instantly.
+- **Playlist Management**: Create, edit, and delete playlists.
+- **User Profile & Settings**: Manage user details and preferences.
+- **Admin Panel**: View users, promote/demote user roles.
+- **Album Management (Upcoming)**: Feature to manage music albums.
+- **Enhanced Admin Controls (Upcoming)**: Add, edit, and manage music from the admin panel.
 
-* __User Management:__ Handle user accounts and roles securely.
+## Tech Stack
 
-* __Analytics & Reporting:__ Generate detailed reports on content performance and user engagement.
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: MySQL
+- **Authentication**: JWT (JSON Web Token)
+- **Version Control**: Git & GitHub
 
-### Technology Stack
-* __Frontent:__ React, Tailwind CSS
-* __Backend:__ Node.js, Express.js
-* __Database:__ MySQL
+## Installation Guide
 
-## Installation
-
-1. Clone the repository:
-
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/bcu001/TuneHub.git
 cd TuneHub
 ```
-2. Install dependencies for both frontend and backend:
 
+### 2. Install Dependencies
 ```bash
 npm install
 ```
-3. Set up the MySQL database and configure connection settings in the ```.env``` file.
 
-4. Start the development server:
+### 3. Set Up the Database
+- Create a MySQL database.
+- Import the provided database schema.
+- Update `config/db.js` with your database credentials.
+
+### 4. Run the Application
 ```bash
 npm start
 ```
+The server will start at `http://localhost:8000`.
 
-## Future Enhancements
-* Develop mobile apps for iOS and Android.
-* Introduce a premium subscription with offline mode.
-* Add social sharing and playlist collaboration features.
-* Integrate with smart devices like Alexa and Google Home.
+## Screenshots
+(Add screenshots of your application here)
+
+## Contribution
+If you wish to contribute:
+1. Fork the repository.
+2. Create a new branch (`feature-branch`).
+3. Commit your changes and push to GitHub.
+4. Open a pull request.
 
 ## License
+MIT License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+## Contact
+For any inquiries, contact [your email or GitHub profile].
+
