@@ -1,6 +1,7 @@
 import React from "react";
 import useFetch from "@/hooks/useFetch";
 import { assets } from "@/assets/assets";
+import { BASE_URL } from "@/global/baseurl";
 
 const HeroSection = () => {
   // Fetching the top-ranking song
@@ -8,7 +9,7 @@ const HeroSection = () => {
     data: songs,
     loading,
     error,
-  } = useFetch("http://localhost:8000/api/v1/songs/top");
+  } = useFetch(`${BASE_URL}/api/v1/songs/top`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;

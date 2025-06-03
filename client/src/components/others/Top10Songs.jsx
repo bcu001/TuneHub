@@ -3,13 +3,14 @@ import useFetch from "@/hooks/useFetch";
 import { motion } from "framer-motion";
 import NewCard from "../cards/NewCard";
 import RecCard from "../cards/RecCard";
+import { BASE_URL } from "@/global/baseurl";
 
 const Top10Songs = () => {
   const {
     data: tenSongs,
     loading,
     error,
-  } = useFetch("http://localhost:8000/api/v1/songs/top10");
+  } = useFetch(`${BASE_URL}/api/v1/songs/top10`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

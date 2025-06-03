@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/global/baseurl";
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ export const AuthContextProvider = ({ children }) => {
   
   const login = async (inputs) => {
     //TO Do
-    const res = axios.post("http://localhost:8000/api/auth/login", inputs, {
+    const res = axios.post(`${BASE_URL}/api/auth/login`, inputs, {
       withCredentials: true,
     });
 

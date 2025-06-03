@@ -9,7 +9,7 @@
 
 # Environment variables
 /server/.env
-/server/.env
+/client/.env
 
 # Logs
 /server/logs/
@@ -42,3 +42,4 @@ Thumbs.db
 *.old
 /server/test.txt
 /server/test
+/client/test

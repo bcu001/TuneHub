@@ -13,6 +13,7 @@ import Top10Songs from "@/components/others/Top10Songs";
 import ProfileDropdown from "@/components/common/Navbar/ProfileDropdown";
 
 import { useMediaQuery } from "react-responsive";
+import { BASE_URL } from "@/global/baseurl";
 
 const Home = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -21,7 +22,7 @@ const Home = () => {
     data: tenSongs,
     loading,
     error,
-  } = useFetch("http://localhost:8000/api/v1/songs/top10");
+  } = useFetch(`${BASE_URL}/api/v1/songs/top10`);
 
   useLoadSongs(tenSongs.data);
 

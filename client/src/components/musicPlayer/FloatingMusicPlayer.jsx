@@ -18,6 +18,8 @@ import { MusicPlayerContext } from "@/context/MusicPlayerContext";
 import Loading from "@/components/common/Loading/Loading";
 import { assets } from "@/assets/assets";
 
+import { BASE_URL } from "@/global/baseurl";
+
 const FloatingMusicPlayer = () => {
   const { songID } = useParams(); // Extract songID
   const [songList, SetSongList] = useState([]);
@@ -56,7 +58,7 @@ const FloatingMusicPlayer = () => {
 
   const getSongs = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/songs/getSongs");
+      const res = await axios.get(`${BASE_URL}/api/songs/getSongs`);
       const resData = res.data;
       // console.log("getSongs: ", resData);
 

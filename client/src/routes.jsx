@@ -20,7 +20,6 @@ import AdminPanel from "@/pages/admin/AdminPanel";
 
 // Context
 import { AuthContext } from "@/context/authContext";
-import MainPlayer from "@/test/testPlayer";
 
 // Protected Routes
 const ProtectedRoute = ({ children }) => {
@@ -48,7 +47,6 @@ export const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/profile/:id", element: <Profile /> },
       { path: "/albums", element: <Album /> },
-      { path: "/test", element: <MainPlayer /> },
       { path: "/playlist", element: <Playlist /> },
       { path: "/settings", element: <Settings /> },
       { path: "/contact", element: <Contact /> },

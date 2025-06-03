@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { BASE_URL } from "@/global/baseurl";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ email: "", message: "" });
@@ -15,7 +16,7 @@ const Contact = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/contact/send-message",
+        `${BASE_URL}/api/contact/send-message`,
         formData
       );
       setStatus("Message sent successfully!");

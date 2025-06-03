@@ -6,9 +6,10 @@ import PlaylistCard from "@/components/cards/PlaylistCard";
 import useLoadSongs from "@/hooks/useLoadSongs";
 import MainPlayer from "@/components/musicPlayer/MainPlayer";
 import { Plus } from "lucide-react"; // Assuming you're using lucide-react for icons
+import { BASE_URL } from "@/global/baseurl";
 
-const API_BASE_URL = "http://localhost:8000/api/v1/playlist";
-const SEARCH_API_URL = "http://localhost:8000/api/v1/search"; // Update this based on actual song API
+const API_BASE_URL = `${BASE_URL}/api/v1/playlist`;
+const SEARCH_API_URL = `${BASE_URL}/api/v1/search`; // Update this based on actual song API
 
 const Playlist = () => {
   const [playlists, setPlaylists] = useState([]);

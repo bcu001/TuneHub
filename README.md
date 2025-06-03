@@ -9,15 +9,12 @@ TuneHub is an online music streaming and management platform that allows users t
 - **Playlist Management**: Create, edit, and delete playlists.
 - **User Profile & Settings**: Manage user details and preferences.
 - **Admin Panel**: View users, promote/demote user roles.
-- **Album Management (Upcoming)**: Feature to manage music albums.
-- **Enhanced Admin Controls (Upcoming)**: Add, edit, and manage music from the admin panel.
 
 ## Tech Stack
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL
-- **Authentication**: JWT (JSON Web Token)
 - **Version Control**: Git & GitHub
 
 ## Installation Guide
@@ -36,11 +33,11 @@ npm install
 ### 3. Set Up the Database
 - Create a MySQL database.
 - Import the provided database schema.
-- Update `config/db.js` with your database credentials.
+- Update `config/connect.js` with your database credentials.
 
 ### 4. Run the Application
 ```bash
-npm start
+npm run dev
 ```
 The server will start at `http://localhost:8000`.
 

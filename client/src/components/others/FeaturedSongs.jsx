@@ -2,13 +2,14 @@ import React from "react";
 import useFetch from "@/hooks/useFetch";
 import { motion, AnimatePresence } from "framer-motion";
 import NewCard from "../cards/NewCard";
+import { BASE_URL } from "@/global/baseurl";
 
 const FeaturedSongs = () => {
   const {
     data: fsongData,
     loading,
     error,
-  } = useFetch("http://localhost:8000/api/v1/songs/featuredSongs");
+  } = useFetch(`${BASE_URL}/api/v1/songs/featuredSongs`);
 
   // console.log("API Response:", fsongData);
 

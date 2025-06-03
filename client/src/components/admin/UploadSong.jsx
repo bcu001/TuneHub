@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+import { BASE_URL } from "@/global/baseurl";
+
 const categories = [
   "Pop",
   "Rock",
@@ -56,7 +58,7 @@ const UploadSong = ({ setIsUpload }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/upload/song",
+        `${BASE_URL}/api/upload/song`,
         form,
         {
           headers: {

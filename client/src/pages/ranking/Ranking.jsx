@@ -4,16 +4,17 @@ import axios from "axios";
 import RankingCard from "@/components/cards/RankingCard";
 import song from "@/database/song.json";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { BASE_URL } from "@/global/baseurl";
 
 const Ranking = () => {
-  useDocumentTitle("TuneHub | Ranking")
+  useDocumentTitle("TuneHub | Ranking");
   const [rankedSong, setRankSong] = useState([]);
   useEffect(() => {
     handleRanking();
   }, []);
 
   const handleRanking = async () => {
-    const res = await axios.get('http://localhost:8000/api/songs/getSongs');
+    const res = await axios.get(`${BASE_URL}/api/songs/getSongs`);
     console.log(res.data);
     const sortedSongs = res.data.sort((a, b) => b.likes - a.likes);
 

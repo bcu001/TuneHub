@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import useLoadSongs from "@/hooks/useLoadSongs";
 import MainPlayer from "@/components/musicPlayer/MainPlayer";
+import { BASE_URL } from "@/global/baseurl";
 
 const categories = [
   { category: "Pop", bgColor: "rgba(255, 105, 180, 0.3)" }, // Pink
@@ -17,7 +18,7 @@ const categories = [
   { category: "Folk", bgColor: "rgba(222, 184, 135, 0.3)" }, // Tan
 ];
 
-const BASE_URL = "http://localhost:8000/api/v1/songs"; // Backend API URL
+const editURL = `${BASE_URL}/api/v1/songs`; // Backend API URL
 
 export default function CategoryPage() {
   const { category } = useParams();
@@ -34,7 +35,7 @@ export default function CategoryPage() {
       setError(null);
 
       try {
-        const response = await axios.post(`${BASE_URL}/category`, { category });
+        const response = await axios.post(`${editURL}/category`, { category });
         setSongs(response.data.data);
       } catch (err) {
         console.error("Error fetching songs:", err);

@@ -9,6 +9,8 @@ import { ListFilter } from "lucide-react";
 import MainPlayer from "../musicPlayer/MainPlayer";
 import useLoadSongs from "@/hooks/useLoadSongs";
 
+import { BASE_URL } from "@/global/baseurl.js";
+
 const categories = [
   "All",
   "Pop",
@@ -54,7 +56,7 @@ const SearchResults = () => {
       setIsLoading(true);
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/v1/search/searchsongs",
+          `${BASE_URL}/api/v1/search/searchsongs`,
           {
             query: searchQuery,
             category: category,

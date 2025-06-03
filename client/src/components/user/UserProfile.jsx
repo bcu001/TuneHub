@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/context/authContext";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import axios from "axios";
+import { BASE_URL } from "@/global/baseurl";
 
 const UserProfile = () => {
   useDocumentTitle("TuneHub | Profile");
@@ -36,7 +37,7 @@ const UserProfile = () => {
       try {
         setLoading(true);
         const res = await axios.post(
-          "http://localhost:8000/api/v1/users/edituser",
+          `${BASE_URL}/api/v1/users/edituser`,
           {
             userID: currentUser.userID,
             username,

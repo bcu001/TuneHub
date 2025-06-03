@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { BASE_URL } from "@/global/baseurl";
 
 const Register = () => {
   useDocumentTitle("TuneHub | Register");
@@ -28,7 +29,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/auth/register", inputs);
+      await axios.post(`${BASE_URL}/api/auth/register`, inputs);
       navigate("/login");
     } catch (err) {
       setErr(err.response.data);

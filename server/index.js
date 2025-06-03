@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // Fix: Uncommented to support form data
 app.use(
   cors({
-    origin: process.env.SERVER_LINK || "*", // Fix: Default to "*" if SERVER_LINK is undefined
+    origin: process.env.CLIENT_URL || "*", // Fix: Default to "*" if SERVER_LINK is undefined
   })
 );
 app.use(cookieParser());

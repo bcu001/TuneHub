@@ -2,8 +2,9 @@ import useDocumentTitle from "@/hooks/useDocumentTitle";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Trash2, UserCheck, ShieldCheck } from "lucide-react";
+import { BASE_URL } from "@/global/baseurl";
 
-const BASE_URL = "http://localhost:8000/api/v1/user"; // Base URL
+const editURL = `${BASE_URL}/api/v1/user`; // Base URL
 
 const AdminPanel = () => {
   useDocumentTitle("TuneHub | Admin Panel");
@@ -18,7 +19,7 @@ const AdminPanel = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/getusers`);
+      const response = await axios.get(`${editURL}/getusers`);
       setUsers(response.data.users); // Matches backend response structure
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -29,7 +30,7 @@ const AdminPanel = () => {
   // Delete user (uses DELETE method but sends data in request BODY)
   const deleteUser = async (userId) => {
     try {
-      await axios.delete(`${BASE_URL}/deleteUser`, { data: { userID: userId } }); // Sends userID in body
+      await axios.delete(`${editURL}/deleteUser`, { data: { userID: userId } }); // Sends userID in body
       setUsers((prevUsers) => prevUsers.filter((user) => user.userID !== userId));
       alert("User deleted successfully.");
     } catch (error) {
@@ -43,7 +44,7 @@ const AdminPanel = () => {
     const newRole = currentRole === "admin" ? "user" : "admin";
 
     try {
-      await axios.patch(`${BASE_URL}/editrole`, { userID: userId, role: newRole });
+      await axios.patch(`${editURL}/editrole`, { userID: userId, role: newRole });
 
       setUsers((prevUsers) =>
         prevUsers.map((user) =>

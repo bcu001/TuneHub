@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { assets } from "@/assets/assets";
 
+import { BASE_URL } from "@/global/baseurl";
+
 const Card = ({ song }) => {
   const [songImg, setSongImg] = useState(null);
 
@@ -22,7 +24,7 @@ const Card = ({ song }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/songs/getSongMedia",
+        `${BASE_URL}/api/songs/getSongMedia`,
         { songID: id }
       );
       // console.log("songID:", id);
