@@ -9,7 +9,7 @@ const PlaylistCard = ({ playlist, fetchPlaylistSongs }) => {
     >
       <img
         className="object-cover w-full h-[150px] rounded"
-        src={assets.playlist}
+        src={assets.defaultMusic}
         alt=""
       />
       <div className="p-2 truncate font-bold">{playlist.playlist_name}</div>

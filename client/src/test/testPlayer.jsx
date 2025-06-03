@@ -1,11 +1,20 @@
-import React, { useContext } from "react";
-import { Play, SkipBack, SkipForward, Pause, X, BoomBox } from "lucide-react";
+import React, { useState, useContext } from "react";
+import {
+  Play,
+  SkipBack,
+  SkipForward,
+  Pause,
+  X,
+  ChevronUp,
+  BoomBox,
+} from "lucide-react";
+import { useParams } from "react-router-dom";
 import { MusicPlayerContext } from "@/context/MusicPlayerContext";
 import { assets } from "@/assets/assets";
 
 const MainPlayer = () => {
   const {
-    currSong,
+    // currSong,
     playPause,
     isPlaying,
     handleSkipBack,
@@ -13,9 +22,21 @@ const MainPlayer = () => {
     currDuration,
     updateCurrentDuration,
     totalDuration,
-    isVisible,
+    // isVisible,
     setIsVisible,
   } = useContext(MusicPlayerContext);
+
+  let isVisible = true;
+  let currSong = {
+    songID: 1793,
+    songName: "Desi KalaKaar Desi KalaKaar Desi KalaKaar",
+    likesCount: 1,
+    artist: "Yo Yo Honey Singh Yo Yo Honey Singh Yo Yo Honey Singh",
+    writer: "Yo Yo Honey Singh",
+    releaseDate: "2014-08-23T18:30:00.000Z",
+    genre: "Hip Hop",
+    url: "/songs/billionare_honeySingh.mp3",
+  };
 
   const formatDuration = (duration) => {
     const minutes = Math.floor(duration / 60);
@@ -48,12 +69,12 @@ const MainPlayer = () => {
               alt="Album Art"
               className="aspect-square object-cover w-[150px] rounded-xl"
             />
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-between ">
               <div id="song_Desc">
-                <div className="font-extrabold text-2xl w-[200px] truncate">
+                <div className="font-extrabold text-2xl truncate max-w-[200px] ">
                   {currSong?.songName || "Unknown Song"}
                 </div>
-                <div className="font-semibold w-[200px] truncate">
+                <div className="font-semibold truncate max-w-[200px]">
                   {currSong?.artist || "Unknown Artist"}
                 </div>
               </div>
