@@ -41,8 +41,8 @@ npm run dev
 ```
 The server will start at `http://localhost:8000`.
 
-## Screenshots
-(Add screenshots of your application here)
+<!-- ## Screenshots
+(Add screenshots of your application here) -->
 
 ## Contribution
 If you wish to contribute:
@@ -55,5 +55,5 @@ If you wish to contribute:
 MIT License
 
 ## Contact
-For any inquiries, contact [your email or GitHub profile].
+For any inquiries, contact [bhuwanb898@gmail.com].
 
