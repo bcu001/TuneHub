@@ -36,6 +36,7 @@ Thumbs.db
 *.temp
 *.tldr
 /server/songs
+/server/test.js
 
 # Miscellaneous
 *.bak
@@ -43,3 +44,8 @@ Thumbs.db
 /server/test.txt
 /server/test
 /client/test
+
+
+#env
+.env
+.env.*.local

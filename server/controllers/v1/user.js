@@ -1,4 +1,4 @@
-import { db } from "../connect.js";
+import { db } from "../../database/sql.js";
 
 export const editUser = (req, res) => {
     const { username, email, userID } = req.body;

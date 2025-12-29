@@ -1,7 +1,7 @@
 import express from "express";
 import {
     featuredSongs, getSongMedia, like, unlike, rankingList, getTop, getTop10, getSongsByCategory
-} from "../controllers/song.js";
+} from "../../controllers/v1/song.js";
 
 const router = express.Router();
 
