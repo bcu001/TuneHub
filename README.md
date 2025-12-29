@@ -40,20 +40,3 @@ npm install
 npm run dev
 ```
 The server will start at `http://localhost:8000`.
-
-<!-- ## Screenshots
-(Add screenshots of your application here) -->
-
-## Contribution
-If you wish to contribute:
-1. Fork the repository.
-2. Create a new branch (`feature-branch`).
-3. Commit your changes and push to GitHub.
-4. Open a pull request.
-
-## License
-MIT License
-
-## Contact
-For any inquiries, contact [bhuwanb898@gmail.com].
-

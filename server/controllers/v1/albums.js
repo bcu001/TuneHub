@@ -1,4 +1,4 @@
-import { db } from "../connect.js";
+import { db } from "../../database/sql.js";
 
 // finding album list using by time
 export const getAlbum = (req, res) => {

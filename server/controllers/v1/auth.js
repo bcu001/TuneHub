@@ -1,4 +1,4 @@
-import { db } from "../connect.js";
+import { db } from "../../database/sql.js";
 import bcrypt from "bcryptjs";
 import uniqid from "uniqid";
 import jwt from "jsonwebtoken";

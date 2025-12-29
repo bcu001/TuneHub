@@ -1,4 +1,4 @@
-import { db } from "../connect.js";
+import { db } from "../../database/sql.js";
 
 export const searchSong = (req, res) => {
     const { query, category } = req.body;
