@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-// Layouts
 import Layout_v2 from "@/layout/Layout_v2";
 
-// Pages
 import Home from "@/pages/home/Home";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
@@ -14,25 +12,19 @@ import Contact from "@/pages/contact/Contact";
 import SearchPage from "@/pages/search/Search";
 import Album from "@/pages/album/Album";
 import Playlist from "@/pages/playlist/Playlist";
-import CategoryPage from "./pages/categores/CategoryPage";
+import CategoryPage from "../pages/categores/CategoryPage";
 import Mistake from "@/pages/notFoundPage/NotFoundPage";
 import AdminPanel from "@/pages/admin/AdminPanel";
 
-// Context
 import { AuthContext } from "@/context/authContext";
-
-// Protected Routes
-const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useContext(AuthContext);
-  return currentUser ? children : <Navigate to="/login" />;
-};
+import ProtectedRoute from "@/routes/ProtectedRoute"
 
 const AdminRouteProtected = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   return currentUser?.role === "admin" ? children : <Navigate to="/" />;
 };
 
-// ✅ Routes Definition
+
 export const router = createBrowserRouter([
   {
     path: "/",
