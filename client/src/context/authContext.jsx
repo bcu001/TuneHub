@@ -12,10 +12,9 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     async function auto_signin() {
-      const existToken = localStorage.getItem("token");
+      const existToken = JSON.parse(localStorage.getItem("token"));
 
       if (!existToken) {
-        setIsAuthenticated(false);
         setAuthLoading(false);
         return;
       }
@@ -29,16 +28,18 @@ export const AuthContextProvider = ({ children }) => {
             },
           }
         );
-        somefn(res.data.data.user, existToken);
+        setCurrentUser(res.data.data.user);
         setIsAuthenticated(true);
-      } catch (err) {
-        somefn(null, null);
+      } catch {
+        setCurrentUser(null);
         setIsAuthenticated(false);
+      } finally {
         setAuthLoading(false);
-        return err;
-      } 
+      }
     }
-  }, [currentUser]);
+
+    auto_signin();
+  }, []);
 
   const somefn = (user, token) => {
     setCurrentUser(user);
@@ -67,7 +68,7 @@ export const AuthContextProvider = ({ children }) => {
     return res.data;
   };
   const signout = () => {
-    localStorage.removeItem("authToken");
+    somefn(null, null);
   };
 
   useEffect(() => {
