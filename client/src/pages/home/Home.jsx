@@ -6,6 +6,7 @@ import useLoadSongs from "@/hooks/useLoadSongs";
 // components
 import TrendingCategories from "@/components/others/TrendingCategories";
 import SearchBar from "@/components/search/SearchBar";
+// import SearchBar_v2 from "@/components/search/SearchBar_v2"
 import Footer from "@/components/common/Footer";
 import MainPlayer from "@/components/musicPlayer/MainPlayer";
 import HeroSectiona from "@/components/others/HeroSectiona";
@@ -14,30 +15,25 @@ import ProfileDropdown from "@/components/common/Navbar/ProfileDropdown";
 
 import { useMediaQuery } from "react-responsive";
 import { BASE_URL } from "@/global/baseurl";
+import SearchBar_v2 from "@/components/search/SearchBar_v2"
 
 const Home = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
   useDocumentTitle("TuneHub");
-  const {
-    data: tenSongs,
-    loading,
-    error,
-  } = useFetch(`${BASE_URL}/api/v1/songs/top10`);
-
-  useLoadSongs(tenSongs.data);
+ 
 
   return (
     <div className="w-full relative">
       {isMobile || (
         <div className="flex items-center justify-center mt-6 pr-5 gap-x-10 sticky top-2  z-50">
           <div className="grow">
-            <SearchBar />
+            <SearchBar_v2 />
           </div>
           <ProfileDropdown />
         </div>
       )}
       <div className="flex items-center justify-center py-5 gap-x-10">
-        <HeroSectiona />
+        {/* <HeroSectiona /> */}
         <div>
           <MainPlayer />
         </div>

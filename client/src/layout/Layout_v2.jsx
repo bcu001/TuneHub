@@ -1,4 +1,5 @@
 import Sidebar from "@/components/common/Sidebar";
+import Sidebar_v2 from "@/components/common/Sidebar_v2";
 import Navbar from "@/components/common/Navbar/Navbar";
 import React from "react";
 import { Outlet } from "react-router-dom";
@@ -6,14 +7,12 @@ import { useMediaQuery } from "react-responsive";
 
 const Layout_v2 = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
-  // console.log("isMobile:", isMobile);
 
   return (
-    <div className="h-screen w-screen flex flex-col">
+    <div className="h-screen w-screen flex flex-col bg-background-dark">
       <div className="border h-full w-full absolute bg-black -z-10 opacity-50 "></div>
       {isMobile ? (
         <>
-          {/* Mobile: Navbar + Fullscreen Content */}
           <Navbar />
           <main className="">
             <Outlet />
@@ -21,9 +20,8 @@ const Layout_v2 = () => {
         </>
       ) : (
         <div className="h-screen w-screen flex">
-          {/* Desktop: Sidebar + Scrollable Content */}
           <aside className="h-screen sticky top-0 left-0 ">
-            <Sidebar />
+            <Sidebar_v2 />
           </aside>
           <main className="grow overflow-auto p-4">
             <Outlet />

@@ -4,7 +4,7 @@ import { AuthContext } from "@/context/authContext";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useForm } from "react-hook-form";
 
-const Login = () => {
+const Signin = () => {
   useDocumentTitle("TuneHub | Login");
 
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Login = () => {
       const res = await signin(data);
       console.log(res);
       setErr(null);
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.log(error.response?.data?.message || error.message);
       setErr(error.response?.data?.message);
@@ -42,17 +42,19 @@ const Login = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center text-white">
+    <div className="w-screen h-screen flex flex-col items-center justify-center text-text-main-dark">
       <div className=" mb-8 text-center">
         <h1 className="text-4xl font-bold">Welcome Back to TuneHub</h1>
-        <span className="block text-lg">Your Gateway to Endless Music</span>
+        <span className="block text-lg text-text-sec-dark">
+          Your Gateway to Endless Music
+        </span>
       </div>
 
-      <div className="w-[350px] sm:w-[400px] p-6 rounded-lg shadow-lg backdrop-blur-2xl text-white">
+      <div className="w-[350px] sm:w-[400px] p-6 rounded-lg bg-surface-dark text-white">
         <h2 className="text-2xl font-semibold mb-4 text-center ">
           Log Into Your Account
         </h2>
-        <p className="text-center mb-6">
+        <p className="text-center mb-6 text-text-sec-dark">
           Don’t have an account?{" "}
           <Link
             to={"/register"}
@@ -115,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signin;
