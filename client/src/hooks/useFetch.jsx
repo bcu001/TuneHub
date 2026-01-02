@@ -12,14 +12,14 @@ const useFetch = (url) => {
         const res = await axios.get(url);
         setData(res.data);
       } catch (err) {
-        setError("Error fetching data");
+        setError(err.message);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [url]); // Fetches data when `url` changes
+  }, [url]); 
 
   return { data, loading, error };
 };
