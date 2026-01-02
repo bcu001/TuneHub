@@ -8,7 +8,7 @@ const ProfileDropdown = () => {
   const profileDropdownRef = useRef(null);
   const { pathname } = useLocation();
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, signout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const toggleProfile = () => {
@@ -35,8 +35,7 @@ const ProfileDropdown = () => {
   }, []);
 
   const handleSignOut = () => {
-    // Implement your sign-out logic here
-    localStorage.removeItem("user");
+    signout();
     navigate("/login");
   };
 

@@ -4,7 +4,7 @@ import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "@/context/authContext";
 
-const Register = () => {
+const Signup = () => {
   useDocumentTitle("TuneHub | Register");
 
   const [showPassword, setShowPassword] = useState(false);
@@ -39,17 +39,17 @@ const Register = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen flex flex-col items-center justify-center text-white">
+    <div className="relative w-screen h-screen flex flex-col items-center justify-center text-text-main-dark">
       <h1 className="text-4xl mb-8 text-center heading-text">
         Discover a World of Music
-        <span className="block text-lg">Sign Up for TuneHub!</span>
+        <span className="block text-lg text-text-sec-dark">Sign Up for TuneHub!</span>
       </h1>
 
-      <div className="w-[350px] sm:w-[400px] p-6 rounded-lg shadow-lg backdrop-blur-2xl border">
+      <div className="w-[350px] sm:w-[400px] p-6 rounded-lg bg-surface-dark">
         <h2 className="text-2xl font-semibold mb-4 text-center ">
           Create Your Account
         </h2>
-        <p className="text-center mb-6">
+        <p className="text-center mb-6 text-text-sec-dark">
           Already part of TuneHub?{" "}
           <Link
             to={"/login"}
@@ -126,4 +126,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Signup;

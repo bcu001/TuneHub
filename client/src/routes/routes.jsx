@@ -4,8 +4,8 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout_v2 from "@/layout/Layout_v2";
 
 import Home from "@/pages/home/Home";
-import Login from "@/pages/auth/Login";
-import Register from "@/pages/auth/Register";
+import Signin from "@/pages/auth/Signin";
+import Signup from "@/pages/auth/Signup";
 import Profile from "@/pages/profile/Profile";
 import Settings from "@/pages/settings/Settings";
 import Contact from "@/pages/contact/Contact";
@@ -17,13 +17,13 @@ import Mistake from "@/pages/notFoundPage/NotFoundPage";
 import AdminPanel from "@/pages/admin/AdminPanel";
 
 import { AuthContext } from "@/context/authContext";
-import ProtectedRoute from "@/routes/ProtectedRoute"
+import ProtectedRoute from "@/routes/ProtectedRoute";
+import BaseLayout from "@/layout/BaseLayout";
 
 const AdminRouteProtected = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   return currentUser?.role === "admin" ? children : <Navigate to="/" />;
 };
-
 
 export const router = createBrowserRouter([
   {
@@ -55,7 +55,13 @@ export const router = createBrowserRouter([
       { path: "/*", element: <Mistake /> },
     ],
   },
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
-  {path:"/test", element: <Home/>}
+  {
+    path: "/",
+    element: <BaseLayout />,
+    children: [
+      { path: "/login", element: <Signin /> },
+      { path: "/register", element: <Signup /> },
+      { path: "/test", element: <Home /> },
+    ],
+  },
 ]);

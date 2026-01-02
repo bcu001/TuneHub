@@ -5,7 +5,7 @@ const HeroSectiona = () => {
     <div className=" w-full">
       <div className="text-white text-center w-[500px] space-y-3 ">
         <div id="heroSection" className="text-4xl">
-          "Feel the music, live the moment—only on TuneHub."
+          {`"Feel the music, live the moment—only on TuneHub."`}
         </div>
         <div className="text-sm">
           TuneHub is your ultimate destination for seamless music streaming.

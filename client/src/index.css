@@ -1,1 +1,64 @@
 @import "tailwindcss";
+
+@theme {
+  /* brand */
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+
+  /* backgrounds */
+  --color-background-light: #f3f4f6;
+  --color-background-dark: #09090b;
+
+  /* surfaces */
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #18181b;
+
+  /* text */
+  --color-text-main-light: #111827;
+  --color-text-main-dark: #f9fafb;
+  --color-text-sec-light: #6b7280;
+  --color-text-sec-dark: #9ca3af;
+
+  /* accents */
+  --color-accent-green: #22c55e;
+
+  /* typography */
+  --font-display: Inter, sans-serif;
+  --font-sans: Inter, sans-serif;
+
+  /* radius */
+  --radius-default: 0.5rem;
+}
+
+/* ===============================
+   SEMANTIC UTILITIES (aliases)
+   =============================== */
+@layer utilities {
+  /* backgrounds */
+  .bg-background-light { background-color: var(--color-background-light); }
+  .bg-background-dark  { background-color: var(--color-background-dark); }
+
+  .bg-surface-light    { background-color: var(--color-surface-light); }
+  .bg-surface-dark     { background-color: var(--color-surface-dark); }
+
+  .bg-primary          { background-color: var(--color-primary); }
+  .bg-primary-hover    { background-color: var(--color-primary-hover); }
+
+  /* text */
+  .text-main-light { color: var(--color-text-main-light); }
+  .text-main-dark  { color: var(--color-text-main-dark); }
+
+  .text-sec-light  { color: var(--color-text-sec-light); }
+  .text-sec-dark   { color: var(--color-text-sec-dark); }
+
+  /* accents */
+  .text-accent-green { color: var(--color-accent-green); }
+  .bg-accent-green   { background-color: var(--color-accent-green); }
+
+  /* typography */
+  .font-display { font-family: var(--font-display); }
+  .font-sans    { font-family: var(--font-sans); }
+
+  /* radius */
+  .rounded-default { border-radius: var(--radius-default); }
+}
