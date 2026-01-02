@@ -10,17 +10,17 @@ const Top10Songs = () => {
     data: tenSongs,
     loading,
     error,
-  } = useFetch(`${BASE_URL}/api/v1/songs/top10`);
+  } = useFetch(`http://localhost:5000/api/v2/songs/top10`);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!tenSongs || tenSongs.data.length === 0) return <p>No songs available</p>;
+  // if (!tenSongs || tenSongs.data.length === 0) return <p>No songs available</p>;
 
   return (
     <div>
       <h2 className="text-4xl font-bold text-white my-6 ">Trending Songs</h2>
       <div className="space-y-5 mr-2">
-        {tenSongs.data.map((song) => (
+        {tenSongs.songs.map((song) => (
           <RecCard key={song.songID} song={song} />
         ))}
       </div>
