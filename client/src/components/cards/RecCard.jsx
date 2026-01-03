@@ -16,7 +16,7 @@ const RecCard = ({ song }) => {
   };
 
   return (
-    <div className="flex gap-x-3 p-2 items-center rounded backdrop-blur-2xl text-white">
+    <div className="flex gap-x-3 p-2 items-center rounded  text-white">
       <img
         className="w-16 h-16 aspect-square"
         src={assets.defaultMusic}

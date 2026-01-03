@@ -10,6 +10,8 @@ import Profile from "@/pages/profile/Profile";
 import Settings from "@/pages/settings/Settings";
 import Contact from "@/pages/contact/Contact";
 import SearchPage from "@/pages/search/Search";
+import SearchPage_v2 from "@/pages/search/SearchPage_v2";
+
 import Album from "@/pages/album/Album";
 import Playlist from "@/pages/playlist/Playlist";
 import CategoryPage from "../pages/categores/CategoryPage";
@@ -42,7 +44,7 @@ export const router = createBrowserRouter([
       { path: "/playlist", element: <Playlist /> },
       { path: "/settings", element: <Settings /> },
       { path: "/contact", element: <Contact /> },
-      { path: "/search", element: <SearchPage /> },
+      { path: "/search", element: <SearchPage_v2 /> },
       { path: "/category/:category", element: <CategoryPage /> }, // ✅ Add Category Page Route
       {
         path: "/admin-panel",

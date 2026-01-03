@@ -1,4 +1,4 @@
-import { BASE_URL } from "@/global/baseurl.js";
+import { ENV } from "@/config/env";
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
@@ -21,7 +21,7 @@ export const AuthContextProvider = ({ children }) => {
 
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v2/auth/validate`,
+          `${ENV.serverUrl}/api/v2/auth/validate`,
           {
             headers: {
               Authorization: `Bearer ${existToken}`,
@@ -49,7 +49,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const signin = async (formData) => {
-    const res = await axios.post(`http://localhost:5000/api/v2/auth/signin`, {
+    const res = await axios.post(`${ENV.serverUrl}/api/v2/auth/signin`, {
       email: formData.email,
       password: formData.password,
     });
@@ -60,7 +60,7 @@ export const AuthContextProvider = ({ children }) => {
   };
 
   const signup = async (formData) => {
-    const res = await axios.post(`http://localhost:5000/api/v2/auth/signup`, {
+    const res = await axios.post(`${ENV.serverUrl}/api/v2/auth/signup`, {
       name: formData.name,
       email: formData.email,
       password: formData.password,

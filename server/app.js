@@ -4,6 +4,7 @@ import corsOptions from "./config/cors.js";
 import apiRouter from "./apiRouter.js";
 import fs from 'fs/promises'
 import Song from './models/song.model.js'
+import Album from './models/album.model.js'
 
 const app = express();
 
@@ -22,7 +23,7 @@ app.use("/", (req, res) => {
     res.send("tunehub");
 })
 
-// app.use("/bulk", async (req, res) => {
+// app.post("/bulk", async (req, res) => {
    
 //     try {
 //         const out = await fs.readFile("./test/dummyData.json");
