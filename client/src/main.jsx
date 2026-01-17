@@ -5,7 +5,7 @@ import "@/global/global.css";
 import App from "@/App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "@/context/authContext.jsx";
-import { MusicPlayerProvider } from "./context/MusicPlayerContext";
+import { MusicPlayerProvider } from "@/context/MusicPlayerContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -16,5 +16,5 @@ createRoot(document.getElementById("root")).render(
         </MusicPlayerProvider>
       </AuthContextProvider>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

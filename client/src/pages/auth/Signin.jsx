@@ -22,11 +22,9 @@ const Signin = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       setIsLoading(true);
-      const res = await signin(data);
-      console.log(res);
+      await signin(data);
       setErr(null);
       navigate("/");
     } catch (error) {
