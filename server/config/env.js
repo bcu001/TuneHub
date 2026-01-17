@@ -1,12 +1,10 @@
 import { config } from "dotenv";
 
-config({
-    path: `.env.${process.env.NODE_ENV || "development"}.local`
-});
+config();  
 
-export const {
-    PORT, NODE_ENV,
-    DB_URI,
-    CLIENT_URL, 
-    JWT_SECRET, JWT_EXPIRE_IN
-} = process.env;
+export const PORT = process.env.PORT;
+export const DB_URI = process.env.DB_URI;
+export const CLIENT_URL = process.env.CLIENT_URL;
+export const JWT_SECRET = process.env.JWT_SECRET;
+export const JWT_EXPIRE_IN = process.env.JWT_EXPIRE_IN;
+export const NODE_ENV = process.env.NODE_ENV;
