@@ -57,7 +57,7 @@ const Signin = () => {
         <p className="text-center mb-6 text-text-sec-dark">
           Don’t have an account?{" "}
           <Link
-            to={"/register"}
+            to={"/signup"}
             className="underline text-[var(--primary-color)] transition-colors duration-300"
           >
             Sign Up

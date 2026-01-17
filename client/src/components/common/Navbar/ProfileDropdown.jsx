@@ -36,7 +36,7 @@ const ProfileDropdown = () => {
 
   const handleSignOut = () => {
     signout();
-    navigate("/login");
+    navigate("/signin");
   };
 
   return (

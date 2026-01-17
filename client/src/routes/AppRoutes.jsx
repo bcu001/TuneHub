@@ -47,8 +47,8 @@ const AppRoutes = () => {
 
       <Route path="/*" element={<NotFoundPage />} />
       <Route element={<BaseLayout />}>
-        <Route path="/login" element={<Signin />} />
-        <Route path="/login" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/test" element={<Test />} />
       </Route>
     </Routes>
