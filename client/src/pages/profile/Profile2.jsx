@@ -26,7 +26,7 @@ const Profile = () => {
   const handleLogout = async () => {
     // logout
     localStorage.removeItem("user");
-    navigate("/login");
+    navigate("/signin");
   };
 
   return (

@@ -25,7 +25,7 @@ const Signup = () => {
       setIsLoading(true);
       await signup(data);
       setErr(null);
-      navigate("/login")
+      navigate("/signin")
     } catch (error) {
       // console.log(error.response?.data?.message || error.message);
       setErr(error.response?.data?.message);
@@ -52,7 +52,7 @@ const Signup = () => {
         <p className="text-center mb-6 text-text-sec-dark">
           Already part of TuneHub?{" "}
           <Link
-            to={"/login"}
+            to={"/signin"}
             className="underline transition-colors duration-300"
           >
             Log in

@@ -26,7 +26,7 @@ const UserProfile = () => {
   // Logout function
   const handleLogout = () => {
     localStorage.removeItem("user");
-    navigate("/login");
+    navigate("/signin");
   };
 
   // Update Profile Function

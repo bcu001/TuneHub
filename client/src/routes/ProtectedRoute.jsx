@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if(!isAuthenticated){
-    navigate("/login");
+    navigate("/signin");
   }
 
   return children;
