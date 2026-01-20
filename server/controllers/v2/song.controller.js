@@ -1,5 +1,25 @@
 import Song from '../../models/song.model.js';
 
+export const getSongById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const song = await Song.findById(id);
+
+    if (!song) {
+      return res.status(404).json({ message: "Song not found" });
+    }
+
+    res.status(200).json(song);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch song",
+      error: error.message,
+    });
+  }
+};
+
+
 export const search = async (req, res) => {
     //      GET /songs
     //      ?q=love

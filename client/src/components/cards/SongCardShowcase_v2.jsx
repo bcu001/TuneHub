@@ -4,21 +4,13 @@ import React, { useContext } from "react";
 import { MusicPlayerContext } from "@/context/MusicPlayerContext";
 import { Heart } from "lucide-react";
 import normalizeLike from "@/utilities/normalizeLike";
+import {Link} from "react-router-dom";
 
 const RecCard = ({ song, index }) => {
-  const { setCurrSong, setIsPlaying, setAudioSrc, playSong, setIsVisible } =
-    useContext(MusicPlayerContext);
 
-  const handlePlay = () => {
-    setCurrSong(song); // Set the clicked song as the current song
-    setAudioSrc(song); // Set the audio source
-    setIsPlaying(true); // Start playing
-    setIsVisible(true);
-    playSong();
-  };
 
   return (
-    <div className=" grid grid-cols-4 bg-surface-dark text-text-main-dark border-b border-gray-800 p-2">
+    <Link to={`/song/${song._id}`} className=" grid grid-cols-4 bg-surface-dark text-text-main-dark border-b border-gray-800 p-2">
       <div className="flex items-center text-lg font-bold text-text-sec-dark">
         {index + 1}
       </div>
@@ -46,7 +38,7 @@ const RecCard = ({ song, index }) => {
       >
         <Play size={20} />
       </button> */}
-    </div>
+    </Link >
   );
 };
 

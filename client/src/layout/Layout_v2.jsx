@@ -1,9 +1,8 @@
-import Sidebar from "@/components/common/Sidebar";
 import Sidebar_v2 from "@/components/common/Sidebar_v2";
 import Navbar from "@/components/common/Navbar/Navbar";
-import React from "react";
 import { Outlet } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import GlobalMusicPlayer from "@/components/musicPlayer/GlobalMusicPlayer";
 
 const Layout_v2 = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -28,6 +27,8 @@ const Layout_v2 = () => {
           </main>
         </div>
       )}
+
+      <GlobalMusicPlayer />
     </div>
   );
 };

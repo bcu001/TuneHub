@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
 import useDocumentTitle from "@/hooks/useDocumentTitle";
 import TrendingCategories from "@/components/others/TrendingCategories";
 import Footer from "@/components/common/Footer";
-import MainPlayer from "@/components/musicPlayer/MainPlayer";
 import Top10Songs from "@/components/others/Top10Songs";
 import ProfileDropdown from "@/components/common/Navbar/ProfileDropdown";
 import { useMediaQuery } from "react-responsive";
 import SearchBar_v2 from "@/components/search/SearchBar_v2";
+import { useEffect } from "react";
 
 const Home = () => {
   const isMobile = useMediaQuery({ maxWidth: 768 });
@@ -22,12 +21,12 @@ const Home = () => {
           <ProfileDropdown />
         </div>
       )}
-      <div className="flex items-center justify-center py-5 gap-x-10">
-        {/* <HeroSectiona /> */}
+      {/* <div className="flex items-center justify-center py-5 gap-x-10">
+        <HeroSectiona />
         <div>
           <MainPlayer />
         </div>
-      </div>
+      </div> */}
       <div>
         <TrendingCategories />
       </div>
