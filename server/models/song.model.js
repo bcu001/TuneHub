@@ -24,6 +24,10 @@ const songSchema = new mongoose.Schema(
             type: Number,
             min: 0,
             default: 0,
+        },
+        url: {
+            type: String,
+            default: "https://res.cloudinary.com/dp7nw5npc/video/upload/v1768913100/chinese-lunar-new-year-465871_1_hwoikv.mp3",
         }
         ,
 
