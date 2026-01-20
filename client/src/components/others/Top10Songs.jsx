@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useFetch from "@/hooks/useFetch";
 import SongCardShowcase_v2 from "@/components/cards/SongCardShowcase_v2";
 import { ENV } from "@/config/env.js";
+import { useContext } from "react";
+import { GlobalMusicContext } from "@/context/GlobalMusicContext";
 
 const Top10Songs = () => {
+  const { initCurrSongOnce } = useContext(GlobalMusicContext);
+  // wait for tensongs to get data
+  // setCurrSong with tenSongs.songs[0] if tenSongs got value
+  // this function work only one time the entire app is open
   const {
     data: tenSongs,
     loading,
     error,
   } = useFetch(`${ENV.serverUrl}/api/v2/songs/top10`);
+
+  useEffect(() => {
+    if (tenSongs?.songs?.length) {
+      initCurrSongOnce(tenSongs.songs[0]);
+    }
+  }, [tenSongs, initCurrSongOnce]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;

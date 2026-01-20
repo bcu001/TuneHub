@@ -7,12 +7,16 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "@/context/authContext.jsx";
 import { MusicPlayerProvider } from "@/context/MusicPlayerContext";
 
+import { GlobalMusicContextProvider } from "./context/GlobalMusicContext";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
         <MusicPlayerProvider>
-          <App />
+          <GlobalMusicContextProvider>
+            <App />
+          </GlobalMusicContextProvider>
         </MusicPlayerProvider>
       </AuthContextProvider>
     </BrowserRouter>

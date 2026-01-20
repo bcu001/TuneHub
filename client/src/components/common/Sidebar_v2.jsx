@@ -45,7 +45,7 @@ const Sidebar_v2 = () => {
           }`}
         >
           <Link className="" to={"/"}>
-            <AudioLines className="hover:scale-125 duration-300" size={30} />
+            <AudioLines className="hover:scale-125 duration-300" size={25} />
           </Link>
 
           <div
@@ -54,17 +54,35 @@ const Sidebar_v2 = () => {
             aria-label="Toggle Sidebar"
           >
             {isSidebar ? (
-              <PanelRightOpen size={22} />
+              <PanelRightOpen size={25} />
             ) : (
-              <PanelRight size={22} />
+              <PanelRight size={25} />
             )}
           </div>
         </div>
+        <Link
+          to={`/profile/${currentUser.userID}`}
+          className={` flex items-center p-2 gap-2 duration-300 ease-in-out cursor-pointer border-t border-b mb-3 border-gray-800 ${
+            isSidebar ? "justify-start  mt-14" : "justify-center mt-24"
+          } `}
+        >
+          
+          <div className="">{<CircleUserRound size={25}/>}</div>
 
+          {isSidebar && (
+            <div className="overflow-hidden">
+              <div className="truncate font-bold capitalize">
+                {currentUser.name}
+              </div>
+              <div className="truncate text-xs text-gray-500 capitalize">
+                {currentUser.email}
+              </div>
+            </div>
+          )}
+        </Link>
+        {/* ${isSidebar ? "mt-16" : "mt-24"} */}
         <nav
-          className={`flex flex-col h-full text-[#6B6B6B] overflow-auto p-2 mb-3 duration-500 ease-in-out ${
-            isSidebar ? "mt-16" : "mt-24"
-          }`}
+          className={`flex flex-col h-full text-[#6B6B6B] overflow-auto p-2 mb-3 duration-500 ease-in-out `}
         >
           <div className="flex-1 overflow-auto ">
             {NAV_ITEMS.map((item, index) => (
@@ -84,31 +102,6 @@ const Sidebar_v2 = () => {
             ))}
           </div>
         </nav>
-
-        <Link
-          to={`/profile/${currentUser.userID}`}
-          className={`flex items-center p-2 gap-2 duration-300 ease-in-out cursor-pointer border-t border-gray-800 ${
-            isSidebar ? "justify-start  " : "justify-center"
-          } `}
-        >
-          {/* <img
-            src={assets.defaultProfile}
-            alt="Profile Avatar"
-            className="h-[40px] w-[40px] rounded-full flex-shrink-0"
-          /> */}
-          <div className="w-6 h-6">{<CircleUserRound />}</div>
-
-          {isSidebar && (
-            <div className="overflow-hidden">
-              <div className="truncate font-bold capitalize">
-                {currentUser.name}
-              </div>
-              <div className="truncate text-xs text-gray-500 capitalize">
-                {currentUser.email}
-              </div>
-            </div>
-          )}
-        </Link>
       </div>
     </div>
   );

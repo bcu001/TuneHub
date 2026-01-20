@@ -17,6 +17,7 @@ import BaseLayout from "@/layout/BaseLayout";
 import Signin from "@/pages/auth/Signin";
 import Signup from "@/pages/auth/Signup";
 import Test from "@/components/others/Test";
+import Song from "@/pages/song/Song";
 const AppRoutes = () => {
   return (
     <Routes>
@@ -34,6 +35,7 @@ const AppRoutes = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/search" element={<SearchPage_v2 />} />
+        <Route path="/song/:id" element={<Song />} />
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route
           path="/admin-panel"
