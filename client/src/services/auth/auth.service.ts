@@ -1,5 +1,5 @@
 import api from "@/lib/axios"
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 
 
 export const signIn = async(email:string, password:string)=>{

@@ -2,7 +2,7 @@ import { createContext } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import type { User } from "@/types/user";
 
-interface AuthContextType {
+export interface AuthContextType {
   user: User | null;
   accessToken: string | null;
   setAccessToken: Dispatch<SetStateAction<string | null>>;
