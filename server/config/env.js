@@ -1,10 +1,19 @@
 import { config } from "dotenv";
+import z from 'zod'
 
 config();  
 
-export const PORT = process.env.PORT;
-export const DB_URI = process.env.DB_URI;
-export const CLIENT_URL = process.env.CLIENT_URL;
-export const JWT_SECRET = process.env.JWT_SECRET;
-export const JWT_EXPIRE_IN = process.env.JWT_EXPIRE_IN;
-export const NODE_ENV = process.env.NODE_ENV;
+const envSchema = z.object({
+    PORT: z.string().transform(Number),
+    NODE_ENV: z.string(),
+    DB_URI: z.string(),
+    DB_NAME:z.string(),
+    CLIENT_URL:z.string(),
+    ACCESS_TOKEN_EXPIRE_IN:z.string(),
+    REFRESH_TOKEN_EXPIRE_IN:z.string(),
+    JWT_REFRESH_SECRET:z.string(),
+    JWT_ACCESS_SECRET:z.string(),
+})
+
+const ENV = envSchema.parse(process.env);
+export default ENV;

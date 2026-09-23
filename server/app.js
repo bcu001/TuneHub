@@ -1,44 +1,27 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import corsOptions from "./config/cors.js";
-import apiRouter from "./apiRouter.js";
-import fs from 'fs/promises'
-import Song from './models/song.model.js'
-import Album from './models/album.model.js'
+import { apiVersion } from "./config/constant.js";
+import v3Routes from "./routes/v3/routes.js";
+import morgan from "morgan";
+import { errorHandler, notFound } from "./middleware/error.middleware.js";
 
 const app = express();
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Credentials", true);
-    next();
-});
+
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(morgan("dev"));
 
-app.use("/api", apiRouter)
+app.use(`${apiVersion}`, v3Routes);
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
+  res.json({message:"Backend of tunehub"});
+});
 
-    res.send("tunehub");
-})
-
-// app.post("/bulk", async (req, res) => {
-   
-//     try {
-//         const out = await fs.readFile("./test/dummyData.json");
-//         const songList = await JSON.parse(out);
-//         const docs = songList.map(item=>new Song(item))
-
-//         await Song.bulkSave(docs);
-//         // await Song.bulkSave(docs);
-
-//         res.json(docs);
-//     } catch (error) {
-//         res.send(error.message);
-//     }
-
-// })
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
-

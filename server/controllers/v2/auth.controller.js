@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from "../../models/user.model.js";
-import { JWT_SECRET, JWT_EXPIRE_IN } from '../../config/env.js'
+import ENV from '../../config/env.js';
 
 export const validate = async (req, res) => {
     try {
@@ -11,7 +11,7 @@ export const validate = async (req, res) => {
             token = req.headers.authorization.split(" ")[1];
         }
 
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, ENV.JWT_REFRESH_SECRET);
 
         const user = await User.findById(decoded.userId).select("-password");
 
@@ -48,7 +48,7 @@ export const signin = async (req, res) => {
             throw error;
         }
 
-        const token = jwt.sign({ userId: existingUser._id }, JWT_SECRET, { expiresIn: JWT_EXPIRE_IN });
+        const token = jwt.sign({ userId: existingUser._id }, ENV.JWT_REFRESH_SECRET, { expiresIn: ENV.REFRESH_TOKEN_EXPIRE_IN });
 
         return res.status(200).json({
             success: true,
