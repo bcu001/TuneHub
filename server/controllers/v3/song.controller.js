@@ -37,12 +37,28 @@ export const getSongs = async (req, res) => {
 
 export const getSongById = async(req, res) => {
     try {
-        const existingSong = await Song.findById(req.params.id);
+        const existingSong = await Song.findById(req.params.id).lean();
         if (!existingSong) return apiResponse(res, "No song found", 404);
-        return apiResponse(res, "song found", 200,{song:existingSong});
+        return apiResponse(res, "song found", 200,{...existingSong});
     } catch (error) {
         console.error("Error at getSongById",error);
         return apiResponse(res,"error at getSongById",500);
+    }
+}
+
+export const getFeaturedSongs = async(req,res)=>{
+    try {
+        const limit = Math.min(Math.max(Number(req.query.limit) || 8, 1), 10);
+        const featuredSongs = await Song.find({isFeatured:true}).limit(limit).lean();
+        if(featuredSongs.length === 0) return apiResponse(res, "no featured products found", 200);
+        return apiResponse(res, "featured product found",200,{
+            songCount: featuredSongs.length,
+            limit,
+            songs:featuredSongs,
+        })
+    } catch (error) {
+        console.error("Error at getFeaturedProduct",error);
+        return apiResponse(res,"Error at getFeaturedProduct", 500);
     }
 }
 
