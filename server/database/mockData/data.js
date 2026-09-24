@@ -1,0 +1,111 @@
+export const categories = [
+    {
+        name: "Pop",
+        slug: "pop",
+        description: "Popular contemporary music with catchy melodies and accessible production.",
+    },
+    {
+        name: "Rock",
+        slug: "rock",
+        description: "Guitar-driven music featuring powerful rhythms and energetic performances.",
+    },
+    {
+        name: "Hip Hop",
+        slug: "hip-hop",
+        description: "Beat-driven music focused on rhythm, flow, sampling, and lyrical expression.",
+    },
+    {
+        name: "Electronic",
+        slug: "electronic",
+        description: "Music created with electronic instruments, synthesizers, and programmed rhythms.",
+    },
+    {
+        name: "Jazz",
+        slug: "jazz",
+        description: "Improvisation-focused music featuring expressive harmony and rhythm.",
+    },
+    {
+        name: "Classical",
+        slug: "classical",
+        description: "Instrumental and orchestral music rooted in classical musical traditions.",
+    },
+    {
+        name: "Lo-Fi",
+        slug: "lo-fi",
+        description: "Relaxed atmospheric music featuring mellow beats and warm textures.",
+    },
+    {
+        name: "R&B",
+        slug: "rnb",
+        description: "Soulful music combining expressive vocals, grooves, and modern production.",
+    },
+    {
+        name: "Indie",
+        slug: "indie",
+        description: "Alternative music characterized by distinctive sounds and creative songwriting.",
+    },
+    {
+        name: "Ambient",
+        slug: "ambient",
+        description: "Atmospheric music focused on texture, space, mood, and immersive soundscapes.",
+    },
+];
+
+export const artists = [
+    "Nova",
+    "Aria",
+    "Eclipse",
+    "Atlas",
+    "Luna",
+    "Echo",
+    "Orion",
+    "Vega",
+    "Neon",
+    "Aster",
+];
+
+export const adjectives = [
+    "Midnight",
+    "Golden",
+    "Silent",
+    "Electric",
+    "Fading",
+    "Endless",
+    "Crimson",
+    "Lost",
+    "Dreaming",
+    "Hidden",
+    "Neon",
+    "Broken",
+    "Velvet",
+    "Distant",
+    "Frozen",
+    "Wandering",
+    "Burning",
+    "Fallen",
+    "Rising",
+    "Sacred",
+];
+
+export const nouns = [
+    "Dreams",
+    "Memories",
+    "Lights",
+    "Hearts",
+    "Skies",
+    "Echoes",
+    "Waves",
+    "Stories",
+    "Shadows",
+    "Stars",
+    "Roads",
+    "Voices",
+    "Rain",
+    "Horizons",
+    "Secrets",
+    "Moments",
+    "Signals",
+    "Fire",
+    "Clouds",
+    "Silence",
+];

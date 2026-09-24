@@ -5,6 +5,7 @@ import songRoutes from './song.routes.js';
 import statRouter from './stat.routes.js';
 import playlistRouter from './playlist.routes.js';
 import albumRouter from './album.routes.js';
+import categoryRouter from './category.routes.js';
 
 const Router = express.Router();
 
@@ -14,5 +15,6 @@ Router.use("/songs", songRoutes);
 Router.use("/stats", statRouter);
 Router.use("/playlists", playlistRouter);
 Router.use("/albums", albumRouter);
+Router.use("/categories", categoryRouter);
 
 export default Router;
