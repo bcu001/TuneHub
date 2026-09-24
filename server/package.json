@@ -6,9 +6,10 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "start": "node server.js",
-    "seed:songs": "node database/seed/songSeed.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "seed:songs": "node src/database/seed/songSeed.js",
+    "download:songs": "node src/scripts/downloadSongs.js"
   },
   "keywords": [
     "tunehub",

@@ -9,12 +9,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Song } from "@/types/song";
+import { usePlayerStore } from "@/stores/player.store";
 
 interface SongCardProps {
-  song?: Song;
+  song: Song;
 }
 
 const SongCard = ({ song }: SongCardProps) => {
+  const playSong = usePlayerStore(state=> state.playSong);
+  // console.log(song);
   return (
     <Card className="group overflow-hidden bg-background shadow-sm transition hover:shadow-md py-0">
       <CardContent className=" p-0">
@@ -40,7 +43,7 @@ const SongCard = ({ song }: SongCardProps) => {
           <Button
             size="icon"
             className="absolute bottom-3 right-3 h-11 w-11 rounded-full opacity-0 shadow-lg transition-all group-hover:opacity-100"
-            // onClick={() => onPlay?.(song)}
+            onClick={() => playSong(song)}
             aria-label={`Play ${song?.title}`}
           >
             <HugeiconsIcon

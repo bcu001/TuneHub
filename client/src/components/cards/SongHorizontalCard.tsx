@@ -17,37 +17,36 @@ interface SongCardProps {
 
 const SongHorizontalCard = ({ song }: SongCardProps) => {
   return (
-    <Card className="group overflow-hidden transition-colors hover:bg-muted/50">
-      <CardContent className="flex items-center gap-3 p-3">
+    <Card className="group w-full overflow-hidden transition-colors hover:bg-muted/50">
+      <CardContent className="flex min-w-0 items-center gap-2 p-2 sm:gap-3 sm:p-3">
         {/* Artwork */}
-        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md">
+        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md sm:h-14 sm:w-14 md:h-16 md:w-16">
           <img
             src={song?.image}
-            alt={song?.title}
+            alt={song?.title ?? "Song artwork"}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
 
           {/* Play overlay */}
           <button
             type="button"
-            // onClick={() => onPlay?.(song)}
-            aria-label={`Play ${song?.title}`}
-            className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100"
+            aria-label={`Play ${song?.title ?? "song"}`}
+            className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
           >
             <HugeiconsIcon
               icon={PlayIcon}
-              size={22}
+              size={20}
               strokeWidth={2}
-              className="text-white"
+              className="text-white sm:size-5.5"
             />
           </button>
         </div>
 
         {/* Song information */}
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <h3 className="truncate font-medium">
-              {song?.title}
+          <div className="flex min-w-0 items-center gap-2">
+            <h3 className="min-w-0 truncate text-sm font-medium sm:text-base">
+              {song?.title ?? "Unknown song"}
             </h3>
 
             {song?.isFeatured && (
@@ -60,35 +59,31 @@ const SongHorizontalCard = ({ song }: SongCardProps) => {
             )}
           </div>
 
-          <p className="truncate text-sm text-muted-foreground">
-            {song?.artist}
+          <p className="truncate text-xs text-muted-foreground sm:text-sm">
+            {song?.artist ?? "Unknown artist"}
           </p>
         </div>
 
         {/* Actions */}
-        <div className="flex shrink-0 items-center gap-1">
+        <div className="flex shrink-0 items-center">
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9"
-            aria-label={`Like ${song?.title}`}
+            className="h-8 w-8 sm:h-9 sm:w-9"
+            aria-label={`Like ${song?.title ?? "song"}`}
           >
-            <HugeiconsIcon
-              icon={HeartIcon}
-              size={18}
-              strokeWidth={1.8}
-            />
+            <HugeiconsIcon icon={HeartIcon} size={17} strokeWidth={1.8} />
           </Button>
 
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9"
+            className="h-8 w-8 sm:h-9 sm:w-9"
             aria-label="More options"
           >
             <HugeiconsIcon
               icon={MoreVerticalIcon}
-              size={18}
+              size={17}
               strokeWidth={1.8}
             />
           </Button>

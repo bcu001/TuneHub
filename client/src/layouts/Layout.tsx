@@ -2,7 +2,7 @@ import { Outlet } from "react-router";
 
 import Navbar from "@/components/Navbar";
 import AppSidebar from "@/components/AppSidebar";
-import BottomPlayer from "@/components/BottomPlayer";
+import GlobalPlayer from "@/components/GlobalPlayer";
 
 import {
   SidebarProvider,
@@ -20,7 +20,7 @@ const Layout = () => {
             <Outlet />
           </div>
         </main>
-        <BottomPlayer />
+        <GlobalPlayer />
       </SidebarInset>
     </SidebarProvider>
   );
