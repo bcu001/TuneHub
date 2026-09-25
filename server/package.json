@@ -30,8 +30,5 @@
     "multer": "^2.4.0",
     "nodemon": "^3.1.9",
     "zod": "^4.6.5"
-  },
-  "devDependencies": {
-    "@types/multer": "^2.2.0"
   }
 }

@@ -1,11 +1,5 @@
 import mongoose from "mongoose";
 import ENV from '../config/env.js'
-import dns from "dns";
-
-dns.setServers([
-     "0.0.0.0",
-    "8.8.8.8"
-])
 
 
 if (!ENV.DB_URI) {
