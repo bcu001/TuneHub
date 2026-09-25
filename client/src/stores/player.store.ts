@@ -15,7 +15,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
   isPlaying: false,
 
   playSong: (song) => {
-    audioService.play(song.audio);
+    audioService.play(song.audio.url);
     set({
       currentSong: song,
       isPlaying: true,

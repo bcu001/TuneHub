@@ -24,7 +24,7 @@ const SongCard = ({ song }: SongCardProps) => {
         {/* Artwork */}
         <div className="relative  bg-muted brder">
           <img
-            src={song?.image}
+            src={song?.image.url}
             alt={song?.title}
             className="h-full w-full object-cover group-hover:scale-105"
           />
