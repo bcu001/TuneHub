@@ -5,13 +5,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const CLIENT_ID = process.env.JAMENDO_CLIENT_ID;
-console.log(CLIENT_ID)
 
 if (!CLIENT_ID) {
   throw new Error("JAMENDO_CLIENT_ID is missing from .env");
 }
 
-const SONG_COUNT = 50;
+const SONGS_PER_GENRE = 10;
 
 const AUDIO_DIR = path.resolve("public/audio");
 const COVER_DIR = path.resolve("public/covers");
@@ -32,7 +31,7 @@ async function downloadFile(url, destination) {
 
   if (!response.ok) {
     throw new Error(
-      `Download failed: ${response.status} ${response.statusText}`,
+      `Download failed: ${response.status} ${response.statusText}`
     );
   }
 
@@ -65,7 +64,7 @@ async function fetchTracks(genre) {
 
   if (!response.ok) {
     throw new Error(
-      `Jamendo API failed: ${response.status} ${response.statusText}`,
+      `Jamendo API failed: ${response.status} ${response.statusText}`
     );
   }
 
@@ -78,7 +77,7 @@ async function fetchTracks(genre) {
   return data.results.filter(
     (track) =>
       track.audiodownload_allowed &&
-      track.audiodownload,
+      track.audiodownload
   );
 }
 
@@ -89,35 +88,41 @@ async function main() {
 
   console.log("Fetching tracks...\n");
 
-  const allTracks = [];
+  const selectedTracks = [];
 
+  /*
+   * Fetch 10 songs for each genre.
+   *
+   * We intentionally do NOT globally deduplicate here.
+   * A Jamendo track can belong to multiple genres.
+   */
   for (const genre of genres) {
     console.log(`Fetching ${genre}...`);
 
     const tracks = await fetchTracks(genre);
 
-    // Avoid duplicates.
-    for (const track of tracks) {
-      if (!allTracks.some((item) => item.id === track.id)) {
-        allTracks.push(track);
-      }
+    const genreTracks = tracks.slice(0, SONGS_PER_GENRE);
+
+    for (const track of genreTracks) {
+      selectedTracks.push({
+        track,
+        genre,
+      });
     }
 
-    if (allTracks.length >= SONG_COUNT) {
-      break;
-    }
+    console.log(
+      `Selected ${genreTracks.length}/${SONGS_PER_GENRE} songs for ${genre}`
+    );
   }
 
-  const selectedTracks = allTracks.slice(0, SONG_COUNT);
-
   console.log(
-    `\nFound ${selectedTracks.length} downloadable tracks.\n`,
+    `\nFound ${selectedTracks.length} downloadable tracks.\n`
   );
 
   const songs = [];
 
   for (let i = 0; i < selectedTracks.length; i++) {
-    const track = selectedTracks[i];
+    const { track, genre } = selectedTracks[i];
 
     const index = String(i + 1).padStart(3, "0");
 
@@ -128,28 +133,31 @@ async function main() {
 
     const audioPath = path.join(
       AUDIO_DIR,
-      audioFilename,
+      audioFilename
     );
 
     const coverPath = path.join(
       COVER_DIR,
-      coverFilename,
+      coverFilename
     );
 
     console.log(
       `[${i + 1}/${selectedTracks.length}] ` +
-        `${track.artist_name} - ${track.name}`,
+        `[${genre}] ` +
+        `${track.artist_name} - ${track.name}`
     );
 
     try {
+      // Download audio
       await downloadFile(
         track.audiodownload,
-        audioPath,
+        audioPath
       );
 
+      // Download cover
       await downloadFile(
         track.image,
-        coverPath,
+        coverPath
       );
 
       songs.push({
@@ -161,13 +169,21 @@ async function main() {
 
         duration: Number(track.duration),
 
-        audioUrl: `/audio/${audioFilename}`,
+        audio: `/audio/${audioFilename}`,
 
-        coverImage: `/covers/${coverFilename}`,
+        image: `/covers/${coverFilename}`,
+
+        description: `${track.name} by ${track.artist_name}`,
+
+        isFeatured: false,
 
         releaseDate: track.releasedate
           ? new Date(track.releasedate)
           : null,
+
+        // Keep the genre so your seed script
+        // can later resolve it to categoryId.
+        genre,
 
         source: "jamendo",
 
@@ -181,10 +197,11 @@ async function main() {
       });
     } catch (error) {
       console.error(
-        `Failed to download ${track.name}`,
-        error,
+        `Failed to download ${track.name}:`,
+        error
       );
 
+      // Remove partially downloaded files
       await fs.rm(audioPath, {
         force: true,
       });
@@ -197,12 +214,12 @@ async function main() {
 
   const seedPath = path.join(
     SEED_DIR,
-    "songs.json",
+    "songs.json"
   );
 
   await fs.writeFile(
     seedPath,
-    JSON.stringify(songs, null, 2),
+    JSON.stringify(songs, null, 2)
   );
 
   console.log("\n--------------------------------");

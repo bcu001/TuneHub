@@ -1,5 +1,4 @@
-import getCategoriesQueryOptions from "@/queryOptions/getCategoriesQueryOptions";
-import getCategoryByIdQueryOptions from "@/queryOptions/getCategoryByIdQueryOptions";
+import { getCategoriesQueryOptions, getCategoryByIdQueryOptions } from "@/queryOptions/categoriesQueryOptions";
 import { useQuery } from "@tanstack/react-query";
 
 

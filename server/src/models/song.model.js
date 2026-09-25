@@ -17,22 +17,45 @@ const songSchema = new mongoose.Schema(
             type: String,
             required: [true, "Artist is required"]
         },
-        statId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Stat',
-            required: true,
+        stat: {
+            likes: {
+                type: Number,
+                default: 0
+            }
         },
         audio: {
-            type: String,
-            default: "https://res.cloudinary.com/dp7nw5npc/video/upload/v1768913100/chinese-lunar-new-year-465871_1_hwoikv.mp3",
+            displayName: {
+                type: String,
+                required: true
+            },
+            publicId: {
+                type: String,
+                required: true,
+            },
+            url: {
+                type: String,
+                required: true,
+            },
+            format: {
+                type: String,
+            },
+            duration: {
+                type: Number,
+            },
         },
         image: {
-            type: String,
-            default: "https://res.cloudinary.com/dp7nw5npc/image/upload/v1790145125/rvklkibvz6c4r473t5ro.svg"
-        },
-        releaseDate: {
-            type: Date,
-            required: [true, "Release date is required"]
+            displayName: {
+                type: String,
+                required: true
+            },
+            publicId: {
+                type: String,
+                required: true,
+            },
+            url: {
+                type: String,
+                required: true,
+            },
         },
         categoryId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -44,10 +67,8 @@ const songSchema = new mongoose.Schema(
             default: false
         }
     },
-    {
-        timestamps: true,
-    }
+    { timestamps: true, }
 );
 
-const Song =  mongoose.model("Song", songSchema);
+const Song = mongoose.model("Song", songSchema);
 export default Song;

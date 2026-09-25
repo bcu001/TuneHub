@@ -11,6 +11,8 @@ import AlbumPage from "@/pages/user/AlbumPage";
 import AlbumDetailPage from "@/pages/user/AlbumDetailPage";
 import SearchPage from "@/pages/public/SearchPage";
 import SongDetailPage from "@/pages/public/SongDetailPage";
+import SongAdminDashboard from "@/pages/admin/SongAdminDashboardPage";
+import AdminRoutes from "./guards/AdminRoutes";
 
 function AppRoutes() {
   return (
@@ -22,14 +24,22 @@ function AppRoutes() {
         <Route path="/songs/:id" element={<SongDetailPage />} />
       </Route>
 
-      {/* user routes */}
+      {/* login routes */}
       <Route element={<ProtectedRoute />}>
+        {/* user routes */}
         <Route element={<Layout />}>
           <Route path="/albums/:id" element={<AlbumDetailPage />} />
           <Route path="/albums" element={<AlbumPage />} />
           <Route path="/artists/:id" element={<HomePage />} />
           <Route path="/playlists/:id" element={<PlaylistDetailPage />} />
           <Route path="/playlists" element={<PlaylistsPage />} />
+        </Route>
+
+        {/* admin routes */}
+        <Route element={<AdminRoutes />}>
+          <Route element={<Layout />}>
+          <Route path="/admin" element={<SongAdminDashboard />} />
+          </Route>
         </Route>
       </Route>
 

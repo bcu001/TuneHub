@@ -65,7 +65,7 @@ const SearchPage = () => {
 
           {/* songs */}
           {data?.songs.length === 0 && <NoSearchResultUI reset={reset} />}
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-3">
             {isPending &&
               Array.from({ length: 20 }).map((_, idx) => (
                 <SongHorizontalCardSkeleton key={idx} />

@@ -25,7 +25,10 @@ const menu: menuProps[] = [
   { title: "Search", path: "/search" },
 ];
 
-const library: menuProps[] = [{ title: "Playlist", path: "/playlists" }];
+const library: menuProps[] = [
+  { title: "Playlist", path: "/playlists" },
+  {title: "Admin Dashboard", path: "/admin"}
+];
 
 const AppSidebar = () => {
   const { isAuthenticated } = useAuth();

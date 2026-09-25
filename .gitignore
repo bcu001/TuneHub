@@ -54,3 +54,4 @@ Thumbs.db
 # custom
 /server/src/public
 /server/public
+/server/src/seeds

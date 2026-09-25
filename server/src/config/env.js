@@ -13,6 +13,10 @@ const envSchema = z.object({
     REFRESH_TOKEN_EXPIRE_IN:z.string(),
     JWT_REFRESH_SECRET:z.string(),
     JWT_ACCESS_SECRET:z.string(),
+    JAMENDO_CLIENT_ID:z.string(),
+    CLOUDINARY_NAME: z.string(),
+    CLOUDINARY_API_KEY:z.string(),
+    CLOUDINARY_SECRET_KEY:z.string(),
 })
 
 const ENV = envSchema.parse(process.env);
