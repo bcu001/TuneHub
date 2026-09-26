@@ -15,26 +15,29 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { usePlayerStore } from "@/stores/player.store";
+import { formatTime } from "@/lib/formatTime";
 
 const GlobalPlayer = () => {
-  const currentSong = usePlayerStore((state)=>state.currentSong);
+  const currentSong = usePlayerStore((state) => state.currentSong);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const foo:boolean = true;
-  if(foo) return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
-      <h1>{currentSong?.title} </h1>
-      <div>isPlaying {isPlaying ? "true": 'false'}</div>
-    </div>
-  )
+  const togglePlayPause = usePlayerStore((state) => state.togglePlayPause);
+  const currentTime = usePlayerStore((state) => state.currentTime);
+  const duration = usePlayerStore((state) => state.duration);
+  const setCurrentTime = usePlayerStore((state) => state.setCurrentTime);
+  const volume = usePlayerStore(state=>state.volume);
+  const setVolume = usePlayerStore(state=>state.setVolume);
 
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
       {/* Progress bar */}
       <div className="absolute inset-x-0 top-0">
         <Slider
-          defaultValue={[35]}
-          max={100}
+          value={[currentTime]}
+          max={duration || 1}
           step={1}
+          onValueChange={([value]) => {
+            setCurrentTime(value);
+          }}
           className="h-1 cursor-pointer **:data-[slot=slider-thumb]:hidden"
         />
       </div>
@@ -44,19 +47,19 @@ const GlobalPlayer = () => {
         <div className="flex min-w-0 flex-1 items-center gap-3 md:flex-[1.2]">
           {/* Album artwork */}
           <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
-            <HugeiconsIcon
-              icon={MusicNoteIcon}
-              className="size-5 text-muted-foreground"
+            <img
+              src={currentSong?.image.url}
+              className="object-cover text-muted-foreground"
             />
           </div>
 
           <div className="min-w-0">
             <p className="truncate text-sm font-medium">
-              Currently Playing Song
+              {currentSong?.title || "Title"}
             </p>
 
             <p className="truncate text-xs text-muted-foreground">
-              Artist Name
+              {currentSong?.artist || "Artist"}
             </p>
           </div>
 
@@ -85,6 +88,7 @@ const GlobalPlayer = () => {
             </Button>
 
             <Button
+              onClick={togglePlayPause}
               size="icon"
               className="size-10 rounded-full"
               aria-label={isPlaying ? "Pause" : "Play"}
@@ -110,9 +114,9 @@ const GlobalPlayer = () => {
 
           {/* Time */}
           <div className="hidden items-center gap-2 text-[10px] text-muted-foreground sm:flex">
-            <span>1:24</span>
+            <span>{formatTime(currentTime)}</span>
             <span>/</span>
-            <span>3:42</span>
+            <span>{formatTime(duration)}</span>
           </div>
         </div>
 
@@ -123,7 +127,7 @@ const GlobalPlayer = () => {
             className="size-4 text-muted-foreground"
           />
 
-          <Slider defaultValue={[70]} max={100} step={1} className="w-24" />
+          <Slider defaultValue={[volume * 100]} max={100} step={1} onValueChange={([value])=>setVolume(value/100)} className="w-24" />
 
           <Button variant="ghost" size="icon">
             <HugeiconsIcon icon={MoreVerticalIcon} />

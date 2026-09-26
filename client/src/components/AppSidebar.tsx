@@ -18,6 +18,7 @@ import { Link } from "react-router";
 interface menuProps {
   title: string;
   path: string;
+  hidden?: boolean;
 }
 
 const menu: menuProps[] = [
@@ -62,7 +63,7 @@ const AppSidebar = () => {
             <SidebarMenu>
               {isAuthenticated &&
                 library.map((item) => (
-                  <SidebarMenuItem key={item.title}>
+                  <SidebarMenuItem key={item.title} className={`${item.hidden === true ? 'hidden' : ''}`}>
                     <SidebarMenuButton asChild>
                       <Link to={item.path}>
                         <span>{item.title}</span>

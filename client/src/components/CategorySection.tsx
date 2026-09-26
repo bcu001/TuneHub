@@ -19,7 +19,7 @@ const CategorySection = () => {
   } = useCategory(page);
 
   return (
-    <section className="w-full px-4 py-6 sm:px-6 lg:px-8">
+    <section className="w-full px-4 py-6 sm:px-6 lg:px-8 mb-4">
       {/* Section Header */}
       <div className="mb-5">
         <h2 className="text-2xl font-bold tracking-tight">

@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { Song } from "@/types/song";
 import { useSongLike } from "@/hooks/useSong";
 import SongHorizontalCardSkeleton from "../skeletons/SongHorizontalCardSkeleton";
+import { usePlayerStore } from "@/stores/player.store";
 
 interface SongCardProps {
   song: Song | undefined;
@@ -33,6 +34,7 @@ const SongHorizontalCardContent = ({
   song,
 }: SongHorizontalCardContentProps) => {
   const { mutateAsync: likeSong } = useSongLike(song._id);
+  const playSong = usePlayerStore((state)=>state.playSong);
 
   return (
     <Card className="group w-full overflow-hidden transition-colors hover:bg-muted/50">
@@ -47,6 +49,7 @@ const SongHorizontalCardContent = ({
 
           {/* Play overlay */}
           <button
+            onClick={()=>playSong(song)}
             type="button"
             aria-label={`Play ${song.title ?? "song"}`}
             className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"

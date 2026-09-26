@@ -13,7 +13,7 @@ const SongFeaturedSection = () => {
     refetch,
   } = useFeaturedSongs();
   return (
-    <section className=" ">
+    <section className="mb-20">
       {/* Section Header */}
       <div className="mb-5">
         <h2 className="text-2xl font-bold tracking-tight">

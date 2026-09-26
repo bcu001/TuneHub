@@ -20,7 +20,7 @@ const Navbar = () => {
     <header className="flex h-16 items-center border-b px-4">
       <div className="flex items-center gap-4">
         <SidebarTrigger size="icon-lg" />
-        <span className="text-lg font-semibold">TuneHub</span>
+        <Link to={'/'} className="text-lg font-semibold">TuneHub</Link>
       </div>
       <div className="ml-auto flex gap-4 ">
         {!isAuthenticated && (
