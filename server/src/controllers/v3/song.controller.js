@@ -91,11 +91,11 @@ export const uploadSong = async (req, res) => {
                 duration: audioResult.duration,
                 format: audioResult.format,
                 publicId: audioResult.public_id,
-                url: audioResult.url,
+                url: audioResult.secure_url,
                 displayName: audioResult.display_name
             }, image: {
                 publicId: imageResult.public_id,
-                url: imageResult.url,
+                url: imageResult.secure_url,
                 displayName: imageResult.display_name
             }
         })
