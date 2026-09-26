@@ -1,4 +1,4 @@
-import apiResponse from "../lib/apiResponse"
+import apiResponse from "../lib/apiResponse.js"
 
 
 const authorizeAdmin = (req,res,next)=>{
