@@ -2,11 +2,25 @@ import api from "@/lib/axios";
 import type { FeaturedSongsData, Song, SongData } from "@/types/song";
 import { toast } from "sonner";
 
-export const getSongs = async (page: number, q: string): Promise<SongData> => {
-  const res = await api.get(`/songs`, {
-    params: { page, q },
+export const getSongs = async (
+  page: number,
+  q: string,
+  sort: string = "newest",
+  categoryId?: string,
+  featured?: boolean
+): Promise<SongData> => {
+  const res = await api.get("/songs", {
+    params: {
+      page,
+      q,
+      sort,
+      categoryId,
+      featured,
+    },
   });
-  toast.success("getSongs");
+  toast.success("getSongs", {
+    duration: 300
+  })
   return res.data?.data;
 };
 

@@ -3,6 +3,128 @@ import apiResponse from '../../lib/apiResponse.js';
 import { handleEndpointUnderDevelopment } from '../../lib/utils.js';
 import { uploadBuffer } from '../../config/cloudinary.js'
 
+export const getSongsv2 = async (req, res) => {
+    try {
+        const q = req.query.q?.trim();
+        const categoryId = req.query.categoryId?.trim();
+        const sort = req.query.sort?.trim() || "newest";
+        const featured = req.query.featured;
+
+        const page = Math.max(Number(req.query.page) || 1, 1);
+
+        // Keep this server-controlled.
+        const limit = 20;
+        const skip = (page - 1) * limit;
+
+        // --------------------------------
+        // FILTER
+        // --------------------------------
+
+        const filter = {};
+
+        // Search
+        if (q) {
+            filter.$or = [
+                {
+                    title: {
+                        $regex: q,
+                        $options: "i",
+                    },
+                },
+                {
+                    description: {
+                        $regex: q,
+                        $options: "i",
+                    },
+                },
+                {
+                    artist: {
+                        $regex: q,
+                        $options: "i",
+                    },
+                },
+            ];
+        }
+
+        // Category
+        if (categoryId) {
+            filter.categoryId = categoryId;
+        }
+
+        // Featured
+        if (featured !== undefined) {
+            filter.isFeatured = featured === "true";
+        }
+
+        // --------------------------------
+        // SORT
+        // --------------------------------
+
+        const sortOptions = {
+            newest: { createdAt: -1 },
+            oldest: { createdAt: 1 },
+
+            popular: {
+                "stat.likes": -1,
+                createdAt: -1,
+            },
+
+            mostLiked: {
+                "stat.likes": -1,
+                createdAt: -1,
+            },
+
+            title: {
+                title: 1,
+                createdAt: -1,
+            },
+        };
+
+        const sortQuery = sortOptions[sort];
+        if (!sortQuery) return apiResponse(res,`Invalid sort option. Available options: ${Object.keys(sortOptions).join(", ")}`,400 );
+
+        // --------------------------------
+        // QUERY
+        // --------------------------------
+
+        const [totalSongs, songs] = await Promise.all([
+            Song.countDocuments(filter),
+
+            Song.find(filter)
+                .sort(sortQuery)
+                .skip(skip)
+                .limit(limit)
+                .lean(),
+        ]);
+
+        // --------------------------------
+        // PAGINATION
+        // --------------------------------
+
+        const totalPages = Math.ceil(totalSongs / limit);
+        if (page > totalPages && totalPages > 0)  return apiResponse(res, `page ${page} does not exist`,400);
+
+        // --------------------------------
+        // RESPONSE
+        // --------------------------------
+
+        return apiResponse( res, "songs found",200, {
+                totalSongs,
+                currPage: page,
+                limit,
+                skip,
+                totalPages,
+                sort,
+                songs,
+            }
+        );
+
+    } catch (error) {
+        console.error("Error at getSongsv2", error);
+        return apiResponse( res,"error at getSongsv2",500);
+    }
+};
+
 export const getSongs = async (req, res) => {
     try {
         const q = req.query.q?.trim();

@@ -1,9 +1,24 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { likeSong, unLikeSong, uploadSong } from "@/services/music/song.services";
 import { getSongsQueryOptions, getSongByIdQueryOptions, getFeaturedSongsQueryOptions } from "@/queryOptions/songsQueryOptions";
+import type { SongSort } from "@/types/song";
 
-export function useSong(page:number, q:string){
-    return useQuery(getSongsQueryOptions(page,q));
+export function useSong(
+  page: number,
+  q: string,
+  sort: SongSort = "newest",
+  categoryId?: string,
+  featured?: boolean
+) {
+  return useQuery(
+    getSongsQueryOptions(
+      page,
+      q,
+      sort,
+      categoryId,
+      featured
+    )
+  );
 }
 
 export function useSongById(id:string){

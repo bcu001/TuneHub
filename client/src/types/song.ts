@@ -32,13 +32,30 @@ export interface Song {
   __v: number;
 }
 
+// export interface SongData {
+//   currPage: number;
+//   limit: number;
+//   skip: number;
+//   songs: Song[];
+//   totalPages: number;
+//   totalSongs: number;
+// }
+
+export type SongSort =
+  | "newest"
+  | "oldest"
+  | "popular"
+  | "mostLiked"
+  | "title";
+
 export interface SongData {
-  currPage: number;
-  limit: number;
-  skip: number;
-  songs: Song[];
-  totalPages: number;
   totalSongs: number;
+  currPage: number;
+  limit:number;
+  skip: number;
+  totalPages:number;
+  sort : SongSort;
+  songs: Song[],
 }
 
 export interface FeaturedSongsData{
