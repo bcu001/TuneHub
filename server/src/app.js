@@ -15,6 +15,17 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
 
+// Disable ETags so Express returns 200 OK instead of 304 Not Modified
+app.disable('etag');
+
+// Global header to prevent WebView/Browser caching on all API responses
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 app.use(`${apiVersion}`, v3Routes);
 
 app.get("/", (req, res) => {
