@@ -1,19 +1,15 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 
-import {
-  PlayIcon,
-  MoreVerticalIcon,
-  HeartIcon,
-} from "@hugeicons/core-free-icons";
+import { HeartIcon } from "@hugeicons/core-free-icons";
 
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-import type { Song } from "@/types/song";
-import { useSongLike } from "@/hooks/useSong";
-import SongHorizontalCardSkeleton from "../skeletons/SongHorizontalCardSkeleton";
+import { useLike } from "@/hooks/useLike";
 import { usePlayerStore } from "@/stores/player.store";
+import type { Song } from "@/types/song";
+import SongHorizontalCardSkeleton from "../skeletons/SongHorizontalCardSkeleton";
 
 interface SongCardProps {
   song: Song | undefined;
@@ -33,92 +29,88 @@ interface SongHorizontalCardContentProps {
 const SongHorizontalCardContent = ({
   song,
 }: SongHorizontalCardContentProps) => {
-  const { mutateAsync: likeSong } = useSongLike(song._id);
-  const playSong = usePlayerStore((state)=>state.playSong);
+  const { liked, like, unlike, isMutating } = useLike(song._id);
+  const playSong = usePlayerStore((state) => state.playSong);
+  // const isPlaying = usePlayerStore((state) => state.isPlaying);
+  // const currentSong = usePlayerStore((state) => state.currentSong);
+
+ const imageUrl = song.image.url.replace(
+  "/upload/",
+  "/upload/w_64,h_64,c_fill,q_auto,f_auto/"
+);
 
   return (
-    <Card className="group w-full overflow-hidden transition-colors hover:bg-muted/50">
-      <CardContent className="flex min-w-0 items-center gap-2 p-2 sm:gap-3 sm:p-3">
-        {/* Artwork */}
-        <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md sm:h-14 sm:w-14 md:h-16 md:w-16">
+    <Card onClick={() => playSong(song)} className="relative">
+      <CardContent className="flex flex-col lg:flex-row lg:justify-between gap-2">
+        <div className="flex gap-2">
+          {/* Artwork */}
           <img
-            src={song.image.url}
+            src={imageUrl}
             alt={song.title ?? "Song artwork"}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover size-16 rounded "
           />
 
-          {/* Play overlay */}
-          <button
-            onClick={()=>playSong(song)}
-            type="button"
-            aria-label={`Play ${song.title ?? "song"}`}
-            className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
-          >
-            <HugeiconsIcon
-              icon={PlayIcon}
-              size={20}
-              strokeWidth={2}
-              className="text-white sm:size-5.5"
-            />
-          </button>
-        </div>
-
-        {/* Song information */}
-        <div className="min-w-0 flex-1">
-          <div className="flex min-w-0 items-center gap-2">
-            <h3 className="min-w-0 truncate text-sm font-medium sm:text-base">
-              {song.title ?? "Unknown song"}
+          {/* Song information */}
+          <div className="min-w-0 ">
+            <h3 className="font-bold truncate text-sm">
+              {song.title ?? "Unknown Title"}
             </h3>
-
-            {song.isFeatured && (
-              <Badge
-                variant="secondary"
-                className="hidden shrink-0 sm:inline-flex"
-              >
-                Featured
-              </Badge>
-            )}
+            <p className="truncate text-xs">
+              {song.artist ?? "Unknown artist"}
+            </p>
+            {song.isFeatured && <Badge variant={"secondary"}>Featured</Badge>}
           </div>
-
-          <p className="truncate text-xs text-muted-foreground sm:text-sm">
-            {song.artist ?? "Unknown artist"}
-          </p>
         </div>
 
         {/* Actions */}
-        <div className="flex shrink-0 items-center">
-          <div className="flex items-center">
+        <div className="flex  items-center justify-between lg: gap-2">
+          <div className="flex  items-center ">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 sm:h-9 sm:w-9"
-              aria-label={`Like ${song.title ?? "song"}`}
-              onClick={() => likeSong()}
+              className=""
+              aria-label={
+                liked
+                  ? `Unlike ${song.title ?? "song"}`
+                  : `Like ${song.title ?? "song"}`
+              }
+              disabled={isMutating}
+              onClick={() => {
+                if (liked) {
+                  unlike();
+                } else {
+                  like();
+                }
+              }}
             >
               <HugeiconsIcon
                 icon={HeartIcon}
                 size={17}
                 strokeWidth={1.8}
+                className={liked ? "fill-pink-500" : ""}
               />
             </Button>
 
-            <span className="hidden min-w-8 text-xs tabular-nums text-muted-foreground sm:inline-block">
-              {song.stat.likes ?? 0}
-            </span>
+            <span className="">{song.stat.likes ?? 0}</span>
           </div>
 
-          <Button
-            variant="ghost"
+          {/* <Button
+            onClick={() => playSong(song)}
+            variant="default"
             size="icon"
-            className="h-8 w-8 sm:h-9 sm:w-9"
-            aria-label="More options"
+            className=""
+            aria-label={`Play ${song.title ?? "song"}`}
           >
             <HugeiconsIcon
-              icon={MoreVerticalIcon}
+              icon={
+                isPlaying && currentSong?._id === song._id
+                  ? PauseIcon
+                  : PlayIcon
+              }
               size={17}
               strokeWidth={1.8}
             />
-          </Button>
+          </Button> */}
         </div>
       </CardContent>
     </Card>

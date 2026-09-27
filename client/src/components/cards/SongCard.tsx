@@ -1,7 +1,5 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  PlayIcon,
-  MoreVerticalIcon,
   HeartIcon,
 } from "@hugeicons/core-free-icons";
 
@@ -10,21 +8,27 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { Song } from "@/types/song";
 import { usePlayerStore } from "@/stores/player.store";
+import { useLike } from "@/hooks/useLike";
 
 interface SongCardProps {
   song: Song;
 }
 
 const SongCard = ({ song }: SongCardProps) => {
-  const playSong = usePlayerStore(state=> state.playSong);
-  // console.log(song);
+  const { liked, like, unlike, isMutating } = useLike(song._id);
+  const playSong = usePlayerStore((state) => state.playSong);
+  const imageUrl = song.image.url.replace(
+    "/upload/",
+    "/upload/c_fill,q_auto,f_auto/",
+  );
+
   return (
-    <Card className="group overflow-hidden bg-background shadow-sm transition hover:shadow-md py-0">
+    <Card onClick={() => playSong(song)} className="group overflow-hidden bg-background shadow-sm transition hover:shadow-md py-0">
       <CardContent className=" p-0">
         {/* Artwork */}
         <div className="relative  bg-muted brder">
           <img
-            src={song?.image.url}
+            src={imageUrl}
             alt={song?.title}
             className="h-full w-full object-cover group-hover:scale-105"
           />
@@ -34,32 +38,14 @@ const SongCard = ({ song }: SongCardProps) => {
 
           {/* Featured */}
           {song?.isFeatured && (
-            <Badge className="absolute left-3 top-3">
-              Featured
-            </Badge>
+            <Badge className="absolute left-3 top-3">Featured</Badge>
           )}
-
-          {/* Play button */}
-          <Button
-            size="icon"
-            className="absolute bottom-3 right-3 h-11 w-11 rounded-full opacity-0 shadow-lg transition-all group-hover:opacity-100"
-            onClick={() => playSong(song)}
-            aria-label={`Play ${song?.title}`}
-          >
-            <HugeiconsIcon
-              icon={PlayIcon}
-              size={20}
-              strokeWidth={2}
-            />
-          </Button>
         </div>
 
         {/* Information */}
         <div className="flex items-start justify-between gap-2 p-3">
           <div className="min-w-0">
-            <h3 className="truncate font-semibold">
-              {song?.title}
-            </h3>
+            <h3 className="truncate font-semibold">{song?.title}</h3>
 
             <p className="truncate text-sm text-muted-foreground">
               {song?.artist}
@@ -70,32 +56,31 @@ const SongCard = ({ song }: SongCardProps) => {
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8"
-              aria-label={`Like ${song?.title}`}
+              className=""
+              aria-label={
+                liked
+                  ? `Unlike ${song.title ?? "song"}`
+                  : `Like ${song.title ?? "song"}`
+              }
+              disabled={isMutating}
+              onClick={() => {
+                if (liked) {
+                  unlike();
+                } else {
+                  like();
+                }
+              }}
             >
               <HugeiconsIcon
                 icon={HeartIcon}
                 size={17}
                 strokeWidth={1.8}
-              />
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              aria-label="More options"
-            >
-              <HugeiconsIcon
-                icon={MoreVerticalIcon}
-                size={17}
-                strokeWidth={1.8}
+                className={liked ? "fill-pink-500" : ""}
               />
             </Button>
           </div>
         </div>
       </CardContent>
-      
     </Card>
   );
 };
