@@ -5,14 +5,16 @@ import {
 } from "@/services/like/like.service";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import useAuth from "./useAuth";
 
 export function useLike(songId: string) {
   const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
 
   const likeStatusQuery = useQuery({
     queryKey: ["songLikeStatus", songId],
     queryFn: () => getSongLikeStatus(songId),
-    enabled: !!songId,
+    enabled: !!songId && isAuthenticated,
   });
 
   const likeMutation = useMutation({

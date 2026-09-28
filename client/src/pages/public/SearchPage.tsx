@@ -4,13 +4,15 @@ import NoSearchResultUI from "@/components/NoSearchResultUI";
 import SongHorizontalCardSkeleton from "@/components/skeletons/SongHorizontalCardSkeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useSong} from "@/hooks/useSong";
+import { useSong } from "@/hooks/useSong";
 import { getApiErrorMessage } from "@/lib/utils";
 
 import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import type { SongSort } from "@/types/song";
 import { useSearchParams } from "react-router";
+import { BlurFade } from "@/components/ui/blur-fade";
+import { AnimationConfig } from "@/config/animateConfig";
 
 interface Inputs {
   q: string;
@@ -24,7 +26,6 @@ const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sort, setSort] = useState<SongSort>("newest");
   const categoryId = searchParams.get("categoryId") || undefined;
-
 
   const search = useWatch({
     control,
@@ -42,19 +43,12 @@ const SearchPage = () => {
   }, [search]);
 
   // Reset pagination when sorting changes
- const handleSortChange = (newSort: SongSort) => {
-  setSort(newSort);
-  setPage(1);
-};
-  const {
-    data,
-    isError,
-    error,
-    refetch,
-    isPending,
-    isFetched,
-    isSuccess,
-  } = useSong(page, searchQuery, sort, categoryId);
+  const handleSortChange = (newSort: SongSort) => {
+    setSort(newSort);
+    setPage(1);
+  };
+  const { data, isError, error, refetch, isPending, isFetched, isSuccess } =
+    useSong(page, searchQuery, sort, categoryId);
 
   // Scroll to top when page changes
   useEffect(() => {
@@ -68,11 +62,7 @@ const SearchPage = () => {
     <div className="mb-20">
       {/* Search */}
       <form>
-        <Input
-          type="search"
-          placeholder="search music..."
-          {...register("q")}
-        />
+        <Input type="search" placeholder="search music..." {...register("q")} />
 
         <Button disabled className="hidden" type="submit">
           Submit
@@ -127,10 +117,7 @@ const SearchPage = () => {
           {/* Error */}
           {isError && (
             <ApiErrorUI
-              message={getApiErrorMessage(
-                error,
-                "Unable to load songs"
-              )}
+              message={getApiErrorMessage(error, "Unable to load songs")}
               onRetry={refetch}
             />
           )}
@@ -148,11 +135,16 @@ const SearchPage = () => {
               ))}
 
             {isFetched &&
-              data?.songs.map((song) => (
-                <SongHorizontalCard
+              data?.songs.map((song, i) => (
+                <BlurFade
                   key={song._id}
-                  song={song}
-                />
+                  delay={AnimationConfig.delay * (i + 1)}
+                  offset={120}
+                  direction="up"
+                  inView={true}
+                >
+                  <SongHorizontalCard key={song._id} song={song} />
+                </BlurFade>
               ))}
           </div>
         </div>
@@ -163,9 +155,7 @@ const SearchPage = () => {
             <Button
               variant="secondary"
               disabled={page === 1}
-              onClick={() =>
-                setPage((prev) => prev - 1)
-              }
+              onClick={() => setPage((prev) => prev - 1)}
               className="rounded-full disabled:opacity-40"
             >
               Prev
@@ -173,18 +163,14 @@ const SearchPage = () => {
 
             <span className="text-sm text-base-content/55">
               Page{" "}
-              <span className="font-semibold text-base-content">
-                {page}
-              </span>{" "}
-              of {data.totalPages}
+              <span className="font-semibold text-base-content">{page}</span> of{" "}
+              {data.totalPages}
             </span>
 
             <Button
               variant="secondary"
               disabled={page >= data.totalPages}
-              onClick={() =>
-                setPage((prev) => prev + 1)
-              }
+              onClick={() => setPage((prev) => prev + 1)}
               className="rounded-full disabled:opacity-40"
             >
               Next

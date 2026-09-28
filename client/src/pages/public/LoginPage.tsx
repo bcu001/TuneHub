@@ -28,7 +28,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center gap-4">
+    <div className="flex flex-col justify-center items-center gap-4">
       <div>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <Field>
@@ -69,13 +69,16 @@ const RegisterPage = () => {
             {signinPending ? "Signing in" : "Submit"}
           </Button>
         </form>
+        <Button variant={"link"}>
+          <Link to={"/forget-password"} className="mt-2 text-sm">
+            Forgot password?
+          </Link>
+        </Button>
       </div>
       <div className="flex gap-1">
         <div>First time here?</div>
         <Button variant={"link"}>
-          <Link to={`/register`} className="link link-info">
-            Register
-          </Link>
+          <Link to={`/register`}>Register</Link>
         </Button>
         instead
       </div>

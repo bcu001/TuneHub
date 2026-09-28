@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
+import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
 
 const Navbar = () => {
   const { isAuthenticated, user, signoutHandler } = useAuth();
@@ -20,7 +21,9 @@ const Navbar = () => {
     <header className="flex h-16 items-center border-b px-4">
       <div className="flex items-center gap-4">
         <SidebarTrigger size="icon-lg" />
-        <Link to={'/'} className="text-lg font-semibold">TuneHub</Link>
+        <Link to={"/"} className="text-lg font-semibold">
+          TuneHub
+        </Link>
       </div>
       <div className="ml-auto flex gap-4 ">
         {!isAuthenticated && (
@@ -42,9 +45,7 @@ const Navbar = () => {
             <DropdownMenuTrigger asChild>
               <Avatar>
                 <AvatarImage src="https://github.com/bcu001.png" />
-                <AvatarFallback>
-                  {user?.name[0].toUpperCase()}
-                </AvatarFallback>
+                <AvatarFallback>{user?.name[0].toUpperCase()}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -65,6 +66,8 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         )}
+
+        <AnimatedThemeToggler variant="triangle" duration={600} fromCenter />
       </div>
     </header>
   );

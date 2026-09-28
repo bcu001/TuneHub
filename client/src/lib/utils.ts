@@ -18,3 +18,12 @@ export const getApiErrorMessage = (
 
   return fallback;
 };
+
+/**
+ * Utility to combine class names conditionally.
+ * Accepts any number of arguments that are strings, falsy values, or undefined.
+ * Returns a single string with truthy class names joined by spaces.
+ */
+export function cn(...classes: (string | false | null | undefined)[]): string {
+  return classes.filter(Boolean).join(' ');
+}

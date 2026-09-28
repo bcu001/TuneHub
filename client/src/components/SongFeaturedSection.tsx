@@ -3,6 +3,8 @@ import SongCard from "./cards/SongCard";
 import ApiErrorUI from "./common/ApiError";
 import { useFeaturedSongs } from "@/hooks/useSong";
 import SongCardSkeleton from "./skeletons/SongCardSkeleton";
+import { BlurFade } from "./ui/blur-fade";
+import { AnimationConfig } from "@/config/animateConfig";
 
 const SongFeaturedSection = () => {
   const {
@@ -16,9 +18,7 @@ const SongFeaturedSection = () => {
     <section className="mb-20">
       {/* Section Header */}
       <div className="mb-5">
-        <h2 className="text-2xl font-bold tracking-tight">
-          Featured Songs
-        </h2>
+        <h2 className="text-2xl font-bold tracking-tight">Featured Songs</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Discover handpicked tracks worth listening to.
         </p>
@@ -30,12 +30,21 @@ const SongFeaturedSection = () => {
             onRetry={refetch}
           />
         )}
-        {!isFeaturedSongsFetched && Array.from({length:10}).map((_,index)=>(
-          <SongCardSkeleton key={index}/>
-        ))}
+        {!isFeaturedSongsFetched &&
+          Array.from({ length: 10 }).map((_, index) => (
+            <SongCardSkeleton key={index} />
+          ))}
         {isFeaturedSongsFetched &&
-          featuredSongsData?.songs.map((song) => (
-            <SongCard key={song._id} song={song} />
+          featuredSongsData?.songs.map((song, i) => (
+            <BlurFade
+              key={song._id}
+              delay={AnimationConfig.delay * (i + AnimationConfig.delay)}
+              offset={120}
+              direction="up"
+              inView={true}
+            >
+              <SongCard song={song} />
+            </BlurFade>
           ))}
       </div>
     </section>

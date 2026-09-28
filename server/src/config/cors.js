@@ -5,7 +5,7 @@ const corsOptions = {
         `${ENV.CLIENT_URL}`,
         'https://mobileapp.tunehub.com'
     ],
-    credentials:true
+    credentials: true
 }
 
 export default corsOptions;

@@ -23,11 +23,11 @@ const GlobalPlayer = () => {
   const currentTime = usePlayerStore((state) => state.currentTime);
   const duration = usePlayerStore((state) => state.duration);
   const setCurrentTime = usePlayerStore((state) => state.setCurrentTime);
-  const volume = usePlayerStore(state=>state.volume);
-  const setVolume = usePlayerStore(state=>state.setVolume);
+  const volume = usePlayerStore((state) => state.volume);
+  const setVolume = usePlayerStore((state) => state.setVolume);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
+    <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-secondary">
       {/* Progress bar */}
       <div className="absolute inset-x-0 top-0">
         <Slider
@@ -126,17 +126,18 @@ const GlobalPlayer = () => {
             className="size-4 text-muted-foreground"
           />
 
-          <Slider defaultValue={[volume * 100]} max={100} step={1} onValueChange={([value])=>setVolume(value/100)} className="w-24" />
+          <Slider
+            defaultValue={[volume * 100]}
+            max={100}
+            step={1}
+            onValueChange={([value]) => setVolume(value / 100)}
+            className="w-24"
+          />
 
           <Button variant="ghost" size="icon">
             <HugeiconsIcon icon={MoreVerticalIcon} />
           </Button>
         </div>
-
-        {/* Mobile more button */}
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <HugeiconsIcon icon={MoreVerticalIcon} />
-        </Button>
       </div>
     </div>
   );

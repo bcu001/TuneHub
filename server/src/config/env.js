@@ -1,22 +1,24 @@
 import { config } from "dotenv";
 import z from 'zod'
 
-config();  
+config();
 
 const envSchema = z.object({
     PORT: z.string().transform(Number),
     NODE_ENV: z.string(),
     DB_URI: z.string(),
-    DB_NAME:z.string(),
-    CLIENT_URL:z.string(),
-    ACCESS_TOKEN_EXPIRE_IN:z.string(),
-    REFRESH_TOKEN_EXPIRE_IN:z.string(),
-    JWT_REFRESH_SECRET:z.string(),
-    JWT_ACCESS_SECRET:z.string(),
-    JAMENDO_CLIENT_ID:z.string(),
+    DB_NAME: z.string(),
+    CLIENT_URL: z.string(),
+    ACCESS_TOKEN_EXPIRE_IN: z.string(),
+    REFRESH_TOKEN_EXPIRE_IN: z.string(),
+    JWT_REFRESH_SECRET: z.string(),
+    JWT_ACCESS_SECRET: z.string(),
+    JAMENDO_CLIENT_ID: z.string(),
     CLOUDINARY_NAME: z.string(),
-    CLOUDINARY_API_KEY:z.string(),
-    CLOUDINARY_SECRET_KEY:z.string(),
+    CLOUDINARY_API_KEY: z.string(),
+    CLOUDINARY_SECRET_KEY: z.string(),
+    EMAIL_USER: z.string(),
+    EMAIL_PASS: z.string(),
 })
 
 const ENV = envSchema.parse(process.env);

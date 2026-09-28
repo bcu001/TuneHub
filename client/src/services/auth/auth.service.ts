@@ -36,3 +36,15 @@ export const refreshToken = async()=>{
     toast.success("access token refresh and refreshtoken rotated",{duration:600});
     return res.data?.data;
 }
+
+export const requestResetPassword = async(email:string)=>{
+    const res = await api.post(`/auth/request-reset`,{email});
+    toast.success("reset password link sent to your email",{duration:600});
+    return res.data?.data;
+}
+
+export const resetPassword = async(token:string,newPassword:string)=>{
+    const res = await api.post(`/auth/reset`,{token,newPassword});
+    toast.success("password reset successfully",{duration:600});
+    return res.data?.data;
+}

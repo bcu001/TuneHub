@@ -34,13 +34,13 @@ const SongHorizontalCardContent = ({
   // const isPlaying = usePlayerStore((state) => state.isPlaying);
   // const currentSong = usePlayerStore((state) => state.currentSong);
 
- const imageUrl = song.image.url.replace(
-  "/upload/",
-  "/upload/w_64,h_64,c_fill,q_auto,f_auto/"
-);
+  const imageUrl = song.image.url.replace(
+    "/upload/",
+    "/upload/w_64,h_64,c_fill,q_auto,f_auto/",
+  );
 
   return (
-    <Card onClick={() => playSong(song)} className="relative">
+    <Card className="relative">
       <CardContent className="flex flex-col lg:flex-row lg:justify-between gap-2">
         <div className="flex gap-2">
           {/* Artwork */}
@@ -64,9 +64,9 @@ const SongHorizontalCardContent = ({
 
         {/* Actions */}
         <div className="flex  items-center justify-between lg: gap-2">
-          <div className="flex  items-center ">
+          <div className="flex  items-center  gap-2">
             <Button
-              variant="ghost"
+              variant="secondary"
               size="icon"
               className=""
               aria-label={
@@ -75,7 +75,8 @@ const SongHorizontalCardContent = ({
                   : `Like ${song.title ?? "song"}`
               }
               disabled={isMutating}
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 if (liked) {
                   unlike();
                 } else {
@@ -94,23 +95,13 @@ const SongHorizontalCardContent = ({
             <span className="">{song.stat.likes ?? 0}</span>
           </div>
 
-          {/* <Button
+          <Button
             onClick={() => playSong(song)}
             variant="default"
-            size="icon"
-            className=""
             aria-label={`Play ${song.title ?? "song"}`}
           >
-            <HugeiconsIcon
-              icon={
-                isPlaying && currentSong?._id === song._id
-                  ? PauseIcon
-                  : PlayIcon
-              }
-              size={17}
-              strokeWidth={1.8}
-            />
-          </Button> */}
+            <span>Play</span>
+          </Button>
         </div>
       </CardContent>
     </Card>

@@ -1,7 +1,5 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  HeartIcon,
-} from "@hugeicons/core-free-icons";
+import { HeartIcon } from "@hugeicons/core-free-icons";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,7 +21,7 @@ const SongCard = ({ song }: SongCardProps) => {
   );
 
   return (
-    <Card onClick={() => playSong(song)} className="group overflow-hidden bg-background shadow-sm transition hover:shadow-md py-0">
+    <Card className="group overflow-hidden bg-background shadow-sm transition hover:shadow-md py-0">
       <CardContent className=" p-0">
         {/* Artwork */}
         <div className="relative  bg-muted brder">
@@ -43,7 +41,7 @@ const SongCard = ({ song }: SongCardProps) => {
         </div>
 
         {/* Information */}
-        <div className="flex items-start justify-between gap-2 p-3">
+        <div className="flex flex-col gap-2 p-3">
           <div className="min-w-0">
             <h3 className="truncate font-semibold">{song?.title}</h3>
 
@@ -52,31 +50,42 @@ const SongCard = ({ song }: SongCardProps) => {
             </p>
           </div>
 
-          <div className="flex shrink-0 items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              className=""
-              aria-label={
-                liked
-                  ? `Unlike ${song.title ?? "song"}`
-                  : `Like ${song.title ?? "song"}`
-              }
-              disabled={isMutating}
-              onClick={() => {
-                if (liked) {
-                  unlike();
-                } else {
-                  like();
+          <div className="flex shrink-0 items-center justify-between  gap-2">
+            <div className="flex items-center  gap-2">
+              <Button
+                variant="secondary"
+                size="icon"
+                className=""
+                aria-label={
+                  liked
+                    ? `Unlike ${song.title ?? "song"}`
+                    : `Like ${song.title ?? "song"}`
                 }
-              }}
+                disabled={isMutating}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (liked) {
+                    unlike();
+                  } else {
+                    like();
+                  }
+                }}
+              >
+                <HugeiconsIcon
+                  icon={HeartIcon}
+                  size={17}
+                  strokeWidth={1.8}
+                  className={liked ? "fill-pink-500" : ""}
+                />
+              </Button>
+              <span className="">{song.stat.likes ?? 0}</span>
+            </div>
+            <Button
+              onClick={() => playSong(song)}
+              variant="default"
+              aria-label={`Play ${song.title ?? "song"}`}
             >
-              <HugeiconsIcon
-                icon={HeartIcon}
-                size={17}
-                strokeWidth={1.8}
-                className={liked ? "fill-pink-500" : ""}
-              />
+              <span>Play</span>
             </Button>
           </div>
         </div>

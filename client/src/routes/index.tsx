@@ -13,6 +13,9 @@ import SearchPage from "@/pages/public/SearchPage";
 import SongDetailPage from "@/pages/public/SongDetailPage";
 import SongAdminDashboard from "@/pages/admin/SongAdminDashboardPage";
 import AdminRoutes from "./guards/AdminRoutes";
+import AuthLayout from "@/layouts/AuthLayout";
+import ResetPasswordPage from "@/pages/public/ResetPasswordPage";
+import ForgetPasswordPage from "@/pages/public/ForgetPasswordPage";
 
 function AppRoutes() {
   return (
@@ -38,14 +41,18 @@ function AppRoutes() {
         {/* admin routes */}
         <Route element={<AdminRoutes />}>
           <Route element={<Layout />}>
-          <Route path="/admin" element={<SongAdminDashboard />} />
+            <Route path="/admin" element={<SongAdminDashboard />} />
           </Route>
         </Route>
       </Route>
 
       {/* pulbic but diff layout */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/forget-password" element={<ForgetPasswordPage />} />
+      </Route>
 
       {/* not found routes */}
       <Route path="/*" element={<NotFound />} />
