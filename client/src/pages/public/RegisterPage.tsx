@@ -20,14 +20,14 @@ const LoginPage = () => {
     try {
       await signupHandler(data.name, data.email, data.password);
       navigate("/login");
-    } catch (error:unknown) {
+    } catch (error: unknown) {
       apiError(error);
       console.error("Error at login", error);
     }
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-4">
+    <div className="mt-20 flex flex-col justify-center items-center gap-4">
       <div>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <Field>
@@ -81,16 +81,13 @@ const LoginPage = () => {
           </Button>
         </form>
       </div>
-      <div className="flex gap-1">
-        <div>Already have an account?</div>
-        <div>
-          <Button variant={"link"}>
-            <Link to={`/login`} className="link link-info">
-              Login
-            </Link>{" "}
-          </Button>
-          instead
-        </div>
+      <div className="flex items-center gap-2">
+        <div className="whitespace-nowrap">Already have an account?</div>
+
+        <Button variant="link" className="p-0 h-auto">
+          <Link to="/login">Login</Link>
+        </Button>
+        <span>instead</span>
       </div>
     </div>
   );

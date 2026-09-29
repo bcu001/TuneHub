@@ -1,6 +1,5 @@
 import { HugeiconsIcon } from "@hugeicons/react";
-
-import { HeartIcon } from "@hugeicons/core-free-icons";
+import { HeartIcon, PlayIcon, StarIcon } from "@hugeicons/core-free-icons";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,9 +15,10 @@ interface SongCardProps {
 }
 
 const SongHorizontalCard = ({ song }: SongCardProps) => {
-  if (song === undefined) {
+  if (!song) {
     return <SongHorizontalCardSkeleton />;
   }
+
   return <SongHorizontalCardContent song={song} />;
 };
 
@@ -31,78 +31,102 @@ const SongHorizontalCardContent = ({
 }: SongHorizontalCardContentProps) => {
   const { liked, like, unlike, isMutating } = useLike(song._id);
   const playSong = usePlayerStore((state) => state.playSong);
-  // const isPlaying = usePlayerStore((state) => state.isPlaying);
-  // const currentSong = usePlayerStore((state) => state.currentSong);
 
   const imageUrl = song.image.url.replace(
     "/upload/",
-    "/upload/w_64,h_64,c_fill,q_auto,f_auto/",
+    "/upload/w_96,h_96,c_fill,q_auto,f_auto/",
   );
 
+  const title = song.title ?? "Unknown Title";
+  const artist = song.artist ?? "Unknown Artist";
+  const likes = song.stat?.likes ?? 0;
+
+  const handleLike = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (liked) {
+      unlike();
+    } else {
+      like();
+    }
+  };
+
+  const handlePlay = () => {
+    playSong(song);
+  };
+
   return (
-    <Card className="relative">
-      <CardContent className="flex flex-col lg:flex-row lg:justify-between gap-2">
-        <div className="flex gap-2">
-          {/* Artwork */}
+    <Card className="group overflow-hidden transition-colors hover:bg-muted/40">
+      <CardContent className="flex min-w-0 items-center gap-2 p-2.5 sm:gap-4 sm:p-4">
+        {/* Artwork */}
+        <div className="relative size-12 shrink-0 overflow-hidden rounded-md sm:size-16">
           <img
             src={imageUrl}
-            alt={song.title ?? "Song artwork"}
-            className="object-cover size-16 rounded "
+            alt={`${title} artwork`}
+            className="size-full object-cover"
+            loading="lazy"
           />
 
-          {/* Song information */}
-          <div className="min-w-0 ">
-            <h3 className="font-bold truncate text-sm">
-              {song.title ?? "Unknown Title"}
-            </h3>
-            <p className="truncate text-xs">
-              {song.artist ?? "Unknown artist"}
-            </p>
-            {song.isFeatured && <Badge variant={"secondary"}>Featured</Badge>}
-          </div>
+          {song.isFeatured && (
+            <div className="absolute right-1 top-1">
+              <Badge
+                variant="secondary"
+                className="size-5 rounded-full p-0 backdrop-blur-sm"
+              >
+                <HugeiconsIcon
+                  icon={StarIcon}
+                  size={12}
+                  strokeWidth={1.8}
+                  className="fill-amber-400 text-amber-400"
+                />
+              </Badge>
+            </div>
+          )}
         </div>
 
-        {/* Actions */}
-        <div className="flex  items-center justify-between lg: gap-2">
-          <div className="flex  items-center  gap-2">
-            <Button
-              variant="secondary"
-              size="icon"
-              className=""
-              aria-label={
-                liked
-                  ? `Unlike ${song.title ?? "song"}`
-                  : `Like ${song.title ?? "song"}`
-              }
-              disabled={isMutating}
-              onClick={(e) => {
-                e.stopPropagation();
-                if (liked) {
-                  unlike();
-                } else {
-                  like();
-                }
-              }}
-            >
-              <HugeiconsIcon
-                icon={HeartIcon}
-                size={17}
-                strokeWidth={1.8}
-                className={liked ? "fill-pink-500" : ""}
-              />
-            </Button>
+        {/* Song information */}
+        <div className="min-w-0 flex-1 overflow-hidden">
+          <h3 className="truncate text-sm font-semibold">{title}</h3>
 
-            <span className="">{song.stat.likes ?? 0}</span>
-          </div>
+          <p className="mt-0.5 truncate text-xs text-muted-foreground">
+            {artist}
+          </p>
+        </div>
 
+        {/* Like */}
+        <div className="flex shrink-0 items-center">
           <Button
-            onClick={() => playSong(song)}
-            variant="default"
-            aria-label={`Play ${song.title ?? "song"}`}
+            variant="ghost"
+            size="icon"
+            className="size-8 rounded-full sm:size-9"
+            aria-label={liked ? `Unlike ${title}` : `Like ${title}`}
+            disabled={isMutating}
+            onClick={handleLike}
           >
-            <span>Play</span>
+            <HugeiconsIcon
+              icon={HeartIcon}
+              size={17}
+              strokeWidth={1.8}
+              className={
+                liked ? "fill-pink-500 text-pink-500" : "text-muted-foreground"
+              }
+            />
           </Button>
+
+          <span className="min-w-7 text-xs tabular-nums text-muted-foreground">
+            {likes}
+          </span>
         </div>
+
+        {/* Play */}
+        <Button
+          size="icon"
+          className="size-8 shrink-0 rounded-full sm:size-10"
+          aria-label={`Play ${title}`}
+          onClick={handlePlay}
+        >
+          <HugeiconsIcon icon={PlayIcon} size={15} strokeWidth={2} />
+        </Button>
       </CardContent>
     </Card>
   );

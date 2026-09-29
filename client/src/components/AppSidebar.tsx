@@ -18,7 +18,6 @@ import { Link } from "react-router";
 interface menuProps {
   title: string;
   path: string;
-  hidden?: boolean;
 }
 
 const menu: menuProps[] = [
@@ -27,12 +26,12 @@ const menu: menuProps[] = [
 ];
 
 const library: menuProps[] = [
+  { title: "Liked Songs", path: "/liked" },
   { title: "Playlist", path: "/playlists" },
-  {title: "Admin Dashboard", path: "/admin"}
 ];
 
 const AppSidebar = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   const { setOpenMobile } = useSidebar();
 
@@ -63,7 +62,7 @@ const AppSidebar = () => {
             <SidebarMenu>
               {isAuthenticated &&
                 library.map((item) => (
-                  <SidebarMenuItem key={item.title} className={`${item.hidden === true ? 'hidden' : ''}`}>
+                  <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                       <Link to={item.path}>
                         <span>{item.title}</span>
@@ -76,6 +75,15 @@ const AppSidebar = () => {
                   <SidebarMenuButton>
                     <Link to={"/login"}>
                       <span>Log in to access library</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              )}
+              {isAuthenticated && user.role === "admin" && (
+                <SidebarMenuItem>
+                  <SidebarMenuButton>
+                    <Link to={"/admin"}>
+                      <span>Admin Dashboard</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

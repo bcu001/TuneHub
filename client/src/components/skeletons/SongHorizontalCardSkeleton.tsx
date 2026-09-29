@@ -3,27 +3,48 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const SongHorizontalCardSkeleton = () => {
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-2 lg:flex-row lg:justify-between">
-        {/* Artwork + song information */}
-        <div className="flex gap-2">
-          <Skeleton className="size-16 rounded" />
+    <Card className="overflow-hidden">
+      <CardContent className="p-2.5 sm:p-4">
+        {/* ================= MOBILE ================= */}
+        <div className="flex gap-2 sm:hidden">
+          {/* Artwork */}
+          <Skeleton className="size-12 shrink-0 rounded-md" />
 
-          <div className="min-w-0">
-            <Skeleton className="h-4 w-32" />
-            <Skeleton className="mt-1 h-3 w-24" />
-            <Skeleton className="mt-1 h-5 w-16" />
+          {/* Song info */}
+          <div className="min-w-0 flex-1 space-y-1">
+            <Skeleton className="h-3.5 w-full max-w-20" />
+            <Skeleton className="h-3 w-full max-w-15" />
+          </div>
+
+          {/* Actions */}
+          <div className="flex shrink-0 flex-col items-center justify-between">
+            {/* Like */}
+            <Skeleton className="size-6 rounded-full" />
+
+            {/* Play */}
+            <Skeleton className="size-7 rounded-full" />
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center">
-            <Skeleton className="size-9 rounded-md" />
-            <Skeleton className="ml-1 h-4 w-6" />
+        {/* ================= TABLET / DESKTOP ================= */}
+        <div className="hidden items-center gap-4 sm:flex">
+          {/* Artwork */}
+          <Skeleton className="size-16 shrink-0 rounded-md" />
+
+          {/* Song info */}
+          <div className="min-w-0 flex-1 space-y-1.5">
+            <Skeleton className="h-4 w-40 max-w-full" />
+            <Skeleton className="h-3.5 w-28 max-w-full" />
           </div>
 
-          <Skeleton className="size-9 rounded-md" />
+          {/* Like */}
+          <div className="flex shrink-0 items-center gap-1">
+            <Skeleton className="size-9 rounded-full" />
+            <Skeleton className="h-3 w-7" />
+          </div>
+
+          {/* Play */}
+          <Skeleton className="size-10 shrink-0 rounded-full" />
         </div>
       </CardContent>
     </Card>

@@ -76,3 +76,17 @@ export const getSongLikeCount = async (req, res) => {
         return apiResponse(res, "Failed to get like count", 500);
     }
 };
+
+export const getLikedSongs = async (req, res) => {
+    try {
+        const { page = 1, limit = 10 } = req.query;
+        const userId = req.user._id;
+        const likedSongs = await Like.find({ userId }).populate({ path: 'songId' }).skip((page - 1) * limit).limit(limit).lean();
+        const totalLikedSongs = await Like.countDocuments({ userId }).lean();
+        const totalPages = Math.ceil(totalLikedSongs / limit);
+        return apiResponse(res, "Liked songs", 200, { songs: likedSongs, page, limit, totalPages });
+    } catch (error) {
+        console.error("Error at getLikedSongs", error);
+        return apiResponse(res, "Failed to get liked songs", 500);
+    }
+};

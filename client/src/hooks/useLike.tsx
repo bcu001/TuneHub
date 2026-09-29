@@ -28,6 +28,14 @@ export function useLike(songId: string) {
       queryClient.invalidateQueries({
         queryKey: ["getSongs"],
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ["getLikedSongs"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["getFeaturedSongs"],
+      });
     },
   });
 
@@ -41,6 +49,14 @@ export function useLike(songId: string) {
 
       queryClient.invalidateQueries({
         queryKey: ["getSongs"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["getLikedSongs"],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: ["getFeaturedSongs"],
       });
     },
   });

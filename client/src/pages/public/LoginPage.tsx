@@ -28,7 +28,7 @@ const RegisterPage = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center gap-4">
+    <div className="mt-20 flex flex-col justify-center items-center gap-4">
       <div>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <Field>
