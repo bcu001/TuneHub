@@ -65,7 +65,7 @@ function LikedSongPage() {
         </Button>
         <span className="text-sm text-base-content/55">
           Page <span className="font-semibold text-base-content">{page}</span>{" "}
-          of {data.totalPages}
+          of {data?.totalPages}
         </span>
         <Button
           variant={"ghost"}

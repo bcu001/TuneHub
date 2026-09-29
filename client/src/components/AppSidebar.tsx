@@ -79,7 +79,7 @@ const AppSidebar = () => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               )}
-              {isAuthenticated && user.role === "admin" && (
+              {isAuthenticated && user?.role === "admin" && (
                 <SidebarMenuItem>
                   <SidebarMenuButton>
                     <Link to={"/admin"}>
