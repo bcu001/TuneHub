@@ -1,13 +1,13 @@
 import {
-  HeartIcon,
-  MoreVerticalIcon,
+  // HeartIcon,
+  // MoreVerticalIcon,
   PauseIcon,
   PlayIcon,
-  PreviousIcon,
-  NextIcon,
+  // PreviousIcon,
+  // NextIcon,
   VolumeHighIcon,
-  RepeatIcon,
-  ShuffleIcon,
+  // RepeatIcon,
+  // ShuffleIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 
@@ -27,7 +27,9 @@ const GlobalPlayer = () => {
   const setVolume = usePlayerStore((state) => state.setVolume);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t bg-secondary">
+    <div
+      className={`${currentSong ? "" : "hidden"} fixed inset-x-0 bottom-0 z-50 border-t bg-secondary`}
+    >
       {/* Progress bar */}
       <div className="absolute inset-x-0 top-0">
         <Slider
@@ -61,30 +63,22 @@ const GlobalPlayer = () => {
               {currentSong?.artist || "Artist"}
             </p>
           </div>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hidden shrink-0 sm:inline-flex"
-          >
-            <HugeiconsIcon icon={HeartIcon} />
-          </Button>
         </div>
 
         {/* ───────────────── Main Controls ───────────────── */}
         <div className="flex flex-1 flex-col items-center justify-center gap-1">
           <div className="flex items-center gap-1">
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               className="hidden sm:inline-flex"
             >
               <HugeiconsIcon icon={ShuffleIcon} />
-            </Button>
+            </Button> */}
 
-            <Button variant="ghost" size="icon">
+            {/* <Button variant="ghost" size="icon">
               <HugeiconsIcon icon={PreviousIcon} />
-            </Button>
+            </Button> */}
 
             <Button
               onClick={togglePlayPause}
@@ -98,17 +92,17 @@ const GlobalPlayer = () => {
               />
             </Button>
 
-            <Button variant="ghost" size="icon">
+            {/* <Button variant="ghost" size="icon">
               <HugeiconsIcon icon={NextIcon} />
-            </Button>
+            </Button> */}
 
-            <Button
+            {/* <Button
               variant="ghost"
               size="icon"
               className="hidden sm:inline-flex"
             >
               <HugeiconsIcon icon={RepeatIcon} />
-            </Button>
+            </Button> */}
           </div>
 
           {/* Time */}
@@ -134,9 +128,9 @@ const GlobalPlayer = () => {
             className="w-24"
           />
 
-          <Button variant="ghost" size="icon">
+          {/* <Button variant="ghost" size="icon">
             <HugeiconsIcon icon={MoreVerticalIcon} />
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

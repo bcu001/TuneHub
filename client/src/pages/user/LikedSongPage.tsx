@@ -1,39 +1,22 @@
 import SongHorizontalCard from "@/components/cards/SongHorizontalCard";
 import api from "@/lib/axios";
-import type { Song } from "@/types/song";
-import { useQuery } from "@tanstack/react-query";
+import type { LikeSongResponse } from "@/types/song";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SongHorizontalCardSkeleton from "@/components/skeletons/SongHorizontalCardSkeleton";
-
-interface LikedSong {
-  _id: string;
-  songId: Song;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-  _v: number;
-}
-
-interface LikeSongProps {
-  songs: LikedSong[];
-  page: number;
-  limit: number;
-  totalPages: number;
-}
 
 function LikedSongPage() {
   const [page, setPage] = useState<number>(1);
 
   const { data, isPending } = useQuery({
     queryKey: ["getLikedSongs", page],
-    queryFn: async (): Promise<LikeSongProps> => {
+    queryFn: async (): Promise<LikeSongResponse> => {
       const { data } = await api.get(`/likes?page=${page}`);
       return data?.data;
     },
+    placeholderData: keepPreviousData,
   });
-  //   console.log(data?.songs[0]);
-  //   console.log(data);
 
   useEffect(() => {
     window.scrollTo({

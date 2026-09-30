@@ -1,7 +1,11 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import useAuth from "@/hooks/useAuth";
 import { Link } from "react-router";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+  Avatar,
+  AvatarFallback,
+  // AvatarImage
+} from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -44,7 +48,7 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar>
-                <AvatarImage src="https://github.com/bcu001.png" />
+                {/* <AvatarImage src={user.image} />  need to add image in user model */}
                 <AvatarFallback>{user?.name[0].toUpperCase()}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>

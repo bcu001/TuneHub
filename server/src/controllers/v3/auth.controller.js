@@ -205,6 +205,11 @@ export const resetPassword = async (req, res) => {
             userId: resetToken.userId
         });
 
+        await Session.updateMany({
+            userId: resetToken.userId,
+            revoked: false
+        }, { revoked: true });
+
         return apiResponse(res, "Password reset successful", 200);
     } catch (error) {
         console.error("Error in resetPassword", error);

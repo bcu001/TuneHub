@@ -3,8 +3,6 @@ import SongCard from "./cards/SongCard";
 import ApiErrorUI from "./common/ApiError";
 import { useFeaturedSongs } from "@/hooks/useSong";
 import SongCardSkeleton from "./skeletons/SongCardSkeleton";
-import { BlurFade } from "./ui/blur-fade";
-import { AnimationConfig } from "@/config/animateConfig";
 
 const SongFeaturedSection = () => {
   const {
@@ -15,7 +13,7 @@ const SongFeaturedSection = () => {
     refetch,
   } = useFeaturedSongs();
   return (
-    <section className="mb-20">
+    <section className="mb-20 mt-8">
       {/* Section Header */}
       <div className="mb-5">
         <h2 className="text-2xl font-bold tracking-tight">Featured Songs</h2>
@@ -35,16 +33,8 @@ const SongFeaturedSection = () => {
             <SongCardSkeleton key={index} />
           ))}
         {isFeaturedSongsFetched &&
-          featuredSongsData?.songs.map((song, i) => (
-            <BlurFade
-              key={song._id}
-              delay={AnimationConfig.delay * (i + AnimationConfig.delay)}
-              offset={120}
-              direction="up"
-              inView={true}
-            >
-              <SongCard song={song} />
-            </BlurFade>
+          featuredSongsData?.songs.map((song) => (
+            <SongCard key={song._id} song={song} />
           ))}
       </div>
     </section>

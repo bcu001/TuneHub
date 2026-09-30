@@ -7,6 +7,7 @@ import playlistRouter from './playlist.routes.js';
 import albumRouter from './album.routes.js';
 import categoryRouter from './category.routes.js';
 import likeRoutes from './like.routes.js';
+import settingRoutes from './setting.routes.js';
 
 const Router = express.Router();
 
@@ -18,5 +19,6 @@ Router.use("/playlists", playlistRouter);
 Router.use("/albums", albumRouter);
 Router.use("/categories", categoryRouter);
 Router.use("/likes", likeRoutes);
+Router.use("/setting", settingRoutes);
 
 export default Router;

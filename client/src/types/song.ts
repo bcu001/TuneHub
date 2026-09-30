@@ -1,20 +1,20 @@
 type audioMetadata = {
-  displayName:string;
-  publicId:string,
-  url:string;
-  format:string;
-  duration:number;
-}
+  displayName: string;
+  publicId: string;
+  url: string;
+  format: string;
+  duration: number;
+};
 
 type imageMetadata = {
-  displayName:string;
-  publicId:string;
-  url:string;
-}
+  displayName: string;
+  publicId: string;
+  url: string;
+};
 
 type StatType = {
-  likes:number;
-}
+  likes: number;
+};
 
 export interface Song {
   _id: string;
@@ -32,36 +32,22 @@ export interface Song {
   __v: number;
 }
 
-// export interface SongData {
-//   currPage: number;
-//   limit: number;
-//   skip: number;
-//   songs: Song[];
-//   totalPages: number;
-//   totalSongs: number;
-// }
-
-export type SongSort =
-  | "newest"
-  | "oldest"
-  | "popular"
-  | "mostLiked"
-  | "title";
+export type SongSort = "newest" | "oldest" | "popular" | "mostLiked" | "title";
 
 export interface SongData {
   totalSongs: number;
   currPage: number;
-  limit:number;
+  limit: number;
   skip: number;
-  totalPages:number;
-  sort : SongSort;
-  songs: Song[],
+  totalPages: number;
+  sort: SongSort;
+  songs: Song[];
 }
 
-export interface FeaturedSongsData{
-  songCount:number;
-  limit:number;
-  songs:Song[];
+export interface FeaturedSongsData {
+  songCount: number;
+  limit: number;
+  songs: Song[];
 }
 
 export interface SongForm {
@@ -71,4 +57,20 @@ export interface SongForm {
   categoryId: string;
   audio: FileList;
   image: FileList;
+}
+
+export interface LikedSong {
+  _id: string;
+  songId: Song;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  _v: number;
+}
+
+export interface LikeSongResponse {
+  songs: LikedSong[];
+  page: number;
+  limit: number;
+  totalPages: number;
 }

@@ -1,9 +1,11 @@
 import CategorySection from "@/components/CategorySection";
+import HeroSection from "@/components/HeroSection";
 import SongFeaturedSection from "@/components/SongFeaturedSection";
 
 const HomePage = () => {
   return (
     <main className="w-full min-w-0 space-y-2">
+      <HeroSection />
       <CategorySection />
       <SongFeaturedSection />
     </main>

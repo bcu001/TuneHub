@@ -4,14 +4,11 @@ import Navbar from "@/components/Navbar";
 import AppSidebar from "@/components/AppSidebar";
 import GlobalPlayer from "@/components/GlobalPlayer";
 
-import {
-  SidebarProvider,
-  SidebarInset,
-} from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 
 const Layout = () => {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <SidebarInset className="">
         <Navbar />

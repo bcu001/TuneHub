@@ -12,7 +12,6 @@ import { useForm, useWatch } from "react-hook-form";
 import type { SongSort } from "@/types/song";
 import { useSearchParams } from "react-router";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { AnimationConfig } from "@/config/animateConfig";
 
 interface Inputs {
   q: string;
@@ -136,13 +135,7 @@ const SearchPage = () => {
 
             {isFetched &&
               data?.songs.map((song, i) => (
-                <BlurFade
-                  key={song._id}
-                  delay={AnimationConfig.delay * (i + 1)}
-                  offset={120}
-                  direction="up"
-                  inView={true}
-                >
+                <BlurFade key={song._id} delay={0.25 + i * 0.05} inView>
                   <SongHorizontalCard key={song._id} song={song} />
                 </BlurFade>
               ))}
