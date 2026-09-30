@@ -11,7 +11,7 @@ interface Inputs {
   password: string;
 }
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const { handleSubmit, register } = useForm<Inputs>();
   const { signinHandler, signinPending, isAuthenticated } = useAuth();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -86,4 +86,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

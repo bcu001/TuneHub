@@ -135,7 +135,7 @@ const SearchPage = () => {
 
             {isFetched &&
               data?.songs.map((song, i) => (
-                <BlurFade key={song._id} delay={0.25 + i * 0.05} inView>
+                <BlurFade key={song._id} delay={i * 0.02} inView>
                   <SongHorizontalCard key={song._id} song={song} />
                 </BlurFade>
               ))}

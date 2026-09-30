@@ -17,6 +17,7 @@ import AuthLayout from "@/layouts/AuthLayout";
 import ResetPasswordPage from "@/pages/public/ResetPasswordPage";
 import ForgetPasswordPage from "@/pages/public/ForgetPasswordPage";
 import LikedSongPage from "@/pages/user/LikedSongPage";
+import SettingPage from "@/pages/user/SettingPage";
 
 function AppRoutes() {
   return (
@@ -38,6 +39,7 @@ function AppRoutes() {
           <Route path="/playlists/:id" element={<PlaylistDetailPage />} />
           <Route path="/playlists" element={<PlaylistsPage />} />
           <Route path="/liked" element={<LikedSongPage />} />
+          <Route path="/setting" element={<SettingPage />} />
         </Route>
 
         {/* admin routes */}

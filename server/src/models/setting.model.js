@@ -8,8 +8,8 @@ const settingSchema = new mongoose.Schema({
     },
     theme: {
         type: String,
-        enum: ["light", "dark", "system"],
-        default: "system"
+        enum: ["light", "dark"],
+        default: "dark"
     },
 })
 

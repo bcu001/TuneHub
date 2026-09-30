@@ -9,10 +9,10 @@ export const getSettings = async (req, res) => {
         if (!setting) {
             setting = await Setting.create({ userId });
         }
-        return apiResponse(res, 200, "Settings fetched successfully", setting);
+        return apiResponse(res, "Settings fetched successfully", 200, setting);
     } catch (error) {
         console.error("Error at getSettings", error);
-        return apiResponse(res, 500, "Error at getSettings");
+        return apiResponse(res, "Error at getSettings", 500);
     }
 };
 
@@ -29,6 +29,6 @@ export const updateSettings = async (req, res) => {
         return apiResponse(res, "Settings updated successfully", 200, updatedSettings);
     } catch (error) {
         console.error("Error at updateSettings", error);
-        return apiResponse(res, 500, "Error at updateSettings");
+        return apiResponse(res, "Error at updateSettings", 500);
     }
 };

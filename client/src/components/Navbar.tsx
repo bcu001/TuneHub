@@ -17,16 +17,19 @@ import {
   DropdownMenuSeparator,
 } from "./ui/dropdown-menu";
 import { AnimatedThemeToggler } from "./ui/animated-theme-toggler";
+import { useSetting } from "@/hooks/useSetting";
+import { KineticText } from "./ui/kinetic-text";
 
 const Navbar = () => {
   const { isAuthenticated, user, signoutHandler } = useAuth();
+  const { getSettingsQuery, updateSettingQuery } = useSetting();
 
   return (
     <header className="flex h-16 items-center border-b px-4">
       <div className="flex items-center gap-4">
         <SidebarTrigger size="icon-lg" />
         <Link to={"/"} className="text-lg font-semibold">
-          TuneHub
+          <KineticText text="TuneHub"/>
         </Link>
       </div>
       <div className="ml-auto flex gap-4 ">
@@ -55,8 +58,11 @@ const Navbar = () => {
             <DropdownMenuContent>
               <DropdownMenuGroup>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to={"/setting"}>
+                    <span>Settings</span>
+                  </Link>
+                </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
@@ -71,7 +77,15 @@ const Navbar = () => {
           </DropdownMenu>
         )}
 
-        <AnimatedThemeToggler variant="triangle" duration={600} fromCenter />
+        <AnimatedThemeToggler
+          variant="hexagon"
+          duration={600}
+          fromCenter
+          theme={getSettingsQuery.data?.theme || "dark"}
+          onThemeChange={(theme) => {
+            updateSettingQuery.mutate({ theme });
+          }}
+        />
       </div>
     </header>
   );

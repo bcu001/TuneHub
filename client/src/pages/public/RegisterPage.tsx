@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import { useNavigate, Link } from "react-router";
+import { useNavigate, Link, Navigate } from "react-router";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
@@ -12,9 +12,9 @@ interface Inputs {
   password: string;
 }
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const { handleSubmit, register } = useForm<Inputs>();
-  const { signupHandler, signupPending } = useAuth();
+  const { signupHandler, signupPending, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
@@ -25,6 +25,10 @@ const LoginPage = () => {
       console.error("Error at login", error);
     }
   };
+
+  if (isAuthenticated) {
+    return <Navigate to={"/"} replace />;
+  }
 
   return (
     <div className="mt-20 flex flex-col justify-center items-center gap-4">
@@ -93,4 +97,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
