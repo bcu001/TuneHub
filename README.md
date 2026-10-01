@@ -12,16 +12,23 @@ TuneHub is a music streaming and management app. Browse and play songs, explore 
 
 ## Tech Stack
 
-- **Client:** React 19, TypeScript, Vite, Tailwind CSS, TanStack Query
-- **Server:** Node.js, Express, MongoDB with Mongoose
-- **Integrations:** Jamendo and Cloudinary
+- **Client:** React 19, TypeScript, Vite, Tailwind CSS (via `@tailwindcss/vite`), TanStack Query, Zustand, Shadcn UI
+- **Server:** Node.js (>=18), Express, MongoDB (Mongoose), Cloudinary, Jamendo API integration
+- **Build Tools:** Vite, ESLint, Prettier
+
+## Project Structure
+
+- `client/` – Frontend React app built with Vite
+- `server/` – Express backend API
+- `.env` files – configuration for each side
 
 ## Prerequisites
 
-- Node.js and pnpm
-- A MongoDB database
+- Node.js (>=18) and pnpm (latest)
+- MongoDB (local or Atlas) with connection URI
 - Jamendo API credentials
 - Cloudinary credentials
+- Required environment variables as described in `client/.env` and `server/.env`
 
 The client and server are separate packages. Install dependencies and run each in its own terminal.
 
