@@ -22,7 +22,7 @@ const AppLoadingScreen = () => {
       </header>
 
       {/* Homepage */}
-      <main className="w-full min-w-0 space-y-2 px-4 sm:px-6 lg:px-8">
+      <main className="mt-4 w-full min-w-0 space-y-2 px-4 sm:px-6 lg:px-8">
         {/* Hero */}
         <section className="relative aspect-video w-full overflow-hidden rounded-2xl">
           <Skeleton className="absolute inset-0 size-full rounded-2xl" />
