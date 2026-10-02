@@ -60,7 +60,7 @@ export const updateUser = async (req, res) => {
 
         // check if name and email are not empty
         if (!name || !email) {
-            const error = new Error("name and email are requried");
+            const error = new Error("name and email are required");
             error.statusCode = 422;
             throw error;
         }
@@ -68,7 +68,7 @@ export const updateUser = async (req, res) => {
         updates.name = name;
         updates.email = email;
 
-        
+
 
         // update if above steps are done
         const updatedUser = await User.findByIdAndUpdate(

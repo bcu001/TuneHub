@@ -3,29 +3,29 @@ import mongoose from "mongoose";
 const categorySchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'name is requried'],
+        required: [true, 'name is required'],
         trim: true,
     },
-    slug:{
-        type:String,
-        unique:true,
-        required:true,
-        lowercase:true,
-        trim:true,
+    slug: {
+        type: String,
+        unique: true,
+        required: true,
+        lowercase: true,
+        trim: true,
     },
-    description:{
-        type:String,
-        required:true,
-        trim:true,
+    description: {
+        type: String,
+        required: true,
+        trim: true,
     },
-    image:{
-        type:String,
-        required:true,
-        trim:true,
+    image: {
+        type: String,
+        required: true,
+        trim: true,
     },
-     isActive:{
-        type:Boolean,
-        default:true,
+    isActive: {
+        type: Boolean,
+        default: true,
     }
 }, { timestamps: true })
 

@@ -4,12 +4,12 @@ const likeSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: [true, 'user_id is requried']
+        required: [true, 'user_id is required']
     },
     songId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Song",
-        required: [true, 'song_id is requried']
+        required: [true, 'song_id is required']
     }
 }, { timestamps: true });
 

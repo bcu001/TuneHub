@@ -18,7 +18,7 @@ const playlistSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        requried: [true, "user_id is requried"],
+        required: [true, "user_id is required"],
     },
     isPrivate: {
         type: Boolean,
