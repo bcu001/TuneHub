@@ -2,7 +2,7 @@ import express from 'express'
 import {
     getPlaylists,
     createPlaylist,
-    getPlaylist,
+    getPlaylistById,
     updatePlaylist,
     deletePlaylist,
     addSongInPlaylist,
@@ -15,7 +15,7 @@ const playlistRouter = express.Router();
 
 playlistRouter.get("/", authorize, getPlaylists);
 playlistRouter.post("/", authorize, createPlaylist);
-playlistRouter.get("/:id", authorize, getPlaylist);
+playlistRouter.get("/:id", authorize, getPlaylistById);
 playlistRouter.patch("/:id", authorize, updatePlaylist);
 playlistRouter.delete("/:id", authorize, deletePlaylist);
 playlistRouter.post("/:id/song/:songId", authorize, addSongInPlaylist);

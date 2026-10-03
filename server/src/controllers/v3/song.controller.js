@@ -172,7 +172,7 @@ export const getSongById = async (req, res) => {
 export const getFeaturedSongs = async (req, res) => {
     try {
         const limit = Math.min(Math.max(Number(req.query.limit) || 8, 1), 10);
-        const featuredSongs = await Song.find({ isFeatured: true }).limit(limit).lean();
+        const featuredSongs = await Song.find({ isFeatured: true }).sort({createdAt: -1}).limit(limit).lean();
         if (featuredSongs.length === 0) return apiResponse(res, "no featured products found", 200);
         return apiResponse(res, "featured product found", 200, {
             songCount: featuredSongs.length,

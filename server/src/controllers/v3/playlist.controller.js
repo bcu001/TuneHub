@@ -29,8 +29,7 @@ export const createPlaylist = async (req, res) => {
         return apiResponse(res, "Error at createPlaylist", 500);
     }
 }
-export const getPlaylist = async (req, res) => {
-    console.log("fuck")
+export const getPlaylistById = async (req, res) => {
     try {
         const playlist = await Playlist.findById(req.params.id).lean();
         if (!playlist) {
@@ -38,8 +37,8 @@ export const getPlaylist = async (req, res) => {
         }
         return apiResponse(res, "Playlist fetched", 200, { playlist });
     } catch (error) {
-        console.error("Error at getPlaylist", error);
-        return apiResponse(res, "Error at getPlaylist", 500);
+        console.error("Error at getPlaylistById", error);
+        return apiResponse(res, "Error at getPlaylistById", 500);
     }
 }
 export const updatePlaylist = async (req, res) => {
@@ -90,13 +89,13 @@ export const removeSongFromPlaylist = async (req, res) => {
         await PlaylistSong.updateMany(
             {
                 playlistId: id,
-                position: {$gt: song.position}
-            },{
-                $inc: {position: -1}
-            }
+                position: { $gt: song.position }
+            }, {
+            $inc: { position: -1 }
+        }
         )
 
-        return apiResponse(res, "Song removed from playlist", 200, {playlistSong: song});
+        return apiResponse(res, "Song removed from playlist", 200, { playlistSong: song });
     } catch (error) {
         console.error("Error at removeSongFromPlaylist", error);
         return apiResponse(res, "Error at removeSongFromPlaylist", 500);
