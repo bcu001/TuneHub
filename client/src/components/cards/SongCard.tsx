@@ -15,11 +15,6 @@ interface SongCardProps {
 const SongCard = ({ song }: SongCardProps) => {
   const { liked, like, unlike, isMutating } = useLike(song._id);
   const playSong = usePlayerStore((state) => state.playSong);
-  const imageUrl = song.image.url.replace(
-    "/upload/",
-    "/upload/c_fill,q_auto,f_auto/",
-  );
-
   return (
     <Card className="group overflow-hidden bg-background shadow-sm transition hover:shadow-md py-0">
       <CardContent className=" p-0">
