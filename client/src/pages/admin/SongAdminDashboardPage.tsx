@@ -61,7 +61,7 @@ const SongAdminDashboardPage = () => {
   };
 
   return (
-    <div className="mx-auto max-w-2xl p-6">
+    <div className="mx-auto mb-20 max-w-2xl p-6">
       <h1 className="mb-6 text-2xl font-bold">Upload Song</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -75,6 +75,7 @@ const SongAdminDashboardPage = () => {
               required: "Title is required",
             })}
             placeholder="Song title"
+            disabled={isPending}
           />
 
           <FieldError>{errors.title?.message}</FieldError>
@@ -90,6 +91,7 @@ const SongAdminDashboardPage = () => {
               required: "Artist is required",
             })}
             placeholder="Artist name"
+            disabled={isPending}
           />
 
           <FieldError>{errors.artist?.message}</FieldError>
@@ -103,6 +105,7 @@ const SongAdminDashboardPage = () => {
             id="description"
             {...register("description")}
             placeholder="Song description"
+            disabled={isPending}
           />
         </Field>
 
@@ -116,6 +119,7 @@ const SongAdminDashboardPage = () => {
             rules={{
               required: "Category is required",
             }}
+            disabled={isPending}
             render={({ field }) => (
               <Select value={field.value} onValueChange={field.onChange}>
                 <SelectTrigger id="categoryId" className="w-45">
@@ -149,6 +153,7 @@ const SongAdminDashboardPage = () => {
             {...register("audio", {
               required: "Audio file is required",
             })}
+            disabled={isPending}
           />
 
           <FieldError>{errors.audio?.message}</FieldError>
@@ -165,6 +170,7 @@ const SongAdminDashboardPage = () => {
             {...register("image", {
               required: "Cover image is required",
             })}
+            disabled={isPending}
           />
 
           <FieldError>{errors.image?.message}</FieldError>

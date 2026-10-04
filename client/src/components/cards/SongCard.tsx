@@ -24,11 +24,15 @@ const SongCard = ({ song }: SongCardProps) => {
     <Card className="group overflow-hidden bg-background shadow-sm transition hover:shadow-md py-0">
       <CardContent className=" p-0">
         {/* Artwork */}
-        <div className="relative  bg-muted brder">
+        <div className="relative aspect-square w-full overflow-hidden bg-muted">
           <img
-            src={imageUrl}
-            alt={song?.title}
-            className="h-full w-full object-cover group-hover:scale-105"
+            src={song.image.url.replace(
+              "/upload/",
+              "/upload/c_fill,w_600,h_600,g_auto,q_auto,f_auto/",
+            )}
+            alt={song?.title ?? "Song artwork"}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
           />
 
           {/* Overlay */}
