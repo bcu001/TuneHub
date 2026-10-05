@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+Allow: /search
+
+Disallow: /admin
+Disallow: /setting
+Disallow: /playlists
+Disallow: /liked
+Disallow: /albums
+
+User-agent: Googlebot
+Allow: /
+Allow: /search
+
+Disallow: /admin
+Disallow: /setting
+
+Sitemap: https://tune-hub-v3.vercel.app/sitemap.xml
