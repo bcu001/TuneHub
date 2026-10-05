@@ -28,7 +28,7 @@ const GlobalPlayer = () => {
 
   return (
     <div
-      className={`${currentSong ? "" : "hidden"} fixed inset-x-0 bottom-0 z-50 border-t bg-secondary`}
+      className={`${currentSong ? "" : "hidden"} sticky inset-x-0 bottom-0 z-50 border-t bg-secondary`}
     >
       {/* Progress bar */}
       <div className="absolute inset-x-0 top-0">

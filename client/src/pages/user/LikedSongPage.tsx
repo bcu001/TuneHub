@@ -5,8 +5,10 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import SongHorizontalCardSkeleton from "@/components/skeletons/SongHorizontalCardSkeleton";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 function LikedSongPage() {
+  useDocumentTitle("Liked Songs | TuneHub")
   const [page, setPage] = useState<number>(1);
 
   const { data, isPending } = useQuery({
@@ -25,7 +27,7 @@ function LikedSongPage() {
     });
   }, [page]);
   return (
-    <div className="mb-20">
+    <div className="">
       <div className="grid grid-cols-1 gap-2 lg:grid-cols-2 2xl:grid-cols-3">
         {isPending &&
           Array.from({ length: 10 }).map((_, idx) => (

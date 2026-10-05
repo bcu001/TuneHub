@@ -12,12 +12,14 @@ import { useForm, useWatch } from "react-hook-form";
 import type { SongSort } from "@/types/song";
 import { useSearchParams } from "react-router";
 import { BlurFade } from "@/components/ui/blur-fade";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 interface Inputs {
   q: string;
 }
 
 const SearchPage = () => {
+  useDocumentTitle("Search | TuneHub")
   const [searchParams] = useSearchParams();
   const { register, control, reset } = useForm<Inputs>();
 
@@ -58,7 +60,7 @@ const SearchPage = () => {
   }, [page]);
 
   return (
-    <div className="mb-20">
+    <div className="">
       {/* Search */}
       <form>
         <Input type="search" placeholder="search music..." {...register("q")} />

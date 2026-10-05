@@ -7,8 +7,10 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useSetting } from "@/hooks/useSetting";
 import useAuth from "@/hooks/useAuth";
 import DangerZone from "@/components/DangerZone";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 function SettingsPage() {
+  useDocumentTitle("Settings | TuneHub")
   const { getSettingsQuery, updateSettingQuery } = useSetting();
   const { user } = useAuth();
 
@@ -133,7 +135,7 @@ function SettingsPage() {
           </Card>
         </div>
 
-        <div className="mt-6 mb-20">
+        <div className="mt-6">
           <DangerZone />
         </div>
       </div>

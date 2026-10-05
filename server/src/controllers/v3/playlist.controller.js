@@ -19,6 +19,8 @@ export const createPlaylist = async (req, res) => {
         const userId = req.user._id;
         const { name, description } = req.body;
 
+        console.log({name,description})
+
         if (!name || !description) {
             return apiResponse(res, "Name and description are required", 400);
         }
@@ -103,4 +105,19 @@ export const removeSongFromPlaylist = async (req, res) => {
 }
 export const reorderSongsInPlaylist = async (req, res) => {
     return handleEndpointUnderDevelopment(res);
+}
+
+export const getPlaylistSongs = async(req,res)=>{
+    try{
+        const {id} = req.params;
+        const playlist = await Playlist.findById(id).lean();
+        if(!playlist){
+            return apiResponse(res,"Playlist not found",404);
+        }
+        const songs = await PlaylistSong.find({playlistId:id}).sort({position:1}).populate({path:"songId"}).lean();
+        return apiResponse(res,"Playlist songs fetched",200,{playlistSongs:songs});
+    }catch(error){
+        console.error("Error at getPlaylistSongs",error);
+        return apiResponse(res,"Error at getPlaylistSongs",500);
+    }
 }

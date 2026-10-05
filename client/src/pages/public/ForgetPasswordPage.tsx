@@ -14,12 +14,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { useAuthReset } from "@/hooks/useAuthReset";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 type ForgotPasswordForm = {
   email: string;
 };
 
 export default function ForgetPasswordPage() {
+  useDocumentTitle("Forget Password | TuneHub")
   const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<ForgotPasswordForm>({

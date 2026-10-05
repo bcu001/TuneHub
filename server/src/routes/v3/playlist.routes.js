@@ -7,7 +7,8 @@ import {
     deletePlaylist,
     addSongInPlaylist,
     removeSongFromPlaylist,
-    reorderSongsInPlaylist
+    reorderSongsInPlaylist,
+    getPlaylistSongs
 } from "../../controllers/v3/playlist.controller.js"
 import authorize from "../../middleware/auth.middleware.js"
 
@@ -18,6 +19,7 @@ playlistRouter.post("/", authorize, createPlaylist);
 playlistRouter.get("/:id", authorize, getPlaylistById);
 playlistRouter.patch("/:id", authorize, updatePlaylist);
 playlistRouter.delete("/:id", authorize, deletePlaylist);
+playlistRouter.get("/:id/songs", authorize, getPlaylistSongs);
 playlistRouter.post("/:id/song/:songId", authorize, addSongInPlaylist);
 playlistRouter.delete("/:id/song/:songId", authorize, removeSongFromPlaylist);
 playlistRouter.patch("/:id/song/:songId/reorder", authorize, reorderSongsInPlaylist);

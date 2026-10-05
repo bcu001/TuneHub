@@ -15,8 +15,7 @@ const AppLoadingScreen = () => {
 
         <div className="ml-auto flex items-center gap-4">
           {/* Login / Register or Avatar */}
-          <Skeleton className="h-9 w-16 rounded-md" />
-          <Skeleton className="h-9 w-20 rounded-md" />
+          <Skeleton className="size-9 rounded-md" />
           <Skeleton className="size-9 rounded-md" />
         </div>
       </header>
@@ -60,7 +59,7 @@ const AppLoadingScreen = () => {
         </section>
 
         {/* Featured Songs */}
-        <section className="mb-20 mt-8">
+        <section className="mt-8">
           <div className="mb-5">
             <Skeleton className="h-8 w-44 rounded-md" />
             <Skeleton className="mt-2 h-4 w-72 rounded-md" />

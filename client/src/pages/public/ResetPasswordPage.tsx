@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 import { useResetPassword } from "@/hooks/useAuthReset";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 type ResetPasswordForm = {
   newPassword: string;
@@ -20,6 +21,7 @@ type ResetPasswordForm = {
 };
 
 export default function ResetPasswordPage() {
+  useDocumentTitle("Reset Password | TuneHub")
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 

@@ -11,12 +11,14 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useCategory } from "@/hooks/useCategory";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 import { useUploadSong } from "@/hooks/useSong";
 import type { SongForm } from "@/types/song";
 import axios from "axios";
 import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 
 const SongAdminDashboardPage = () => {
+  useDocumentTitle("Song Admin Dashboard | TuneHub")
   const {
     register,
     handleSubmit,
@@ -61,7 +63,7 @@ const SongAdminDashboardPage = () => {
   };
 
   return (
-    <div className="mx-auto mb-20 max-w-2xl p-6">
+    <div className="mx-auto max-w-2xl p-6">
       <h1 className="mb-6 text-2xl font-bold">Upload Song</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">

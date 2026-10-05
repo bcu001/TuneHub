@@ -5,6 +5,7 @@ import useAuth from "@/hooks/useAuth";
 import { apiError } from "@/lib/apiError";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link, Navigate } from "react-router";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 interface Inputs {
   email: string;
@@ -12,6 +13,7 @@ interface Inputs {
 }
 
 const LoginPage = () => {
+  useDocumentTitle("Login | TuneHub")
   const { handleSubmit, register } = useForm<Inputs>();
   const { signinHandler, signinPending, isAuthenticated } = useAuth();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {

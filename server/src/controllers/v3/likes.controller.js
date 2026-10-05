@@ -81,7 +81,7 @@ export const getLikedSongs = async (req, res) => {
     try {
         const { page = 1, limit = 10 } = req.query;
         const userId = req.user._id;
-        const likedSongs = await Like.find({ userId }).populate({ path: 'songId' }).skip((page - 1) * limit).limit(limit).lean();
+        const likedSongs = await Like.find({ userId }).sort({ createdAt: -1 }).populate({ path: 'songId' }).skip((page - 1) * limit).limit(limit).lean();
         const totalLikedSongs = await Like.countDocuments({ userId }).lean();
         const totalPages = Math.ceil(totalLikedSongs / limit);
         return apiResponse(res, "Liked songs", 200, { songs: likedSongs, page, limit, totalPages });

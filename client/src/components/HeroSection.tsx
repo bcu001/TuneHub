@@ -1,5 +1,4 @@
 import { BlurFade } from "./ui/blur-fade";
-import { KineticText } from "./ui/kinetic-text";
 
 function HeroSection() {
   return (
@@ -8,13 +7,13 @@ function HeroSection() {
         <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
           <div className="absolute inset-4 z-10 text-white">
             <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight">
-              <KineticText text="Your Soundtrack Starts Here." />
+              <span>Your Soundtrack Starts Here.</span>
             </h2>
 
             <p className="mt-1 hidden sm:block text-sm md:text-md lg:text-lg xl:text-xl text-muted-foreground font-semibold">
-              <KineticText
-                text="Explore music across genres, discover new favorites, and build playlists made for you."
-              />
+              <span>
+                Explore music across genres, discover new favorites, and build playlists made for you.
+              </span>
             </p>
           </div>
           <video

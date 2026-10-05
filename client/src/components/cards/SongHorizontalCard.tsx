@@ -9,6 +9,7 @@ import { useLike } from "@/hooks/useLike";
 import { usePlayerStore } from "@/stores/player.store";
 import type { Song } from "@/types/song";
 import SongHorizontalCardSkeleton from "../skeletons/SongHorizontalCardSkeleton";
+import SongCardMoreOptions from "../SongCardMoreOptions";
 
 interface SongCardProps {
   song: Song | undefined;
@@ -127,6 +128,9 @@ const SongHorizontalCardContent = ({
         >
           <HugeiconsIcon icon={PlayIcon} size={15} strokeWidth={2} />
         </Button>
+
+        {/* more options */}
+        <SongCardMoreOptions song={song}/>
       </CardContent>
     </Card>
   );

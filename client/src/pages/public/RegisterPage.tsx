@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { apiError } from "@/lib/apiError";
+import useDocumentTitle from "@/hooks/useDocumentTitle";
 
 interface Inputs {
   name: string;
@@ -13,6 +14,7 @@ interface Inputs {
 }
 
 const RegisterPage = () => {
+  useDocumentTitle("Create Account | TuneHub")
   const { handleSubmit, register } = useForm<Inputs>();
   const { signupHandler, signupPending, isAuthenticated } = useAuth();
   const navigate = useNavigate();
