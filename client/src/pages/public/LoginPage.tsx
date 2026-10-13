@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
-import { Field, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import useAuth from "@/hooks/useAuth";
-import { apiError } from "@/lib/apiError";
-import { useForm, type SubmitHandler } from "react-hook-form";
-import { Link, Navigate } from "react-router";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { Button } from '@/components/ui/button';
+import { Field, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import useAuth from '@/hooks/useAuth';
+import { apiError } from '@/lib/apiError';
+import { useForm, type SubmitHandler } from 'react-hook-form';
+import { Link, Navigate } from 'react-router';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 interface Inputs {
   email: string;
@@ -13,7 +13,7 @@ interface Inputs {
 }
 
 const LoginPage = () => {
-  useDocumentTitle("Login | TuneHub")
+  useDocumentTitle('Login | TuneHub');
   const { handleSubmit, register } = useForm<Inputs>();
   const { signinHandler, signinPending, isAuthenticated } = useAuth();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -21,12 +21,12 @@ const LoginPage = () => {
       await signinHandler(data.email, data.password);
     } catch (error: unknown) {
       apiError(error);
-      console.error("Error at login", error);
+      console.error('Error at login', error);
     }
   };
 
   if (isAuthenticated) {
-    return <Navigate to={"/"} replace />;
+    return <Navigate to={'/'} replace />;
   }
 
   return (
@@ -40,14 +40,14 @@ const LoginPage = () => {
               className="input input-lg"
               placeholder="mail@site.com"
               type="email"
-              {...register("email", {
+              {...register('email', {
                 required: {
                   value: true,
-                  message: "email is required",
+                  message: 'email is required',
                 },
                 pattern: {
                   value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                  message: "invalid email address",
+                  message: 'invalid email address',
                 },
               })}
             />
@@ -58,28 +58,28 @@ const LoginPage = () => {
               id="pass"
               className="input input-lg"
               placeholder="*********"
-              {...register("password", {
+              {...register('password', {
                 required: {
                   value: true,
-                  message: "password is required",
+                  message: 'password is required',
                 },
               })}
               type="password"
             />
           </Field>
           <Button type="submit">
-            {signinPending ? "Signing in" : "Submit"}
+            {signinPending ? 'Signing in' : 'Submit'}
           </Button>
         </form>
-        <Button variant={"link"}>
-          <Link to={"/forget-password"} className="mt-2 text-sm">
+        <Button variant={'link'}>
+          <Link to={'/forget-password'} className="mt-2 text-sm">
             Forgot password?
           </Link>
         </Button>
       </div>
       <div className="flex gap-1">
         <div>First time here?</div>
-        <Button variant={"link"}>
+        <Button variant={'link'}>
           <Link to={`/register`}>Register</Link>
         </Button>
         instead

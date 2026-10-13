@@ -1,8 +1,8 @@
-import { upload } from "../config/multer.js"
+import { upload } from '../config/multer.js';
 
 export const configureUploadFields = () => {
-    return upload.fields([
-        { name: "audio", maxCount: 1 },
-        { name: "image", maxCount: 1 }
-    ])
-}
+  return upload.fields([
+    { name: 'audio', maxCount: 1 },
+    { name: 'image', maxCount: 1 },
+  ]);
+};

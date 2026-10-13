@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import { Field, FieldError, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
@@ -8,17 +8,18 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { useCategory } from "@/hooks/useCategory";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
-import { useUploadSong } from "@/hooks/useSong";
-import type { SongForm } from "@/types/song";
-import axios from "axios";
-import { Controller, useForm, type SubmitHandler } from "react-hook-form";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useCategory } from '@/hooks/useCategory';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
+import { useUploadSong } from '@/hooks/useSong';
+import type { SongForm } from '@/types/song';
+import axios from 'axios';
+import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
+import { toast } from 'sonner';
 
 const SongAdminDashboardPage = () => {
-  useDocumentTitle("Song Admin Dashboard | TuneHub")
+  useDocumentTitle('Song Admin Dashboard | TuneHub');
   const {
     register,
     handleSubmit,
@@ -32,33 +33,32 @@ const SongAdminDashboardPage = () => {
   const { data: categoryData } = useCategory(1);
 
   const onSubmit: SubmitHandler<SongForm> = async (songform) => {
-    console.log(songform);
     try {
       const formData = new FormData();
 
-      formData.append("title", songform.title);
-      formData.append("artist", songform.artist);
-      formData.append("description", songform.description);
-      formData.append("categoryId", songform.categoryId);
+      formData.append('title', songform.title);
+      formData.append('artist', songform.artist);
+      formData.append('description', songform.description);
+      formData.append('categoryId', songform.categoryId);
 
       // FileList -> File
-      formData.append("audio", songform.audio[0]);
-      formData.append("image", songform.image[0]);
+      formData.append('audio', songform.audio[0]);
+      formData.append('image', songform.image[0]);
 
       await uploadSong(formData);
 
       reset();
 
-      alert("Song uploaded successfully");
+      toast.success('Song uploaded successfully');
     } catch (error) {
-      console.error("UPLOAD ERROR:", error);
+      console.error('UPLOAD ERROR:', error);
 
       if (axios.isAxiosError(error)) {
-        console.error("STATUS:", error.response?.status);
-        console.error("DATA:", error.response?.data);
+        console.error('STATUS:', error.response?.status);
+        console.error('DATA:', error.response?.data);
       }
 
-      alert("Failed to upload song");
+      toast.error('Failed to upload song');
     }
   };
 
@@ -73,8 +73,8 @@ const SongAdminDashboardPage = () => {
 
           <Input
             id="title"
-            {...register("title", {
-              required: "Title is required",
+            {...register('title', {
+              required: 'Title is required',
             })}
             placeholder="Song title"
             disabled={isPending}
@@ -89,8 +89,8 @@ const SongAdminDashboardPage = () => {
 
           <Input
             id="artist"
-            {...register("artist", {
-              required: "Artist is required",
+            {...register('artist', {
+              required: 'Artist is required',
             })}
             placeholder="Artist name"
             disabled={isPending}
@@ -105,7 +105,7 @@ const SongAdminDashboardPage = () => {
 
           <Textarea
             id="description"
-            {...register("description")}
+            {...register('description')}
             placeholder="Song description"
             disabled={isPending}
           />
@@ -119,7 +119,7 @@ const SongAdminDashboardPage = () => {
             name="categoryId"
             control={control}
             rules={{
-              required: "Category is required",
+              required: 'Category is required',
             }}
             disabled={isPending}
             render={({ field }) => (
@@ -152,8 +152,8 @@ const SongAdminDashboardPage = () => {
             id="audio"
             type="file"
             accept="audio/*"
-            {...register("audio", {
-              required: "Audio file is required",
+            {...register('audio', {
+              required: 'Audio file is required',
             })}
             disabled={isPending}
           />
@@ -169,8 +169,8 @@ const SongAdminDashboardPage = () => {
             id="image"
             type="file"
             accept="image/*"
-            {...register("image", {
-              required: "Cover image is required",
+            {...register('image', {
+              required: 'Cover image is required',
             })}
             disabled={isPending}
           />
@@ -180,7 +180,7 @@ const SongAdminDashboardPage = () => {
 
         {/* Submit */}
         <Button type="submit" disabled={isPending} className="w-full">
-          {isPending ? "Uploading..." : "Upload Song"}
+          {isPending ? 'Uploading...' : 'Upload Song'}
         </Button>
       </form>
     </div>

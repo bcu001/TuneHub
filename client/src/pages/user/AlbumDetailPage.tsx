@@ -1,10 +1,5 @@
-
 const AlbumDetailPage = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  return <div></div>;
+};
 
-export default AlbumDetailPage
+export default AlbumDetailPage;

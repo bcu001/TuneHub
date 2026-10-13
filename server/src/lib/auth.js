@@ -1,33 +1,49 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 import ENV from '../config/env.js';
 import User from '../models/user.model.js';
+import Session from '../models/session.model.js';
 
-export const genAccessToken = (user, session)=>{
-    if(!user) return null;
-    return jwt.sign({
-        userId:user._id,
-        sessionId:session._id
-    }, ENV.JWT_ACCESS_SECRET, {expiresIn:ENV.ACCESS_TOKEN_EXPIRE_IN})
-}
+export const genAccessToken = (user, session) => {
+  if (!user) return null;
+  return jwt.sign(
+    {
+      userId: user._id,
+      sessionId: session._id,
+    },
+    ENV.JWT_ACCESS_SECRET,
+    { expiresIn: ENV.ACCESS_TOKEN_EXPIRE_IN }
+  );
+};
 
-export const genRefreshToken = (user, sessionId)=>{
-    if(!user) return null;
-    return jwt.sign({
-        userId:user._id,
-        sessionId
-    }, ENV.JWT_REFRESH_SECRET, {expiresIn:ENV.REFRESH_TOKEN_EXPIRE_IN})
-}
+export const genRefreshToken = (user, sessionId) => {
+  if (!user) return null;
+  return jwt.sign(
+    {
+      userId: user._id,
+      sessionId,
+    },
+    ENV.JWT_REFRESH_SECRET,
+    { expiresIn: ENV.REFRESH_TOKEN_EXPIRE_IN }
+  );
+};
 
-export const getUserFromRefreshToken = async(token)=>{
-    if(!token) return null;
-    const decoded = jwt.verify(token, ENV.JWT_REFRESH_SECRET);
-    const user = await User.findById(decoded.userId);
-    return user;
-}
+export const getUserFromRefreshToken = async (token) => {
+  if (!token) return null;
+  const decoded = jwt.verify(token, ENV.JWT_REFRESH_SECRET);
+  const user = await User.findById(decoded.userId);
+  return user;
+};
 
-export const getUserFromAccessToken = async(token)=>{
-    if(!token) return null;
-    const decoded = jwt.verify(token, ENV.JWT_ACCESS_SECRET);
-    const user = await User.findById(decoded.userId);
-    return user;
-}
+export const getUserFromAccessToken = async (token) => {
+  if (!token) return null;
+  const decoded = jwt.verify(token, ENV.JWT_ACCESS_SECRET);
+  if (decoded.sessionId) {
+    const session = await Session.findOne({
+      _id: decoded.sessionId,
+      revoked: false,
+    });
+    if (!session) return null;
+  }
+  const user = await User.findById(decoded.userId);
+  return user;
+};

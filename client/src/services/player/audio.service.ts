@@ -1,9 +1,9 @@
 class AudioService {
   private audio = new Audio();
 
-  constructor(){
+  constructor() {
     this.audio.preload = 'metadata';
-    this.audio.volume = 0.7
+    this.audio.volume = 0.7;
   }
 
   play(src: string) {
@@ -16,7 +16,7 @@ class AudioService {
   }
 
   resume() {
-    this.audio.play();
+    return this.audio.play();
   }
 
   getVolume() {
@@ -39,19 +39,19 @@ class AudioService {
     return this.audio.duration;
   }
   onTimeUpdate(callback: (time: number) => void) {
-    this.audio.addEventListener("timeupdate", () => {
+    this.audio.addEventListener('timeupdate', () => {
       callback(this.audio.currentTime);
     });
   }
 
   onDurationChange(callback: (duration: number) => void) {
-    this.audio.addEventListener("loadedmetadata", () => {
+    this.audio.addEventListener('loadedmetadata', () => {
       callback(this.audio.duration);
     });
   }
 
   onEnded(callback: () => void) {
-    this.audio.addEventListener("ended", callback);
+    this.audio.addEventListener('ended', callback);
   }
 }
 

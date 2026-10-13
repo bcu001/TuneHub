@@ -1,12 +1,12 @@
-import { HugeiconsIcon } from "@hugeicons/react";
-import { HeartIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { HeartIcon } from '@hugeicons/core-free-icons';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import type { Song } from "@/types/song";
-import { usePlayerStore } from "@/stores/player.store";
-import { useLike } from "@/hooks/useLike";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import type { Song } from '@/types/song';
+import { usePlayerStore } from '@/stores/player.store';
+import { useLike } from '@/hooks/useLike';
 
 interface SongCardProps {
   song: Song;
@@ -22,10 +22,10 @@ const SongCard = ({ song }: SongCardProps) => {
         <div className="relative aspect-square w-full overflow-hidden bg-muted">
           <img
             src={song.image.url.replace(
-              "/upload/",
-              "/upload/c_fill,w_600,h_600,g_auto,q_auto,f_auto/",
+              '/upload/',
+              '/upload/c_fill,w_600,h_600,g_auto,q_auto,f_auto/'
             )}
-            alt={song?.title ?? "Song artwork"}
+            alt={song?.title ?? 'Song artwork'}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
           />
@@ -57,8 +57,8 @@ const SongCard = ({ song }: SongCardProps) => {
                 className=""
                 aria-label={
                   liked
-                    ? `Unlike ${song.title ?? "song"}`
-                    : `Like ${song.title ?? "song"}`
+                    ? `Unlike ${song.title ?? 'song'}`
+                    : `Like ${song.title ?? 'song'}`
                 }
                 disabled={isMutating}
                 onClick={(e) => {
@@ -74,7 +74,7 @@ const SongCard = ({ song }: SongCardProps) => {
                   icon={HeartIcon}
                   size={17}
                   strokeWidth={1.8}
-                  className={liked ? "fill-pink-500" : ""}
+                  className={liked ? 'fill-pink-500' : ''}
                 />
               </Button>
               <span className="">{song.stat.likes ?? 0}</span>
@@ -82,7 +82,7 @@ const SongCard = ({ song }: SongCardProps) => {
             <Button
               onClick={() => playSong(song)}
               variant="default"
-              aria-label={`Play ${song.title ?? "song"}`}
+              aria-label={`Play ${song.title ?? 'song'}`}
             >
               <span>Play</span>
             </Button>

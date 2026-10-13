@@ -1,10 +1,10 @@
-import { useCategory } from "@/hooks/useCategory";
-import { useState } from "react";
-import CategoryCard from "./cards/CategoryCard";
-import ApiErrorUI from "./common/ApiError";
-import { getApiErrorMessage } from "@/lib/utils";
-import CategoryCardSkeleton from "./skeletons/CategoryCardSkeleton";
-import { Button } from "./ui/button";
+import { useCategory } from '@/hooks/useCategory';
+import { useState } from 'react';
+import CategoryCard from './cards/CategoryCard';
+import ApiErrorUI from './common/ApiError';
+import { getApiErrorMessage } from '@/lib/utils';
+import CategoryCardSkeleton from './skeletons/CategoryCardSkeleton';
+import { Button } from './ui/button';
 
 const CategorySection = () => {
   const [page, setPage] = useState<number>(1);
@@ -35,7 +35,7 @@ const CategorySection = () => {
           <ApiErrorUI
             message={getApiErrorMessage(
               categoriesErrorDetails,
-              "Unable to load categories",
+              'Unable to load categories'
             )}
             onRetry={refetchCategories}
           />
@@ -55,7 +55,7 @@ const CategorySection = () => {
       {/* custom pagination */}
       <div className="mt-10 flex items-center justify-center gap-4">
         <Button
-          variant={"ghost"}
+          variant={'ghost'}
           disabled={page === 1}
           onClick={() => setPage((prev) => prev - 1)}
           className="btn btn-outline btn-sm rounded-full disabled:opacity-40"
@@ -63,11 +63,11 @@ const CategorySection = () => {
           Prev
         </Button>
         <span className="text-sm text-base-content/55">
-          Page <span className="font-semibold text-base-content">{page}</span>{" "}
+          Page <span className="font-semibold text-base-content">{page}</span>{' '}
           of {categoriesData?.totalPages}
         </span>
         <Button
-          variant={"ghost"}
+          variant={'ghost'}
           disabled={page >= (categoriesData?.totalPages ?? 1)}
           onClick={() => setPage((prev) => prev + 1)}
           className="btn btn-outline btn-sm rounded-full disabled:opacity-40"

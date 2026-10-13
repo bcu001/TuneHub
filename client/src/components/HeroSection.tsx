@@ -1,4 +1,4 @@
-import { BlurFade } from "./ui/blur-fade";
+import { BlurFade } from './ui/blur-fade';
 
 function HeroSection() {
   return (
@@ -12,7 +12,8 @@ function HeroSection() {
 
             <p className="mt-1 hidden sm:block text-sm md:text-md lg:text-lg xl:text-xl text-muted-foreground font-semibold">
               <span>
-                Explore music across genres, discover new favorites, and build playlists made for you.
+                Explore music across genres, discover new favorites, and build
+                playlists made for you.
               </span>
             </p>
           </div>

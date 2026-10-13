@@ -1,15 +1,19 @@
-import AuthContext from "@/context/auth/AuthContext";
-import { setAxiosAccessToken } from "@/lib/axios";
+import AuthContext from '@/context/auth/AuthContext';
+import {
+  getAxiosAccessToken,
+  onAccessTokenChange,
+  setAxiosAccessToken,
+} from '@/lib/axios';
 import {
   getCurrentUser,
   signIn,
   signOut,
   signOutAll,
   signUp,
-} from "@/services/auth/auth.service";
-import type { User } from "@/types/user";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState, type ReactNode } from "react";
+} from '@/services/auth/auth.service';
+import type { User } from '@/types/user';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState, type ReactNode } from 'react';
 
 interface AuthContextProviderProps {
   children: ReactNode;
@@ -28,10 +32,19 @@ interface SignUpParams {
 
 const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const queryClient = useQueryClient();
-  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(
+    getAxiosAccessToken()
+  );
+
+  useEffect(() => {
+    const unsubscribe = onAccessTokenChange((token) => {
+      setAccessToken(token);
+    });
+    return unsubscribe;
+  }, []);
 
   const { data: userData, isLoading } = useQuery({
-    queryKey: ["authUser"],
+    queryKey: ['authUser'],
     queryFn: getCurrentUser,
     retry: false,
   });
@@ -42,7 +55,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
       setAccessToken(data?.accessToken ?? null);
       setAxiosAccessToken(data?.accessToken ?? null);
       queryClient.invalidateQueries({
-        queryKey: ["authUser"],
+        queryKey: ['authUser'],
       });
     },
   });
@@ -55,7 +68,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     onSuccess: () => {
       setAccessToken(null);
       setAxiosAccessToken(null);
-      queryClient.removeQueries({ queryKey: ["authUser"] });
+      queryClient.removeQueries({ queryKey: ['authUser'] });
     },
   });
   const signoutAllMutation = useMutation({
@@ -63,7 +76,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     onSuccess: () => {
       setAccessToken(null);
       setAxiosAccessToken(null);
-      queryClient.removeQueries({ queryKey: ["authUser"] });
+      queryClient.removeQueries({ queryKey: ['authUser'] });
     },
   });
 
@@ -74,7 +87,7 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const signoutHandler = () => signoutMutation.mutateAsync();
   const signoutAllHandler = () => signoutAllMutation.mutateAsync();
 
-  const user:User = userData?.user ?? null;
+  const user: User = userData?.user ?? null;
 
   return (
     <AuthContext.Provider

@@ -1,19 +1,19 @@
-import { Outlet } from "react-router";
+import { Outlet } from 'react-router';
 
-import Navbar from "@/components/Navbar";
-import AppSidebar from "@/components/AppSidebar";
-import GlobalPlayer from "@/components/GlobalPlayer";
+import Navbar from '@/components/Navbar';
+import AppSidebar from '@/components/AppSidebar';
+import GlobalPlayer from '@/components/GlobalPlayer';
 
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 
 const Layout = () => {
   return (
     <SidebarProvider defaultOpen={false}>
       <AppSidebar />
-      <SidebarInset className="">
+      <SidebarInset className="flex min-h-dvh flex-col">
         <Navbar />
-        <main className="flex-1 overflow-auto">
-          <div className="p-4 border">
+        <main className="flex-1 overflow-x-hidden">
+          <div className="mx-auto w-full max-w-screen-2xl px-4 py-6 pb-24 sm:px-6 lg:px-8">
             <Outlet />
           </div>
         </main>

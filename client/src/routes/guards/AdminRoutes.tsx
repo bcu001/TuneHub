@@ -1,10 +1,10 @@
-import useAuth from "@/hooks/useAuth"
-import { Navigate, Outlet } from "react-router";
+import useAuth from '@/hooks/useAuth';
+import { Navigate, Outlet } from 'react-router';
 
-const AdminRoutes =()=>{
-    const {user} = useAuth();
+const AdminRoutes = () => {
+  const { user } = useAuth();
 
-    return user?.role === 'admin' ? <Outlet/> : <Navigate to={"/"}/>
-}
+  return user?.role === 'admin' ? <Outlet /> : <Navigate to={'/'} />;
+};
 
 export default AdminRoutes;

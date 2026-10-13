@@ -1,8 +1,8 @@
-import { getApiErrorMessage } from "@/lib/utils";
-import SongCard from "./cards/SongCard";
-import ApiErrorUI from "./common/ApiError";
-import { useFeaturedSongs } from "@/hooks/useSong";
-import SongCardSkeleton from "./skeletons/SongCardSkeleton";
+import { getApiErrorMessage } from '@/lib/utils';
+import SongCard from './cards/SongCard';
+import ApiErrorUI from './common/ApiError';
+import { useFeaturedSongs } from '@/hooks/useSong';
+import SongCardSkeleton from './skeletons/SongCardSkeleton';
 
 const SongFeaturedSection = () => {
   const {
@@ -24,7 +24,7 @@ const SongFeaturedSection = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {isError && (
           <ApiErrorUI
-            message={getApiErrorMessage(error, "Unable to load featured songs")}
+            message={getApiErrorMessage(error, 'Unable to load featured songs')}
             onRetry={refetch}
           />
         )}

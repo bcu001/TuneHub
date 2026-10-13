@@ -1,7 +1,7 @@
 const passwordResetTemplate = (resetLink, name) => {
-    return {
-        subject: "Reset Your Password",
-        text: `Hi ${name},
+  return {
+    subject: 'Reset Your Password',
+    text: `Hi ${name},
 
 We received a request to reset your password.
 
@@ -14,6 +14,6 @@ If you didn’t request a password reset, you can safely ignore this email.
 
 Thanks,
 TuneHub Team`,
-    };
+  };
 };
 export default passwordResetTemplate;

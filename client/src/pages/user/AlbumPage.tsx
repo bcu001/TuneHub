@@ -1,10 +1,5 @@
-
 const AlbumPage = () => {
-  return (
-    <div>
-      Alum Page
-    </div>
-  )
-}
+  return <div>Alum Page</div>;
+};
 
-export default AlbumPage
+export default AlbumPage;

@@ -1,21 +1,21 @@
-import { useNavigate } from "react-router";
-import { useForm } from "react-hook-form";
-import { ArrowLeft, ListMusic, Loader2 } from "lucide-react";
+import { useNavigate } from 'react-router';
+import { useForm } from 'react-hook-form';
+import { ArrowLeft, ListMusic, Loader2 } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 
-import usePlaylists from "@/hooks/usePlaylists";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
+import usePlaylists from '@/hooks/usePlaylists';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 interface PlaylistFormValues {
   name: string;
@@ -23,7 +23,7 @@ interface PlaylistFormValues {
 }
 
 export default function PlaylistCreationPage() {
-  useDocumentTitle("Create Playlist | TuneHub")
+  useDocumentTitle('Create Playlist | TuneHub');
   const navigate = useNavigate();
 
   const { createPlaylistMutation } = usePlaylists();
@@ -34,13 +34,13 @@ export default function PlaylistCreationPage() {
     formState: { errors },
   } = useForm<PlaylistFormValues>({
     defaultValues: {
-      name: "",
-      description: "",
+      name: '',
+      description: '',
     },
   });
 
   const onSubmit = (data: PlaylistFormValues) => {
-    alert(data.description)
+    alert(data.description);
     createPlaylistMutation.mutate(
       {
         name: data.name.trim(),
@@ -48,9 +48,9 @@ export default function PlaylistCreationPage() {
       },
       {
         onSuccess: () => {
-          navigate("/playlists");
+          navigate('/playlists');
         },
-      },
+      }
     );
   };
 
@@ -63,7 +63,7 @@ export default function PlaylistCreationPage() {
             variant="ghost"
             size="sm"
             className="-ml-2 mb-3 w-fit"
-            onClick={() => navigate("/playlists")}
+            onClick={() => navigate('/playlists')}
           >
             <ArrowLeft className="mr-2 size-4" />
             Back to playlists
@@ -94,14 +94,14 @@ export default function PlaylistCreationPage() {
                 id="playlist-name"
                 placeholder="My favorite songs"
                 disabled={createPlaylistMutation.isPending}
-                {...register("name", {
-                  required: "Playlist name is required",
+                {...register('name', {
+                  required: 'Playlist name is required',
                   maxLength: {
                     value: 100,
-                    message: "Playlist name cannot exceed 100 characters",
+                    message: 'Playlist name cannot exceed 100 characters',
                   },
                   validate: (value) =>
-                    value.trim().length > 0 || "Playlist name is required",
+                    value.trim().length > 0 || 'Playlist name is required',
                 })}
               />
 
@@ -121,15 +121,15 @@ export default function PlaylistCreationPage() {
                 placeholder="Songs I listen to on repeat..."
                 rows={4}
                 disabled={createPlaylistMutation.isPending}
-                {...register("description", {
+                {...register('description', {
                   maxLength: {
                     value: 500,
-                    message: "Description cannot exceed 500 characters",
+                    message: 'Description cannot exceed 500 characters',
                   },
-                  required:{
-                    value:true,
-                    message:"Description is requried"
-                  }
+                  required: {
+                    value: true,
+                    message: 'Description is requried',
+                  },
                 })}
               />
 
@@ -145,7 +145,7 @@ export default function PlaylistCreationPage() {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => navigate("/playlists")}
+                onClick={() => navigate('/playlists')}
                 disabled={createPlaylistMutation.isPending}
               >
                 Cancel

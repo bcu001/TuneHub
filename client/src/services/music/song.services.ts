@@ -1,15 +1,15 @@
-import api from "@/lib/axios";
-import type { FeaturedSongsData, Song, SongData } from "@/types/song";
-import { toast } from "sonner";
+import api from '@/lib/axios';
+import type { FeaturedSongsData, Song, SongData } from '@/types/song';
+import { toast } from 'sonner';
 
 export const getSongs = async (
   page: number,
   q: string,
-  sort: string = "newest",
+  sort: string = 'newest',
   categoryId?: string,
   featured?: boolean
 ): Promise<SongData> => {
-  const res = await api.get("/songs", {
+  const res = await api.get('/songs', {
     params: {
       page,
       q,
@@ -18,42 +18,37 @@ export const getSongs = async (
       featured,
     },
   });
-  toast.success("getSongs", {
-    duration: 300
-  })
   return res.data?.data;
 };
 
 export const getSongById = async (id: string): Promise<Song> => {
   const res = await api.get(`/songs/${id}`);
-  toast.success("getSongById");
   return res.data?.data;
 };
 
 export const getFeaturedSongs = async (): Promise<FeaturedSongsData> => {
   const res = await api.get(`/songs/featured`);
-  toast.success("getFeaturedSongs");
   return res.data?.data;
 };
 
 export const uploadSong = async (formData: FormData): Promise<Song> => {
   const res = await api.post(`/songs`, formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
     },
   });
-  toast.success("song send to backend");
-  return res.data?.data
+  toast.success('song send to backend');
+  return res.data?.data;
 };
 
-export const likeSong = async(id:string):Promise<Song>=>{
+export const likeSong = async (id: string): Promise<Song> => {
   const res = await api.patch(`/songs/${id}/like`);
-  toast.success("song liked");
+  toast.success('song liked');
   return res.data?.data;
-}
+};
 
-export const unLikeSong = async(id:string):Promise<Song>=>{
+export const unLikeSong = async (id: string): Promise<Song> => {
   const res = await api.patch(`/songs/${id}/unlike`);
-  toast.success("song unliked");
+  toast.success('song unliked');
   return res.data?.data;
-}
+};

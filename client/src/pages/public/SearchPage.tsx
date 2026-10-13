@@ -1,178 +1,229 @@
-import SongHorizontalCard from "@/components/cards/SongHorizontalCard";
-import ApiErrorUI from "@/components/common/ApiError";
-import NoSearchResultUI from "@/components/NoSearchResultUI";
-import SongHorizontalCardSkeleton from "@/components/skeletons/SongHorizontalCardSkeleton";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useSong } from "@/hooks/useSong";
-import { getApiErrorMessage } from "@/lib/utils";
+import { useEffect, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
+import { useSearchParams } from 'react-router';
 
-import { useEffect, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
-import type { SongSort } from "@/types/song";
-import { useSearchParams } from "react-router";
-import { BlurFade } from "@/components/ui/blur-fade";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { BlurFade } from '@/components/ui/blur-fade';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
+import SongHorizontalCard from '@/components/cards/SongHorizontalCard';
+import { UnifiedSongCard } from '@/components/cards/UnifiedSongCard';
+
+import ApiErrorUI from '@/components/common/ApiError';
+import NoSearchResultUI from '@/components/NoSearchResultUI';
+import SongHorizontalCardSkeleton from '@/components/skeletons/SongHorizontalCardSkeleton';
+
+import { useSong } from '@/hooks/useSong';
+import { useUnifiedSongSearch } from '@/hooks/useUnifiedSongSearch';
+
+import { getApiErrorMessage } from '@/lib/utils';
+import type { SongSort } from '@/types/song';
+
+import useDocumentTitle from '@/hooks/useDocumentTitle';
+import BackButton from '@/components/common/BackButton';
 
 interface Inputs {
   q: string;
 }
 
 const SearchPage = () => {
-  useDocumentTitle("Search | TuneHub")
+  useDocumentTitle('Search | TuneHub');
+
   const [searchParams] = useSearchParams();
-  const { register, control, reset } = useForm<Inputs>();
 
-  const [page, setPage] = useState<number>(1);
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [sort, setSort] = useState<SongSort>("newest");
-  const categoryId = searchParams.get("categoryId") || undefined;
-
-  const search = useWatch({
-    control,
-    name: "q",
+  const { register, control, reset } = useForm<Inputs>({
+    defaultValues: {
+      q: searchParams.get('q') ?? '',
+    },
   });
 
-  // Debounced search
+  const [page, setPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
+  const [sort, setSort] = useState<SongSort>('newest');
+
+  const categoryId = searchParams.get('categoryId') || undefined;
+  const search = useWatch({ control, name: 'q' });
+
+  // Debounce the search input.
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSearchQuery(search || "");
+      setSearchQuery(search?.trim() ?? '');
       setPage(1);
     }, 500);
 
     return () => clearTimeout(timer);
   }, [search]);
 
-  // Reset pagination when sorting changes
+  const isUnifiedMode = searchQuery.trim().length >= 2;
+
+  // Existing native database search.
+  const nativeSearch = useSong(page, searchQuery, sort, categoryId);
+
+  // Combined native + iTunes search.
+  const unifiedSearch = useUnifiedSongSearch(searchQuery);
+
+  const isPending = isUnifiedMode
+    ? unifiedSearch.isPending
+    : nativeSearch.isPending;
+
+  const isError = isUnifiedMode ? unifiedSearch.isError : nativeSearch.isError;
+
+  const error = isUnifiedMode ? unifiedSearch.error : nativeSearch.error;
+
+  const isSuccess = isUnifiedMode
+    ? unifiedSearch.isSuccess
+    : nativeSearch.isSuccess;
+
   const handleSortChange = (newSort: SongSort) => {
     setSort(newSort);
     setPage(1);
   };
-  const { data, isError, error, refetch, isPending, isFetched, isSuccess } =
-    useSong(page, searchQuery, sort, categoryId);
 
-  // Scroll to top when page changes
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [page]);
+  const handleReset = () => {
+    reset({ q: '' });
+    setSearchQuery('');
+    setPage(1);
+  };
+
+  const unifiedSongs = unifiedSearch.data?.songs ?? [];
+  const nativeSongs = nativeSearch.data?.songs ?? [];
+
+  const hasNoResults =
+    isSuccess &&
+    (isUnifiedMode ? unifiedSongs.length === 0 : nativeSongs.length === 0);
 
   return (
-    <div className="">
-      {/* Search */}
-      <form>
-        <Input type="search" placeholder="search music..." {...register("q")} />
+    <div className="w-full space-y-6">
+      <BackButton link="/" text="Home" />
 
-        <Button disabled className="hidden" type="submit">
+      <div className="space-y-2">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          Search
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Discover music from TuneHub and iTunes.
+        </p>
+      </div>
+
+      <form onSubmit={(event) => event.preventDefault()} className="w-full">
+        <Input
+          type="search"
+          placeholder="Search songs or artists..."
+          autoComplete="off"
+          {...register('q')}
+        />
+        <Button type="submit" disabled className="hidden">
           Submit
         </Button>
       </form>
 
-      {/* Sorting */}
-      <div className="mt-4 flex flex-wrap gap-2">
-        <Button
-          type="button"
-          variant={sort === "newest" ? "default" : "secondary"}
-          onClick={() => handleSortChange("newest")}
-        >
-          Newest
-        </Button>
+      {!isUnifiedMode && (
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-sm text-muted-foreground">Sort by:</span>
 
-        <Button
-          type="button"
-          variant={sort === "popular" ? "default" : "secondary"}
-          onClick={() => handleSortChange("popular")}
-        >
-          Popular
-        </Button>
-
-        <Button
-          type="button"
-          variant={sort === "mostLiked" ? "default" : "secondary"}
-          onClick={() => handleSortChange("mostLiked")}
-        >
-          Most Liked
-        </Button>
-
-        <Button
-          type="button"
-          variant={sort === "title" ? "default" : "secondary"}
-          onClick={() => handleSortChange("title")}
-        >
-          A–Z
-        </Button>
-
-        <Button
-          type="button"
-          variant={sort === "oldest" ? "default" : "secondary"}
-          onClick={() => handleSortChange("oldest")}
-        >
-          Oldest
-        </Button>
-      </div>
-
-      <section>
-        <div className="mt-6">
-          {/* Error */}
-          {isError && (
-            <ApiErrorUI
-              message={getApiErrorMessage(error, "Unable to load songs")}
-              onRetry={refetch}
-            />
-          )}
-
-          {/* No results */}
-          {isSuccess && data?.songs.length === 0 && (
-            <NoSearchResultUI reset={reset} />
-          )}
-
-          {/* Songs */}
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 2xl:grid-cols-3">
-            {isPending &&
-              Array.from({ length: 20 }).map((_, idx) => (
-                <SongHorizontalCardSkeleton key={idx} />
-              ))}
-
-            {isFetched &&
-              data?.songs.map((song, i) => (
-                <BlurFade key={song._id} delay={i * 0.02} inView>
-                  <SongHorizontalCard key={song._id} song={song} />
-                </BlurFade>
-              ))}
-          </div>
+          {(
+            [
+              ['newest', 'Newest'],
+              ['popular', 'Popular'],
+              ['mostLiked', 'Most Liked'],
+              ['alphabetical', 'A–Z'],
+              ['oldest', 'Oldest'],
+            ] as [SongSort, string][]
+          ).map(([value, label]) => (
+            <Button
+              key={value}
+              type="button"
+              size="sm"
+              variant={sort === value ? 'default' : 'outline'}
+              onClick={() => handleSortChange(value)}
+            >
+              {label}
+            </Button>
+          ))}
         </div>
+      )}
 
-        {/* Pagination */}
-        {isSuccess && data?.totalPages > 0 && (
-          <div className="mb-10 mt-10 flex items-center justify-center gap-4">
-            <Button
-              variant="secondary"
-              disabled={page === 1}
-              onClick={() => setPage((prev) => prev - 1)}
-              className="rounded-full disabled:opacity-40"
+      {isUnifiedMode && (
+        <p className="text-sm text-muted-foreground">
+          Search results for{' '}
+          <span className="font-medium text-foreground">“{searchQuery}”</span>
+        </p>
+      )}
+
+      {isError && (
+        <ApiErrorUI
+          message={getApiErrorMessage(error)}
+          onRetry={() =>
+            isUnifiedMode ? unifiedSearch.refetch() : nativeSearch.refetch()
+          }
+        />
+      )}
+
+      {isPending && (
+        <div className="space-y-3">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <SongHorizontalCardSkeleton key={index} />
+          ))}
+        </div>
+      )}
+
+      {!isPending && !isError && hasNoResults && (
+        <NoSearchResultUI reset={handleReset} />
+      )}
+
+      {!isPending && !isError && isUnifiedMode && (
+        <div className="space-y-3">
+          {unifiedSongs.map((song, index) => (
+            <BlurFade
+              key={`${song.source}:${song.id}`}
+              delay={0.05 * index}
+              inView
             >
-              Prev
-            </Button>
+              <UnifiedSongCard song={song} />
+            </BlurFade>
+          ))}
+        </div>
+      )}
 
-            <span className="text-sm text-base-content/55">
-              Page{" "}
-              <span className="font-semibold text-base-content">{page}</span> of{" "}
-              {data.totalPages}
-            </span>
-
-            <Button
-              variant="secondary"
-              disabled={page >= data.totalPages}
-              onClick={() => setPage((prev) => prev + 1)}
-              className="rounded-full disabled:opacity-40"
-            >
-              Next
-            </Button>
+      {!isPending && !isError && !isUnifiedMode && (
+        <>
+          <div className="space-y-3">
+            {nativeSongs.map((song, index) => (
+              <BlurFade key={song._id} delay={0.05 * index} inView>
+                <SongHorizontalCard song={song} />
+              </BlurFade>
+            ))}
           </div>
-        )}
-      </section>
+
+          {nativeSearch.data && nativeSearch.data.totalPages > 1 && (
+            <div className="flex items-center justify-center gap-4 pt-4">
+              <Button
+                variant="outline"
+                disabled={page <= 1}
+                onClick={() => setPage((current) => Math.max(1, current - 1))}
+              >
+                Previous
+              </Button>
+
+              <span className="text-sm text-muted-foreground">
+                Page {page} of {nativeSearch.data.totalPages}
+              </span>
+
+              <Button
+                variant="outline"
+                disabled={page >= nativeSearch.data.totalPages}
+                onClick={() =>
+                  setPage((current) =>
+                    Math.min(nativeSearch.data!.totalPages, current + 1)
+                  )
+                }
+              >
+                Next
+              </Button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };

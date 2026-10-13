@@ -1,8 +1,8 @@
-import express from "express";
-import { getAlbum } from "../../controllers/v1/albums.js";
+import express from 'express';
+import { getAlbum } from '../../controllers/v1/albums.js';
 
 const router = express.Router();
 
-router.get("/", getAlbum);
+router.get('/', getAlbum);
 
 export default router;

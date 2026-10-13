@@ -1,36 +1,39 @@
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: [true, "User name is required"],
-        trim: true,
-        minlength: 2,
-        maxlength: 50
+      type: String,
+      required: [true, 'User name is required'],
+      trim: true,
+      minlength: 2,
+      maxlength: 50,
     },
     email: {
-        type: String,
-        required: [true, "user email is required"],
-        trim: true,
-        unique: true,
-        lowercase: true,
-        match: [/\S+@\S+\.\S+/, '{VALUE} is not valid email'],
+      type: String,
+      required: [true, 'user email is required'],
+      trim: true,
+      unique: true,
+      lowercase: true,
+      match: [/\S+@\S+\.\S+/, '{VALUE} is not valid email'],
     },
     password: {
-        type: String,
-        required: [true, 'user password is required'],
-        minlength: 6,
+      type: String,
+      required: [true, 'user password is required'],
+      minlength: 6,
     },
     role: {
-        type: String,
-        required: [true, 'role of user is required'],
-        enum: {
-            values: ["admin", "user"],
-            message: '{VALUE} is not supported'
-        },
-        default: "user"
-    }
-}, { timestamps: true })
+      type: String,
+      required: [true, 'role of user is required'],
+      enum: {
+        values: ['admin', 'user'],
+        message: '{VALUE} is not supported',
+      },
+      default: 'user',
+    },
+  },
+  { timestamps: true }
+);
 
 const User = mongoose.model('User', userSchema);
 export default User;

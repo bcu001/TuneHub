@@ -5,9 +5,9 @@ const config: CapacitorConfig = {
   appName: 'tunehub',
   webDir: 'dist',
   server: {
-    hostname: 'mobileapp.tunehub.com', 
-    androidScheme: 'https'                 
-  }
+    hostname: 'mobileapp.tunehub.com',
+    androidScheme: 'https',
+  },
 };
 
 export default config;

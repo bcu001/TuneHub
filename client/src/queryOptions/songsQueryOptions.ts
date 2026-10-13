@@ -2,19 +2,19 @@ import {
   getFeaturedSongs,
   getSongById,
   getSongs,
-} from "@/services/music/song.services";
-import { keepPreviousData, queryOptions } from "@tanstack/react-query";
-import type { SongSort } from "@/types/song";
+} from '@/services/music/song.services';
+import { keepPreviousData, queryOptions } from '@tanstack/react-query';
+import type { SongSort } from '@/types/song';
 
 export function getSongsQueryOptions(
   page: number,
   q: string,
-  sort: SongSort = "newest",
+  sort: SongSort = 'newest',
   categoryId?: string,
-  featured?: boolean,
+  featured?: boolean
 ) {
   return queryOptions({
-    queryKey: ["getSongs", page, q, sort, categoryId, featured],
+    queryKey: ['getSongs', page, q, sort, categoryId, featured],
 
     queryFn: () => getSongs(page, q, sort, categoryId, featured),
     placeholderData: keepPreviousData,
@@ -22,13 +22,13 @@ export function getSongsQueryOptions(
 }
 export function getSongByIdQueryOptions(id: string) {
   return queryOptions({
-    queryKey: ["getSongById", id],
+    queryKey: ['getSongById', id],
     queryFn: () => getSongById(id),
   });
 }
 export function getFeaturedSongsQueryOptions() {
   return queryOptions({
-    queryKey: ["getFeaturedSongs"],
+    queryKey: ['getFeaturedSongs'],
     queryFn: () => getFeaturedSongs(),
   });
 }

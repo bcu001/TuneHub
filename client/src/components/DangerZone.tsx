@@ -1,6 +1,6 @@
-import { AlertTriangle, Trash2 } from "lucide-react";
+import { AlertTriangle, Trash2 } from 'lucide-react';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 import {
   AlertDialog,
@@ -12,14 +12,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 function DangerZone() {
   const handleDeleteAccount = () => {
-    toast.error("Delete Account functionlity is under development");
+    toast.error('Delete Account functionlity is under development');
   };
 
   return (
