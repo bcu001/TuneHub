@@ -1,26 +1,26 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const albumSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Album name is required"],
+      required: [true, 'Album name is required'],
       trim: true,
-      maxlength: 150
+      maxlength: 150,
     },
     artist: {
       type: String,
-      required: [true, "Artist is required"]
+      required: [true, 'Artist is required'],
     },
     releaseDate: {
       type: Date,
-      required: [true, "Release date is required"]
-    }
+      required: [true, 'Release date is required'],
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const Album = mongoose.model("Album", albumSchema);
+const Album = mongoose.model('Album', albumSchema);
 export default Album;

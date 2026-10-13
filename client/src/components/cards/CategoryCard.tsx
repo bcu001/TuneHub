@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import type { Category } from "@/types/category";
-import { Link } from "react-router";
+import { Card, CardContent } from '@/components/ui/card';
+import type { Category } from '@/types/category';
+import { Link } from 'react-router';
 
 interface CategoryProps {
   category: Category;
@@ -8,8 +8,8 @@ interface CategoryProps {
 
 const CategoryCard = ({ category }: CategoryProps) => {
   const imageUrl = category.image.replace(
-    "/upload/",
-    "/upload/c_fill,q_auto,f_auto/",
+    '/upload/',
+    '/upload/c_fill,q_auto,f_auto/'
   );
   return (
     <Card className="group relative w-full overflow-hidden border-0 p-0 cursor-pointer ">

@@ -1,6 +1,6 @@
-import { MoreVerticalIcon, Plus } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Button } from "./ui/button";
+import { MoreVerticalIcon, Plus } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Button } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,9 +13,9 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import usePlaylists from "@/hooks/usePlaylists";
-import type { Song } from "@/types/song";
+} from './ui/dropdown-menu';
+import usePlaylists from '@/hooks/usePlaylists';
+import type { Song } from '@/types/song';
 
 export default function SongCardMoreOptions({ song }: { song: Song }) {
   const { playlistsQuery, createPlaylistMutation, addSongMutation } =
@@ -28,9 +28,9 @@ export default function SongCardMoreOptions({ song }: { song: Song }) {
     });
 
     await addSongMutation.mutateAsync({
-        playlistId: res?.playlist?._id,
-        songId: song?._id,
-    })
+      playlistId: res?.playlist?._id,
+      songId: song?._id,
+    });
   };
 
   const handleAddSongToPlaylist = async (playlistId: string) => {
@@ -61,7 +61,7 @@ export default function SongCardMoreOptions({ song }: { song: Song }) {
 
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                <DropdownMenuItem onClick={()=>handleCreatePlaylist()}>
+                <DropdownMenuItem onClick={() => handleCreatePlaylist()}>
                   <HugeiconsIcon icon={Plus} size={14} strokeWidth={2} />
                   <span>New Playlist</span>
                 </DropdownMenuItem>

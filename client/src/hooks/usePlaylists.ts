@@ -1,4 +1,4 @@
-import { getApiErrorMessage } from "@/lib/utils";
+import { getApiErrorMessage } from '@/lib/utils';
 import {
   getPlaylists as fetchPlaylists,
   getPlaylistById as fetchPlaylistById,
@@ -6,49 +6,74 @@ import {
   removeSongFromPlaylist,
   createPlaylist as createPlaylistRequest,
   getPlaylistSongs,
-} from "@/services/playlist/playlist.service";
+  changePlaylistPrivacy,
+  getPublicPlaylists,
+  getPublicPlaylistById,
+  getPublicPlaylistSongs,
+} from '@/services/playlist/playlist.service';
 
 import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+  // Keep your existing imports
+  addUnifiedSongInPlaylist,
+  removePlaylistEntry,
+} from '@/services/playlist/playlist.service';
 
-import { toast } from "sonner";
+import type { AddUnifiedSongPayload } from '@/types/playlist';
 
-export default function usePlaylists(id?: string) {
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
+import { toast } from 'sonner';
+
+export default function usePlaylists(id?: string, isPublic = false) {
   const queryClient = useQueryClient();
 
   // Queries
   const playlistsQuery = useQuery({
-    queryKey: ["playlists"],
+    queryKey: ['playlists'],
     queryFn: fetchPlaylists,
   });
 
   const playlistQuery = useQuery({
-    queryKey: ["playlist", id],
+    queryKey: ['playlist', id],
     queryFn: () => fetchPlaylistById(id!),
-    enabled: !!id,
+    enabled: !!id && !isPublic,
   });
 
   const playlistSongsQuery = useQuery({
-    queryKey: ["playlistSongs", id],
+    queryKey: ['playlistSongs', id],
     queryFn: () => getPlaylistSongs(id!),
-    enabled: !!id,
+    enabled: !!id && !isPublic,
+  });
+
+  const publicPlaylistSongsQuery = useQuery({
+    queryKey: ['publicPlaylistSongs', id],
+    queryFn: () => getPublicPlaylistSongs(id!),
+    enabled: !!id && isPublic,
   });
 
   // Invalidate all playlist-related queries
   const invalidatePlaylistQueries = () => {
     queryClient.invalidateQueries({
-      queryKey: ["playlists"],
+      queryKey: ['playlists'],
     });
 
     queryClient.invalidateQueries({
-      queryKey: ["playlist"],
+      queryKey: ['playlist'],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ['publicPlaylists'],
     });
 
     queryClient.invalidateQueries({
-      queryKey: ["playlistSongs"],
+      queryKey: ['publicPlaylist'],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ['playlistSongs'],
+    });
+
+    queryClient.invalidateQueries({
+      queryKey: ['publicPlaylistSongs'],
     });
   };
 
@@ -63,12 +88,12 @@ export default function usePlaylists(id?: string) {
     }) => createPlaylistRequest(name, description),
 
     onSuccess: () => {
-      toast.success("Playlist created");
+      toast.success('Playlist created');
       invalidatePlaylistQueries();
     },
 
     onError: (error) => {
-      toast.error(getApiErrorMessage(error, "Failed to create playlist"));
+      toast.error(getApiErrorMessage(error, 'Failed to create playlist'));
     },
   });
 
@@ -83,12 +108,32 @@ export default function usePlaylists(id?: string) {
     }) => addSongInPlaylist(playlistId, songId),
 
     onSuccess: () => {
-      toast.success("Song added to playlist");
+      toast.success('Song added to playlist');
       invalidatePlaylistQueries();
     },
 
     onError: (error) => {
-      toast.error(getApiErrorMessage(error, "Failed to add song to playlist"));
+      toast.error(getApiErrorMessage(error, 'Failed to add song to playlist'));
+    },
+  });
+
+  // Add unified song
+  const addUnifiedSongMutation = useMutation({
+    mutationFn: ({
+      playlistId,
+      song,
+    }: {
+      playlistId: string;
+      song: AddUnifiedSongPayload;
+    }) => addUnifiedSongInPlaylist(playlistId, song),
+
+    onSuccess: () => {
+      toast.success('Song added to playlist');
+      invalidatePlaylistQueries();
+    },
+
+    onError: (error) => {
+      toast.error(getApiErrorMessage(error, 'Failed to add song to playlist'));
     },
   });
 
@@ -103,21 +148,72 @@ export default function usePlaylists(id?: string) {
     }) => removeSongFromPlaylist(playlistId, songId),
 
     onSuccess: () => {
-      toast.success("Song removed from playlist");
+      toast.success('Song removed from playlist');
       invalidatePlaylistQueries();
     },
 
     onError: (error) => {
-      toast.error(getApiErrorMessage(error, "Failed to remove song from playlist"));
+      toast.error(
+        getApiErrorMessage(error, 'Failed to remove song from playlist')
+      );
     },
+  });
+
+  // Change playlist privacy
+  const changePlaylistPrivacyMutation = useMutation({
+    mutationFn: ({ id }: { id: string }) => changePlaylistPrivacy(id),
+    onSuccess: () => {
+      toast.success('Playlist privacy changed');
+      invalidatePlaylistQueries();
+    },
+  });
+
+  const removePlaylistEntryMutation = useMutation({
+    mutationFn: ({
+      playlistId,
+      playlistSongId,
+    }: {
+      playlistId: string;
+      playlistSongId: string;
+    }) => removePlaylistEntry(playlistId, playlistSongId),
+
+    onSuccess: () => {
+      toast.success('Song removed from playlist');
+      invalidatePlaylistQueries();
+    },
+
+    onError: (error) => {
+      toast.error(
+        getApiErrorMessage(error, 'Failed to remove song from playlist')
+      );
+    },
+  });
+
+  // Get public playlists
+  const publicPlaylistsQuery = useQuery({
+    queryKey: ['publicPlaylists'],
+    queryFn: () => getPublicPlaylists(10, 1),
+  });
+
+  // Get public playlists by id
+  const publicPlaylistQuery = useQuery({
+    queryKey: ['publicPlaylist', id],
+    queryFn: () => getPublicPlaylistById(id!),
+    enabled: !!id && isPublic,
   });
 
   return {
     playlistsQuery,
     playlistQuery,
     playlistSongsQuery,
+    publicPlaylistSongsQuery,
     createPlaylistMutation,
     addSongMutation,
+    addUnifiedSongMutation,
     removeSongMutation,
+    changePlaylistPrivacyMutation,
+    publicPlaylistsQuery,
+    publicPlaylistQuery,
+    removePlaylistEntryMutation,
   };
 }

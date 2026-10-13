@@ -1,19 +1,19 @@
-import { Link, useNavigate, useSearchParams } from "react-router";
-import { useForm } from "react-hook-form";
+import { Link, useNavigate, useSearchParams } from 'react-router';
+import { useForm } from 'react-hook-form';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-import { useResetPassword } from "@/hooks/useAuthReset";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { useResetPassword } from '@/hooks/useAuthReset';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 type ResetPasswordForm = {
   newPassword: string;
@@ -21,16 +21,16 @@ type ResetPasswordForm = {
 };
 
 export default function ResetPasswordPage() {
-  useDocumentTitle("Reset Password | TuneHub")
+  useDocumentTitle('Reset Password | TuneHub');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const token = searchParams.get("token");
+  const token = searchParams.get('token');
 
   const form = useForm<ResetPasswordForm>({
     defaultValues: {
-      newPassword: "",
-      confirmPassword: "",
+      newPassword: '',
+      confirmPassword: '',
     },
   });
 
@@ -46,9 +46,9 @@ export default function ResetPasswordPage() {
       },
       {
         onSuccess: () => {
-          navigate("/login");
+          navigate('/login');
         },
-      },
+      }
     );
   };
 
@@ -66,7 +66,7 @@ export default function ResetPasswordPage() {
 
           <CardContent>
             <Button asChild className="w-full">
-              <Link to="/forgot-password">Request a New Link</Link>
+              <Link to="/forget-password">Request a New Link</Link>
             </Button>
           </CardContent>
         </Card>
@@ -93,11 +93,11 @@ export default function ResetPasswordPage() {
                 type="password"
                 placeholder="Enter new password"
                 autoComplete="new-password"
-                {...form.register("newPassword", {
-                  required: "Password is required",
+                {...form.register('newPassword', {
+                  required: 'Password is required',
                   minLength: {
                     value: 8,
-                    message: "Password must be at least 8 characters",
+                    message: 'Password must be at least 8 characters',
                   },
                 })}
               />
@@ -117,11 +117,11 @@ export default function ResetPasswordPage() {
                 type="password"
                 placeholder="Confirm new password"
                 autoComplete="new-password"
-                {...form.register("confirmPassword", {
-                  required: "Please confirm your password",
+                {...form.register('confirmPassword', {
+                  required: 'Please confirm your password',
                   validate: (value) =>
-                    value === form.getValues("newPassword") ||
-                    "Passwords do not match",
+                    value === form.getValues('newPassword') ||
+                    'Passwords do not match',
                 })}
               />
 
@@ -137,7 +137,7 @@ export default function ResetPasswordPage() {
               className="w-full"
               disabled={resetMutation.isPending}
             >
-              {resetMutation.isPending ? "Resetting..." : "Reset Password"}
+              {resetMutation.isPending ? 'Resetting...' : 'Reset Password'}
             </Button>
           </form>
 

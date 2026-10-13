@@ -1,6 +1,6 @@
-import { createContext } from "react";
-import type { Dispatch, SetStateAction } from "react";
-import type { User } from "@/types/user";
+import { createContext } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import type { User } from '@/types/user';
 
 export interface AuthContextType {
   user: User | null;
@@ -17,7 +17,7 @@ export interface AuthContextType {
   signupHandler: (
     name: string,
     email: string,
-    password: string,
+    password: string
   ) => Promise<unknown>;
 
   signupPending: boolean;
@@ -26,6 +26,6 @@ export interface AuthContextType {
   signoutAllHandler: () => Promise<unknown>;
 }
 
-const AuthContext = createContext<AuthContextType|null>(null);
+const AuthContext = createContext<AuthContextType | null>(null);
 
 export default AuthContext;

@@ -1,15 +1,15 @@
-import { HugeiconsIcon } from "@hugeicons/react";
-import { HeartIcon, PlayIcon, StarIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { HeartIcon, PlayIcon, StarIcon } from '@hugeicons/core-free-icons';
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
-import { useLike } from "@/hooks/useLike";
-import { usePlayerStore } from "@/stores/player.store";
-import type { Song } from "@/types/song";
-import SongHorizontalCardSkeleton from "../skeletons/SongHorizontalCardSkeleton";
-import SongCardMoreOptions from "../SongCardMoreOptions";
+import { useLike } from '@/hooks/useLike';
+import { usePlayerStore } from '@/stores/player.store';
+import type { Song } from '@/types/song';
+import SongHorizontalCardSkeleton from '../skeletons/SongHorizontalCardSkeleton';
+import SongCardMoreOptions from '../SongCardMoreOptions';
 
 interface SongCardProps {
   song: Song | undefined;
@@ -34,12 +34,12 @@ const SongHorizontalCardContent = ({
   const playSong = usePlayerStore((state) => state.playSong);
 
   const imageUrl = song.image.url.replace(
-    "/upload/",
-    "/upload/w_96,h_96,c_fill,q_auto,f_auto/",
+    '/upload/',
+    '/upload/w_96,h_96,c_fill,q_auto,f_auto/'
   );
 
-  const title = song.title ?? "Unknown Title";
-  const artist = song.artist ?? "Unknown Artist";
+  const title = song.title ?? 'Unknown Title';
+  const artist = song.artist ?? 'Unknown Artist';
   const likes = song.stat?.likes ?? 0;
 
   const handleLike = (e: React.MouseEvent) => {
@@ -109,7 +109,7 @@ const SongHorizontalCardContent = ({
               size={17}
               strokeWidth={1.8}
               className={
-                liked ? "fill-pink-500 text-pink-500" : "text-muted-foreground"
+                liked ? 'fill-pink-500 text-pink-500' : 'text-muted-foreground'
               }
             />
           </Button>
@@ -130,7 +130,7 @@ const SongHorizontalCardContent = ({
         </Button>
 
         {/* more options */}
-        <SongCardMoreOptions song={song}/>
+        <SongCardMoreOptions song={song} />
       </CardContent>
     </Card>
   );

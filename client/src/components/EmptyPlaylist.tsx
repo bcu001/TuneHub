@@ -1,9 +1,10 @@
-import { ListMusic, Plus } from "lucide-react";
-import  { Button } from "./ui/button";
+import { ListMusic, Plus } from 'lucide-react';
+import { Button } from './ui/button';
+import { Link } from 'react-router';
 
 export default function EmptyPlaylist() {
   return (
-    <div className="flex min-h-full flex-col items-center justify-center rounded-xl border border-dashed px-6 text-center">
+    <div className="flex min-h-60 flex-col items-center justify-center rounded-xl border border-dashed px-6 py-12 text-center">
       <div className="mb-5 flex size-16 items-center justify-center rounded-full bg-muted">
         <ListMusic className="size-7 text-muted-foreground" />
       </div>
@@ -14,9 +15,11 @@ export default function EmptyPlaylist() {
         Create a playlist to organize your favorite songs.
       </p>
 
-      <Button className="mt-5">
-        <Plus className="mr-2 size-4" />
-        Create playlist
+      <Button className="mt-5" asChild>
+        <Link to="/playlists/create">
+          <Plus className="mr-2 size-4" />
+          Create playlist
+        </Link>
       </Button>
     </div>
   );

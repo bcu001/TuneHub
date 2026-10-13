@@ -1,19 +1,20 @@
-import mongoose from "mongoose";
-import ENV from '../config/env.js'
-
+import mongoose from 'mongoose';
+import ENV from '../config/env.js';
 
 if (!ENV.DB_URI) {
-    throw new Error("DB_URI is not define in .env");
+  throw new Error('DB_URI is not define in .env');
 }
 
 const connectToDatabase = async () => {
-    try {
-        await mongoose.connect(`${ENV.DB_URI}/${ENV.DB_NAME}`);
-        console.log(`Connected to database in ${ENV.NODE_ENV} mode with name ${mongoose.connection.name}`);
-    } catch (error) {
-        console.error('Error connecting to database', error);
-        process.exit(1);
-    }
-}
+  try {
+    await mongoose.connect(`${ENV.DB_URI}/${ENV.DB_NAME}`);
+    console.log(
+      `Connected to database in ${ENV.NODE_ENV} mode with name ${mongoose.connection.name}`
+    );
+  } catch (error) {
+    console.error('Error connecting to database', error);
+    process.exit(1);
+  }
+};
 
 export default connectToDatabase;

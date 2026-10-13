@@ -1,29 +1,29 @@
-import fs from "node:fs/promises";
-import path from "node:path";
-import dotenv from "dotenv";
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 const CLIENT_ID = process.env.JAMENDO_CLIENT_ID;
 
 if (!CLIENT_ID) {
-  throw new Error("JAMENDO_CLIENT_ID is missing from .env");
+  throw new Error('JAMENDO_CLIENT_ID is missing from .env');
 }
 
 const SONGS_PER_GENRE = 10;
 
-const AUDIO_DIR = path.resolve("public/audio");
-const COVER_DIR = path.resolve("public/covers");
-const SEED_DIR = path.resolve("src/seeds");
+const AUDIO_DIR = path.resolve('public/audio');
+const COVER_DIR = path.resolve('public/covers');
+const SEED_DIR = path.resolve('src/seeds');
 
 const genres = [
-  "pop",
-  "rock",
-  "electronic",
-  "jazz",
-  "hiphop",
-  "classical",
-  "world",
+  'pop',
+  'rock',
+  'electronic',
+  'jazz',
+  'hiphop',
+  'classical',
+  'world',
 ];
 
 async function downloadFile(url, destination) {
@@ -43,19 +43,19 @@ async function downloadFile(url, destination) {
 function safeFilename(value) {
   return value
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 }
 
 async function fetchTracks(genre) {
   const params = new URLSearchParams({
     client_id: CLIENT_ID,
-    format: "json",
-    limit: "50",
+    format: 'json',
+    limit: '50',
     tags: genre,
-    audioformat: "mp32",
-    audiodlformat: "mp32",
-    imagesize: "500",
+    audioformat: 'mp32',
+    audiodlformat: 'mp32',
+    imagesize: '500',
   });
 
   const url = `https://api.jamendo.com/v3.0/tracks/?${params}`;
@@ -70,14 +70,12 @@ async function fetchTracks(genre) {
 
   const data = await response.json();
 
-  if (data.headers.status !== "success") {
+  if (data.headers.status !== 'success') {
     throw new Error(data.headers.error_message);
   }
 
   return data.results.filter(
-    (track) =>
-      track.audiodownload_allowed &&
-      track.audiodownload
+    (track) => track.audiodownload_allowed && track.audiodownload
   );
 }
 
@@ -86,7 +84,7 @@ async function main() {
   await fs.mkdir(COVER_DIR, { recursive: true });
   await fs.mkdir(SEED_DIR, { recursive: true });
 
-  console.log("Fetching tracks...\n");
+  console.log('Fetching tracks...\n');
 
   const selectedTracks = [];
 
@@ -115,31 +113,23 @@ async function main() {
     );
   }
 
-  console.log(
-    `\nFound ${selectedTracks.length} downloadable tracks.\n`
-  );
+  console.log(`\nFound ${selectedTracks.length} downloadable tracks.\n`);
 
   const songs = [];
 
   for (let i = 0; i < selectedTracks.length; i++) {
     const { track, genre } = selectedTracks[i];
 
-    const index = String(i + 1).padStart(3, "0");
+    const index = String(i + 1).padStart(3, '0');
 
     const slug = safeFilename(track.name);
 
     const audioFilename = `${index}-${slug}.mp3`;
     const coverFilename = `${index}-${slug}.jpg`;
 
-    const audioPath = path.join(
-      AUDIO_DIR,
-      audioFilename
-    );
+    const audioPath = path.join(AUDIO_DIR, audioFilename);
 
-    const coverPath = path.join(
-      COVER_DIR,
-      coverFilename
-    );
+    const coverPath = path.join(COVER_DIR, coverFilename);
 
     console.log(
       `[${i + 1}/${selectedTracks.length}] ` +
@@ -149,16 +139,10 @@ async function main() {
 
     try {
       // Download audio
-      await downloadFile(
-        track.audiodownload,
-        audioPath
-      );
+      await downloadFile(track.audiodownload, audioPath);
 
       // Download cover
-      await downloadFile(
-        track.image,
-        coverPath
-      );
+      await downloadFile(track.image, coverPath);
 
       songs.push({
         title: track.name,
@@ -177,29 +161,22 @@ async function main() {
 
         isFeatured: false,
 
-        releaseDate: track.releasedate
-          ? new Date(track.releasedate)
-          : null,
+        releaseDate: track.releasedate ? new Date(track.releasedate) : null,
 
         // Keep the genre so your seed script
         // can later resolve it to categoryId.
         genre,
 
-        source: "jamendo",
+        source: 'jamendo',
 
         sourceId: track.id,
 
-        licenseUrl:
-          track.license_ccurl ?? null,
+        licenseUrl: track.license_ccurl ?? null,
 
-        sourceUrl:
-          `https://www.jamendo.com/track/${track.id}`,
+        sourceUrl: `https://www.jamendo.com/track/${track.id}`,
       });
     } catch (error) {
-      console.error(
-        `Failed to download ${track.name}:`,
-        error
-      );
+      console.error(`Failed to download ${track.name}:`, error);
 
       // Remove partially downloaded files
       await fs.rm(audioPath, {
@@ -212,19 +189,13 @@ async function main() {
     }
   }
 
-  const seedPath = path.join(
-    SEED_DIR,
-    "songs.json"
-  );
+  const seedPath = path.join(SEED_DIR, 'songs.json');
 
-  await fs.writeFile(
-    seedPath,
-    JSON.stringify(songs, null, 2)
-  );
+  await fs.writeFile(seedPath, JSON.stringify(songs, null, 2));
 
-  console.log("\n--------------------------------");
-  console.log("Music seeding completed");
-  console.log("--------------------------------");
+  console.log('\n--------------------------------');
+  console.log('Music seeding completed');
+  console.log('--------------------------------');
   console.log(`Songs: ${songs.length}`);
   console.log(`Audio: ${AUDIO_DIR}`);
   console.log(`Covers: ${COVER_DIR}`);
@@ -232,7 +203,7 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error("\nSeed failed:");
+  console.error('\nSeed failed:');
   console.error(error);
 
   process.exit(1);

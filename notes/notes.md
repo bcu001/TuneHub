@@ -15,6 +15,6 @@
 - reset Password api -- done
 - change the archeture of upload songs - IMPORTANT -- update its working in frontend now --done
 - playlist apis - IMPORTANT -- done 
-- my cloudinary + jamendo api = unfied database ( for later)
+- my cloudinary + itunes = unfied database ( for later) -- done
 - rate limiting ? --- Done
 - when password is reset there is bug , that we should log out the user from all the devices and revoke it's session across all device - IMPORTANT ---DONE

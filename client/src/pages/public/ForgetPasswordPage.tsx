@@ -1,32 +1,32 @@
-import { useState } from "react";
-import { Link } from "react-router";
-import { useForm } from "react-hook-form";
+import { useState } from 'react';
+import { Link } from 'react-router';
+import { useForm } from 'react-hook-form';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-import { useAuthReset } from "@/hooks/useAuthReset";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { useAuthReset } from '@/hooks/useAuthReset';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 type ForgotPasswordForm = {
   email: string;
 };
 
 export default function ForgetPasswordPage() {
-  useDocumentTitle("Forget Password | TuneHub")
+  useDocumentTitle('Forget Password | TuneHub');
   const [submitted, setSubmitted] = useState(false);
 
   const form = useForm<ForgotPasswordForm>({
     defaultValues: {
-      email: "",
+      email: '',
     },
   });
 
@@ -97,11 +97,11 @@ export default function ForgetPasswordPage() {
                 type="email"
                 placeholder="you@example.com"
                 autoComplete="email"
-                {...form.register("email", {
-                  required: "Email is required",
+                {...form.register('email', {
+                  required: 'Email is required',
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Enter a valid email address",
+                    message: 'Enter a valid email address',
                   },
                 })}
               />
@@ -118,7 +118,7 @@ export default function ForgetPasswordPage() {
               className="w-full"
               disabled={resetMutation.isPending}
             >
-              {resetMutation.isPending ? "Sending..." : "Send Reset Link"}
+              {resetMutation.isPending ? 'Sending...' : 'Send Reset Link'}
             </Button>
           </form>
 

@@ -1,6 +1,5 @@
-
-import { Link } from "react-router";
-import { Button } from "../ui/button";
+import { Link } from 'react-router';
+import { Button } from '../ui/button';
 
 const NotFound = () => {
   return (
@@ -33,4 +32,3 @@ const NotFound = () => {
 };
 
 export default NotFound;
-

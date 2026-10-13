@@ -1,16 +1,16 @@
-import { User, Mail, Palette, Sun, Moon } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { useSetting } from "@/hooks/useSetting";
-import useAuth from "@/hooks/useAuth";
-import DangerZone from "@/components/DangerZone";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
+import { User, Mail, Palette, Sun, Moon } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { useSetting } from '@/hooks/useSetting';
+import useAuth from '@/hooks/useAuth';
+import DangerZone from '@/components/DangerZone';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 function SettingsPage() {
-  useDocumentTitle("Settings | TuneHub")
+  useDocumentTitle('Settings | TuneHub');
   const { getSettingsQuery, updateSettingQuery } = useSetting();
   const { user } = useAuth();
 
@@ -89,7 +89,7 @@ function SettingsPage() {
                   value={getSettingsQuery.data?.theme}
                   onValueChange={(value) =>
                     updateSettingQuery.mutate({
-                      theme: value as "light" | "dark",
+                      theme: value as 'light' | 'dark',
                     })
                   }
                   className="grid grid-cols-1 gap-3 sm:grid-cols-3"

@@ -1,21 +1,24 @@
-import  { Card } from "@/components/ui/card";
-import { ListMusic, MoreHorizontal } from "lucide-react";
-import  { Link } from "react-router";
-import  { Button } from "@/components/ui/button";
-import  { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card } from '@/components/ui/card';
+import { ListMusic, MoreHorizontal } from 'lucide-react';
+import { Link } from 'react-router';
+import { Button } from '@/components/ui/button';
+import { CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import type { Playlist } from '@/types/playlist';
 
-export default function PlaylistCard({
-  playlist,
-}: {
-  playlist: {
-    _id: string;
-    name: string;
-    description: string;
-  };
-}) {
+interface PlaylistCardProps {
+  playlist: Playlist;
+}
+
+export default function PlaylistCard({ playlist }: PlaylistCardProps) {
   return (
     <Card className="group overflow-hidden transition-shadow hover:shadow-md pt-0">
-      <Link to={`/playlists/${playlist._id}`}>
+      <Link
+        to={
+          playlist.isPrivate
+            ? `/playlists/${playlist._id}`
+            : `/playlists/public/${playlist._id}`
+        }
+      >
         {/* Playlist artwork */}
         <div className="relative aspect-square w-full overflow-hidden bg-muted">
           <div className="flex size-full items-center justify-center bg-linear-to-br from-primary/20 via-muted to-primary/10">

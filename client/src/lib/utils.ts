@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 interface ApiErrorResponse {
   message?: string;
@@ -6,7 +6,7 @@ interface ApiErrorResponse {
 
 export const getApiErrorMessage = (
   error: unknown,
-  fallback = "Something went wrong",
+  fallback = 'Something went wrong'
 ): string => {
   if (axios.isAxiosError<ApiErrorResponse>(error)) {
     return error.response?.data?.message ?? error.message ?? fallback;

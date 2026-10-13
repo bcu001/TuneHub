@@ -32,7 +32,7 @@ export interface Song {
   __v: number;
 }
 
-export type SongSort = "newest" | "oldest" | "popular" | "mostLiked" | "title";
+export type SongSort = 'newest' | 'oldest' | 'popular' | 'mostLiked' | 'title';
 
 export interface SongData {
   totalSongs: number;

@@ -1,8 +1,8 @@
-import express from "express";
-import { searchSong } from "../../controllers/v1/search.js";
+import express from 'express';
+import { searchSong } from '../../controllers/v1/search.js';
 
 const router = express.Router();
 
-router.post("/searchsongs", searchSong);
+router.post('/searchsongs', searchSong);
 
 export default router;

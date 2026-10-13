@@ -1,33 +1,57 @@
-import { Play, MoreHorizontal, Trash2 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Play, MoreHorizontal, Trash2 } from 'lucide-react';
+import { Button } from '../ui/button';
 import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenu,
-} from "../ui/dropdown-menu";
-import type { playlistSongs } from "@/types/playlist";
-import usePlaylists from "@/hooks/usePlaylists";
-import { usePlayerStore } from "@/stores/player.store";
+} from '../ui/dropdown-menu';
+import type { PlaylistSong } from '@/types/playlist';
+import usePlaylists from '@/hooks/usePlaylists';
+import { usePlayerStore } from '@/stores/player.store';
+import type { UnifiedSong } from '@/types/unifiedSong';
 
 interface PlaylistSongCardProps {
-  playlistSong: playlistSongs;
+  playlistSong: PlaylistSong;
   playlistId: string;
+  canRemove?: boolean;
 }
 
 export default function PlaylistSongCard({
   playlistSong,
   playlistId,
 }: PlaylistSongCardProps) {
-  const { removeSongMutation } = usePlaylists(playlistId);
-  const playSong = usePlayerStore((state) => state.playSong);
+  const { removePlaylistEntryMutation, removeSongMutation } =
+    usePlaylists(playlistId);
 
-  const handleRemoveSong = (songId: string) => {
-    if (!playlistId) return;
+  // const playSong = usePlayerStore((state) => state.playSong);
+  const playExternalAudio = usePlayerStore((state) => state.playExternalAudio);
 
-    removeSongMutation.mutate({
-      playlistId: playlistId,
-      songId,
+  const handlePlaySong = () => {
+    const song = playlistSong.song;
+
+    if (!song) return;
+
+    const playableSong: UnifiedSong = {
+      id: song.id,
+      source: song.provider,
+      title: song.title,
+      artist: song.artist,
+      artworkUrl: song.imageUrl || null,
+      audioUrl: song.audioUrl || null,
+      previewUrl: song.previewUrl || null,
+      externalUrl: song.externalUrl ?? null,
+      durationMs: song.duration || null,
+      isPlayable: song.isPlayable,
+    };
+
+    playExternalAudio(playableSong);
+  };
+
+  const handleRemoveSong = () => {
+    removePlaylistEntryMutation.mutate({
+      playlistId,
+      playlistSongId: playlistSong._id,
     });
   };
 
@@ -38,26 +62,26 @@ export default function PlaylistSongCard({
         <span className="group-hover:hidden">{playlistSong.position + 1}</span>
 
         <Play
-          onClick={() => playSong(playlistSong.songId)}
+          onClick={handlePlaySong}
           className="hidden size-4 fill-current group-hover:block cursor-pointer"
         />
       </div>
 
       {/* Song artwork */}
       <img
-        src={playlistSong.songId.image?.url}
-        alt={playlistSong.songId.title}
+        src={playlistSong.song?.imageUrl}
+        alt={playlistSong.song?.title}
         className="size-12 shrink-0 rounded-md object-cover"
       />
 
       {/* Song information */}
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-medium">
-          {playlistSong.songId.title}
+          {playlistSong.song?.title}
         </p>
 
         <p className="truncate text-xs text-muted-foreground">
-          {playlistSong.songId.artist ?? "Unknown artist"}
+          {playlistSong.song?.artist ?? 'Unknown artist'}
         </p>
       </div>
 
@@ -82,7 +106,7 @@ export default function PlaylistSongCard({
         <DropdownMenuContent align="end">
           <DropdownMenuItem
             className="text-destructive"
-            onClick={() => handleRemoveSong(playlistSong.songId._id)}
+            onClick={() => handleRemoveSong()}
             disabled={removeSongMutation.isPending}
           >
             <Trash2 className="mr-1 size-4" />

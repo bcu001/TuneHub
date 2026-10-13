@@ -1,13 +1,13 @@
-import { Link, useParams } from "react-router";
-import { ArrowLeft, ListMusic, MoreHorizontal, Play } from "lucide-react";
+import { Link, useParams } from 'react-router';
+import { ListMusic, MoreHorizontal, Play } from 'lucide-react';
 
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
-import usePlaylists from "@/hooks/usePlaylists";
-import EmptyPlaylistSong from "@/components/EmptyPlaylistSong";
-import PlaylistDetailsSkeleton from "@/components/skeletons/PlaylistDetailSKeleton";
-import PlaylistSongCard from "@/components/cards/PlaylistSongCard";
+import usePlaylists from '@/hooks/usePlaylists';
+import EmptyPlaylistSong from '@/components/EmptyPlaylistSong';
+import PlaylistDetailsSkeleton from '@/components/skeletons/PlaylistDetailSKeleton';
+import PlaylistSongCard from '@/components/cards/PlaylistSongCard';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,11 +16,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import useDocumentTitle from "@/hooks/useDocumentTitle";
+} from '@/components/ui/dropdown-menu';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
+import BackButton from '@/components/common/BackButton';
+
+// interface PlaylistDetailPageProps {
+//   which: "PRIVATE" | "PUBLIC";
+// }
 
 function PlaylistDetailPage() {
-  useDocumentTitle("Playlist Details | TuneHub")
+  useDocumentTitle('Playlist Details | TuneHub');
   const { id } = useParams<{ id: string }>();
 
   const { playlistQuery, playlistSongsQuery } = usePlaylists(id);
@@ -57,10 +62,10 @@ function PlaylistDetailPage() {
     );
   }
 
-  const playlist = playlistQuery.data;
+  const playlistData = playlistQuery.data;
   const songs = playlistSongsQuery.data ?? [];
 
-  if (!playlist) {
+  if (!playlistData) {
     return (
       <main className="container mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <div className="flex min-h-100 items-center justify-center">
@@ -81,17 +86,12 @@ function PlaylistDetailPage() {
   }
 
   return (
-    <main className="container mx-auto">
+    <main className=" mx-auto">
       {/* Back */}
-      <Button asChild variant="ghost" className="mb-6 -ml-2">
-        <Link to="/playlists">
-          <ArrowLeft className="mr-2 size-4" />
-          Playlists
-        </Link>
-      </Button>
+      <BackButton link="/playlists" text="Playlists" />
 
       {/* Playlist header */}
-      <section className="flex flex-col gap-6 sm:flex-row sm:items-end">
+      <section className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-end">
         {/* Playlist artwork */}
         <div className="flex size-44 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-primary/20 via-muted to-primary/10 shadow-sm sm:size-52">
           <ListMusic className="size-20 text-muted-foreground/60 sm:size-24" />
@@ -102,17 +102,17 @@ function PlaylistDetailPage() {
           <p className="text-sm font-medium text-muted-foreground">Playlist</p>
 
           <h1 className="mt-1 truncate text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            {playlist.name}
+            {playlistData.playlist.name}
           </h1>
 
-          {playlist.description && (
+          {playlistData.playlist.description && (
             <p className="mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
-              {playlist.description}
+              {playlistData.playlist.description}
             </p>
           )}
 
           <p className="mt-4 text-sm text-muted-foreground">
-            {songs.length} {songs.length === 1 ? "song" : "songs"}
+            {songs.length} {songs.length === 1 ? 'song' : 'songs'}
           </p>
         </div>
       </section>
@@ -139,8 +139,9 @@ function PlaylistDetailPage() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <Link to={"/search"}>Add New Song</Link>
+                <Link to={'/search'}>Add New Song</Link>
               </DropdownMenuItem>
+              <DropdownMenuItem>change to public</DropdownMenuItem>
               <DropdownMenuItem variant="destructive">
                 Delete Playlist
               </DropdownMenuItem>
